@@ -1,48 +1,57 @@
-"use client"
+"use client";
 
 import React, { useRef } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  ScriptableContext,
+} from "chart.js";
 
 interface ScoreGaugeProps {
-  score: number; // Valor entre 0 y 100
+  score: number; // Value between 0 - 100
 }
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
-  const chartRef = useRef<any>(null); // Referencia para acceder al canvas
+  const chartRef = useRef<any>(null);
+
+  const createGradient = (ctx: CanvasRenderingContext2D, chartArea: any) => {
+    const gradient = ctx.createLinearGradient(
+      chartArea.left,
+      chartArea.top,
+      chartArea.right,
+      chartArea.bottom
+    );
+    gradient.addColorStop(0, "#9beb9e");
+    gradient.addColorStop(1, "#2e7d32");
+    return gradient;
+  };
 
   const data = {
-    labels: ["Gauge"],
+    labels: ["Score", "Remaining"],
     datasets: [
       {
         label: "Gauge",
-        data: [score, 100 - score], // Aquí usas el valor real para el score
-        backgroundColor: (context: any) => {
-          // Obtén el contexto del canvas para aplicar el gradiente
+        data: [score, 100 - score],
+        backgroundColor: (context: ScriptableContext<"doughnut">) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
-          if (!chartArea) return null; // Evita errores si aún no está renderizado
+          if (!chartArea) return "#e0e0e0";
 
-          const gradient = ctx.createLinearGradient(
-            chartArea.left,
-            chartArea.top,
-            chartArea.right,
-            chartArea.bottom
-          );
-
-          // Define el gradiente verde
-          gradient.addColorStop(0, "#9beb9e"); // Verde más claro
-          gradient.addColorStop(1, "#2e7d32"); // Verde más oscuro
-
-          return [gradient, "#e0e0e0"];
+          return context.dataIndex === 0
+            ? createGradient(ctx, chartArea)
+            : "#e0e0e0";
         },
-        borderWidth: 8, // Ancho del borde
-        circumference: 300, // Mostrar solo la mitad del círculo
-        rotation: 210, // Rotación para que empiece desde la parte inferior
-        cutout: "75%", // Tamaño del agujero en el centro
+        borderWidth: 8,
+        circumference: 300,
+        rotation: 210,
+        cutout: "65%",
       },
     ],
   };
@@ -51,21 +60,20 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Ocultar leyenda
+        display: false,
       },
       tooltip: {
-        enabled: false, // Desactivar tooltips
+        enabled: false,
       },
     },
     animation: {
-      animateRotate: true, // Animación al cargar
-      duration: 1000, // Duración de la animación
+      animateRotate: true,
+      duration: 1000,
     },
   };
 
   return (
     <div className="flex flex-col w-full text-gray-800">
-      {/* SVG Container */}
       <div
         style={{
           position: "relative",
@@ -74,8 +82,9 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
           margin: "auto",
         }}
       >
+        {/* Gráfico Doughnut */}
         <Doughnut ref={chartRef} data={data} options={options} />
-        {/* Texto del score en el centro */}
+        {/* Texto del score */}
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-4xl font-bold text-gray-800">{score}</span>
         </div>
