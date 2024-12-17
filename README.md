@@ -1,5 +1,7 @@
 # LensSocialScore
 
+**`Track: Social/SocialFi apps (using features like Feeds, Social Graphs, etc.) | Public goods`**
+
 ## Project Name:
 **LensSocialScore**
 
