@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.62.7",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "connectkit": "^1.8.2",
     "motion": "^11.15.0",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "viem": "^2.21.55",
+    "wagmi": "^2.14.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
