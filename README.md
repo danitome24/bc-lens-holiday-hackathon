@@ -28,7 +28,7 @@ LensSocialScore is intended to help users gain insights into their role in the L
 [Link to live DApp](#)
 
 ## Demo Video/Slide Deck Link (Optional):
-[Link to demo video or slide deck](#)
+[Demo Video]() | [Slide deck](https://www.miricanvas.com/v/141pqde)
 
 ## Screenshots (Optional):
 ![LensSocialScore Dashboard](#)
