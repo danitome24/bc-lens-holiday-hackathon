@@ -7,7 +7,7 @@ export const ScoreCard = () => {
         <div className="card-body">
           <div className="card-title">Social Score</div>
           <div className="flex flex-row">
-            <ScoreGauge score={95} />
+            <ScoreGauge score={60} />
             <div className="flex flex-col gap-2">
               <div className="py-4 px-8 bg-base-300 rounded-xl text-center">
                 <p className="text-sm">
