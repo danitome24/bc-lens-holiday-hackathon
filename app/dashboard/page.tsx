@@ -19,23 +19,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import { AccountSummary, Header, ScoreGauge } from "@/components";
+import { AccountSummary, ScoreAnalysisCard, ScoreCard, } from "@/components";
 
 const Dashboard: NextPage = () => {
-  // Radar Chart Data
-  const radarData = {
-    labels: ["Engagement", "Monetary", "Diversity", "Identity", "Age"],
-    datasets: [
-      {
-        label: "Score Breakdown",
-        data: [95, 85, 80, 70, 99], // Datos simulados
-        backgroundColor: "rgba(16, 185, 129, 0.2)",
-        borderColor: "#10B981",
-        borderWidth: 2,
-        pointBackgroundColor: "#10B981",
-      },
-    ],
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
@@ -45,23 +32,17 @@ const Dashboard: NextPage = () => {
           {/* Account summary stats */}
           <AccountSummary />
 
-          {/* Score Card */}
-          <section className="">
-            <ScoreGauge score={95} />
-          </section>
+          <div className="flex flex-row bg-base-100 text-base-content my-6">
+            {/* Score Card */}
+            <section className="p-6 border-r-2">
+              <ScoreCard />
+            </section>
 
-          {/* Radar Chart */}
-          <section className="bg-white p-6 rounded shadow-lg col-span-2">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
-              Score Analysis
-            </h3>
-            <div className="w-full h-64">
-              <Radar
-                data={radarData}
-                options={{ maintainAspectRatio: false }}
-              />
-            </div>
-          </section>
+            {/* Radar Chart */}
+            <section className="p-6">
+              <ScoreAnalysisCard />
+            </section>
+          </div>
 
           {/* Metrics Breakdown */}
           <section className="">
