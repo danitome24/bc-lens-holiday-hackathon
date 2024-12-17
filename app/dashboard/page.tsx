@@ -39,9 +39,6 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* Header */}
-      <Header />
-
       {/* Main Dashboard */}
       <main className="p-8">
         <div className="bg-gray-50">

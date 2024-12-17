@@ -1,6 +1,6 @@
 export const Header = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 text-base-content">
       <div className="navbar-start">
         {/* LOGO */}
       </div>
