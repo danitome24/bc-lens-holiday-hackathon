@@ -19,7 +19,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import { Header, ScoreGauge } from "@/components";
+import { AccountSummary, Header, ScoreGauge } from "@/components";
 
 const Dashboard: NextPage = () => {
   // Radar Chart Data
@@ -43,11 +43,7 @@ const Dashboard: NextPage = () => {
       <main className="p-8">
         <div className="bg-gray-50">
           {/* Account summary stats */}
-          <section className="flex flex-row mb-5 gap-7 bg-white justify-between">
-            <div className="bg-slate-500 p-6">0x000000</div>
-            <div className="bg-slate-500 p-6">$GRASS Balance: 14.004</div>
-            <div className="bg-slate-500 p-6">Active since: 14 May, 2024</div>
-          </section>
+          <AccountSummary />
 
           {/* Score Card */}
           <section className="">
