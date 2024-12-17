@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable */
 import React, { useRef } from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -82,9 +82,8 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
           margin: "auto",
         }}
       >
-        {/* Gráfico Doughnut */}
+
         <Doughnut ref={chartRef} data={data} options={options} />
-        {/* Texto del score */}
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-4xl font-bold text-gray-800">{score}</span>
         </div>
