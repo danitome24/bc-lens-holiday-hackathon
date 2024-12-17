@@ -19,7 +19,8 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import { AccountSummary, ScoreAnalysisCard, ScoreCard, } from "@/components";
+import { AccountSummary, MetricsList, ScoreAnalysisCard, ScoreCard, } from "@/components";
+import { Metric } from "@/types";
 
 const Dashboard: NextPage = () => {
 
@@ -46,17 +47,7 @@ const Dashboard: NextPage = () => {
 
           {/* Metrics Breakdown */}
           <section className="">
-            {metrics.map((metric) => (
-              <div
-                key={metric.name}
-                className="bg-white p-4 rounded shadow-sm flex justify-between items-center"
-              >
-                <p className="text-gray-600">{metric.name}</p>
-                <span className="text-xl font-semibold text-green-500">
-                  {metric.value}
-                </span>
-              </div>
-            ))}
+            <MetricsList metrics={metrics} />
           </section>
         </div>
       </main>
@@ -64,7 +55,7 @@ const Dashboard: NextPage = () => {
   );
 };
 
-const metrics = [
+const metrics: Metric[] = [
   { name: "Engagement", value: "95%" },
   { name: "Monetary Value", value: "85%" },
   { name: "Diversity", value: "80%" },

@@ -4,3 +4,4 @@ export * from "./Footer";
 export * from "./AccountSummary";
 export * from "./ScoreCard";
 export * from "./ScoreAnalysisCard";
+export * from "./MetricsList";
