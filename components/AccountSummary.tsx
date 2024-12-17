@@ -1,4 +1,13 @@
+import { useAccount } from "wagmi";
+
 export const AccountSummary = () => {
+  const account = useAccount();
+
+  const formattedAddress =
+    account.address != undefined
+      ? `${account.address.slice(0, 5)}...${account.address.slice(-5)}`
+      : "-";
+
   return (
     <section className="flex flex-col my-6 bg-base-100 rounded-xl">
       <div className="stats shadow flex flex-row justify-between">
@@ -19,7 +28,7 @@ export const AccountSummary = () => {
             </svg>
           </div>
           <div className="stat-title">Account</div>
-          <div className="stat-value">0x000000000000</div>
+          <div className="stat-value">{formattedAddress}</div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
 
