@@ -3,7 +3,7 @@ import { ScoreGauge } from "./ScoreGauge";
 export const ScoreCard = () => {
   return (
     <>
-      <div className="card bg-base-100 shadow-xl">
+      <div className="card bg-base-100 h-full shadow-xl">
         <div className="card-body">
           <div className="card-title">Social Score</div>
           <div className="flex flex-row">
