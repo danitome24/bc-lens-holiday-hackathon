@@ -25,7 +25,7 @@ LensSocialScore is intended to help users gain insights into their role in the L
 [Lens Network](https://github.com/danitome24/bc-lens-holiday-hackathon) | [Family Connect](https://github.com/danitome24/bc-lens-holiday-hackathon)
 
 ## Preview Link (Optional):
-[Link to live DApp](#)
+[Lens Social Score](https://bc-lens-holiday-hackathon.vercel.app/)
 
 ## Demo Video/Slide Deck Link (Optional):
 [Demo Video]() | [Slide deck](https://www.miricanvas.com/v/141pqde)
