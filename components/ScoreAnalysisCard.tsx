@@ -16,11 +16,14 @@ export const ScoreAnalysisCard = () => {
     ],
   };
   return (
-    <>
-      <h3 className="text-lg font-semibold mb-4">Score Analysis</h3>
-      <div className="w-full h-64">
-        <Radar data={radarData} options={{ maintainAspectRatio: true }} />
-      </div>
-    </>
+<div className="card bg-base-100 shadow-xl">
+  <div className="card-body flex flex-col">
+    <h3 className="card-title text-left">Score Analysis</h3>
+    <div className="h-64 w-64 mx-auto">
+      <Radar data={radarData} options={{ maintainAspectRatio: true }} />
+    </div>
+  </div>
+</div>
+
   );
 };

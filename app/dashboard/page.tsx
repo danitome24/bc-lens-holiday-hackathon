@@ -32,14 +32,14 @@ const Dashboard: NextPage = () => {
           {/* Account summary stats */}
           <AccountSummary />
 
-          <div className="flex flex-row bg-base-100 text-base-content my-6">
+          <div className="flex flex-row flex-grow justify-between text-base-content my-6">
             {/* Score Card */}
-            <section className="p-6 border-r-2">
+            <section className="flex-1 max-w-xl">
               <ScoreCard />
             </section>
 
             {/* Radar Chart */}
-            <section className="p-6">
+            <section className="flex-1 max-w-xl">
               <ScoreAnalysisCard />
             </section>
           </div>
