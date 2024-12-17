@@ -1,7 +1,6 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
-import { legend } from "motion/react-client";
 
 interface ScoreGaugeProps {
   score: number; // Valor entre 0 y 100

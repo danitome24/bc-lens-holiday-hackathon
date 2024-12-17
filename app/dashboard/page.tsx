@@ -10,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 import { NextPage } from "next";
-import { Radar } from "react-chartjs-2";
 ChartJS.register(
   RadarController,
   RadialLinearScale,
