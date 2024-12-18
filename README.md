@@ -7,7 +7,7 @@
 
 ## Team Members:
 - **Daniel Tomé** (Lens Handle: @meketom)
-- **Joseph Cho**
+- **Joseph Cho** (Lens `orb.club` Handle: @josephdotpm)
 
 ## Project Description:
 **LensSocialScore** is a decentralized application (DApp) built on the **Lens Network** that aims to provide a reputation system for users based on their activity and engagement within the network. The goal is to give users a way to track their influence and contributions to the Lens ecosystem through a combination of metrics like **engagement**, **monetary value**, **diversity** of interactions, and **participation time**. 
