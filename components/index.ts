@@ -6,3 +6,5 @@ export * from "./ScoreCard";
 export * from "./ScoreAnalysisCard";
 export * from "./MetricsList";
 export * from "./ActiveSinceStat";
+export * from "./BalanceStat";
+export * from "./AddressStat";

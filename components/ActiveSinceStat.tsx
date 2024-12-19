@@ -5,9 +5,7 @@ import { format } from "date-fns";
 import { useAccount } from "wagmi";
 
 export const ActiveSinceStat = () => {
-  const [firstTxTimestamp, setFirstTxTimestamp] = useState<Date | undefined>(
-    undefined
-  );
+  const [firstTxTimestamp, setFirstTxTimestamp] = useState<Date | number>(0);
 
   const account = useAccount();
 
@@ -18,18 +16,21 @@ export const ActiveSinceStat = () => {
       if (account.address !== undefined) {
         const response = await fetch(apiUrl);
         const tx = await response.json();
-
-        setFirstTxTimestamp(new Date(tx.result[0].timeStamp * 1000));
+        if (tx.length > 0) {
+          setFirstTxTimestamp(new Date(tx.result[0].timeStamp * 1000));
+        }
       }
     };
 
     fetchFirstTx();
   }, [account, apiUrl]);
 
-  const formattedDate =
-    firstTxTimestamp != undefined
-      ? format(firstTxTimestamp, "d 'of' MMMM, yyyy")
-      : "-";
+  let formattedDate = "-";
+  if (firstTxTimestamp != 0) {
+    formattedDate = format(firstTxTimestamp, "d 'of' MMMM, yyyy");
+  } else if (account.address !== undefined) {
+    formattedDate = "Never";
+  }
 
   return (
     <div className="stat">
