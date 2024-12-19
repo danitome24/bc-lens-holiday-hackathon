@@ -5,3 +5,4 @@ export * from "./AccountSummary";
 export * from "./ScoreCard";
 export * from "./ScoreAnalysisCard";
 export * from "./MetricsList";
+export * from "./ActiveSinceStat";
