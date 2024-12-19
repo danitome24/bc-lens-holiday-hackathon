@@ -1,12 +1,17 @@
-import { useAccount } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 
 export const AccountSummary = () => {
   const account = useAccount();
+  const balance = useBalance({ address: account.address });
 
   const formattedAddress =
     account.address != undefined
       ? `${account.address.slice(0, 5)}...${account.address.slice(-5)}`
       : "-";
+
+  const formattedBalance = balance.data?.value
+    ? `${Number(balance.data?.value) / 10 ** balance.data.decimals} $GRASS`
+    : "-";
 
   return (
     <section className="flex flex-col my-6 bg-base-100 rounded-xl">
@@ -70,7 +75,7 @@ export const AccountSummary = () => {
             </svg>
           </div>
           <div className="stat-title">Balance</div>
-          <div className="stat-value">1,200 $GRASS</div>
+          <div className="stat-value">{formattedBalance}</div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
       </div>
