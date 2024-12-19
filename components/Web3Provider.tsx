@@ -1,17 +1,17 @@
 "use client";
 
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { chains } from "@lens-network/sdk/viem";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { lensTestnet } from "@/services/customChains";
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [chains.testnet],
+    chains: [lensTestnet],
     transports: {
       // RPC URL for each chain
-      [chains.testnet.id]: http("https://rpc.testnet.lens.network"),
+      [lensTestnet.id]: http(lensTestnet.rpcUrls.default.http[0]),
     },
 
     // Required API Keys
