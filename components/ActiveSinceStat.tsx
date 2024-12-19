@@ -24,7 +24,7 @@ export const ActiveSinceStat = () => {
     };
 
     fetchFirstTx();
-  }, [account]);
+  }, [account, apiUrl]);
 
   const formattedDate =
     firstTxTimestamp != undefined

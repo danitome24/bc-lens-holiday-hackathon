@@ -60,7 +60,7 @@ const Dashboard: NextPage = () => {
 
           {/* Metrics Breakdown */}
           <section className="">
-            <MetricsList />
+            <MetricsList score={score} />
           </section>
         </div>
       </main>
