@@ -22,8 +22,6 @@ import { AccountSummary, MetricsList, ScoreAnalysisCard, ScoreCard, } from "@/co
 import { Metric } from "@/types";
 
 const Dashboard: NextPage = () => {
-
-
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Main Dashboard */}
