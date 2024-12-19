@@ -18,10 +18,26 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import { AccountSummary, MetricsList, ScoreAnalysisCard, ScoreCard, } from "@/components";
-import { Metric } from "@/types";
+import {
+  AccountSummary,
+  MetricsList,
+  ScoreAnalysisCard,
+  ScoreCard,
+} from "@/components";
+import { useAccountScore } from "@/hooks";
+import { useMemo } from "react";
 
 const Dashboard: NextPage = () => {
+  const userProfile = useMemo(() => ({
+    transactions: 22,
+    accountAgeMonths: 5,
+    protocolsUsed: 10,
+    monthsInteracting: 4,
+    grassBalance: 100,
+  }), []);
+
+  const { score } = useAccountScore(userProfile);
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Main Dashboard */}
@@ -33,31 +49,23 @@ const Dashboard: NextPage = () => {
           <div className="flex flex-row flex-grow justify-between text-base-content my-6">
             {/* Score Card */}
             <section className="flex-1 max-w-xl">
-              <ScoreCard />
+              <ScoreCard normalizedScore={score.normalized} />
             </section>
 
             {/* Radar Chart */}
             <section className="flex-1 max-w-xl">
-              <ScoreAnalysisCard />
+              <ScoreAnalysisCard score={score} />
             </section>
           </div>
 
           {/* Metrics Breakdown */}
           <section className="">
-            <MetricsList metrics={metrics} />
+            <MetricsList />
           </section>
         </div>
       </main>
     </div>
   );
 };
-
-const metrics: Metric[] = [
-  { name: "Engagement", value: "95%" },
-  { name: "Monetary Value", value: "85%" },
-  { name: "Diversity", value: "80%" },
-  { name: "Identity Score", value: "70%" },
-  { name: "Age", value: "99%" },
-];
 
 export default Dashboard;

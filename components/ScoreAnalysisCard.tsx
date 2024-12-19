@@ -1,24 +1,11 @@
-"use client";
-
-import { useAccountScore } from "@/hooks";
-import { main } from "motion/react-client";
+import { Score } from "@/types";
 import { Radar } from "react-chartjs-2";
 
-export const ScoreAnalysisCard = () => {
-  const {
-    txScore,
-    accAgeScore,
-    protocolsScore,
-    monthsInteractingScore,
-    grassBalanceScore,
-  } = useAccountScore({
-    transactions: 22,
-    accountAgeMonths: 5,
-    protocolsUsed: 10,
-    monthsInteracting: 4,
-    grassBalance: 100,
-  });
+type ScoreAnalysisCardProps = {
+  score: Score;
+};
 
+export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
   // Radar Chart Data
   const radarData = {
     labels: [
@@ -32,11 +19,11 @@ export const ScoreAnalysisCard = () => {
       {
         label: "Score Breakdown",
         data: [
-          txScore,
-          accAgeScore,
-          protocolsScore,
-          monthsInteractingScore,
-          grassBalanceScore,
+          score.txScore,
+          score.accAgeScore,
+          score.protocolsScore,
+          score.monthsInteractingScore,
+          score.grassBalanceScore,
         ],
         backgroundColor: "rgba(16, 185, 129, 0.2)",
         borderColor: "#10B981",
@@ -50,7 +37,7 @@ export const ScoreAnalysisCard = () => {
     responsive: true,
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
     },
     scales: {

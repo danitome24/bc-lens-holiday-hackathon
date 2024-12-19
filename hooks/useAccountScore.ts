@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Score } from "../types";
 
 interface UserProfile {
   transactions: number;
@@ -51,36 +52,32 @@ const calculateGrassBalancePoints = (grassBalance: number): number => {
 };
 
 export const useAccountScore = (userProfile: UserProfile) => {
-  const [score, setScore] = useState<number>(0);
-  const [normalizedScore, setNormalizedScore] = useState<number>(0);
-  const [txScore, setTxScore] = useState<number>(0);
-  const [accAgeScore, setAccAgeScore] = useState<number>(0);
-  const [protocolsScore, setProtocolsScore] = useState<number>(0);
-  const [monthsInteractingScore, setMonthsInteractingScore] =
-    useState<number>(0);
-  const [grassBalanceScore, setGrassBalanceScore] = useState<number>(0);
+  const [score, setScore] = useState<Score>({
+    total: 0,
+    normalized: 0,
+    txScore: 0,
+    accAgeScore: 0,
+    protocolsScore: 0,
+    monthsInteractingScore: 0,
+    grassBalanceScore: 0,
+  });
 
   const calculateTotalScore = () => {
     const transactionPoints = calculateTransactionPoints(
       userProfile.transactions
     );
-    setTxScore(transactionPoints);
     const accountAgePoints = calculateAccountAgePoints(
       userProfile.accountAgeMonths
     );
-    setAccAgeScore(accountAgePoints);
     const protocolsUsedPoints = calculateProtocolsUsedPoints(
       userProfile.protocolsUsed
     );
-    setProtocolsScore(protocolsUsedPoints);
     const monthsInteractingPoints = calculateMonthsInteractingPoints(
       userProfile.monthsInteracting
     );
-    setMonthsInteractingScore(monthsInteractingPoints);
     const grassBalancePoints = calculateGrassBalancePoints(
       userProfile.grassBalance
     );
-    setGrassBalanceScore(grassBalancePoints);
 
     const totalScore =
       transactionPoints +
@@ -88,9 +85,17 @@ export const useAccountScore = (userProfile: UserProfile) => {
       protocolsUsedPoints +
       monthsInteractingPoints +
       grassBalancePoints;
-    setScore(totalScore);
     const normalizedScoreWithDecimals = (totalScore / 260) * 100;
-    setNormalizedScore(Math.round(normalizedScoreWithDecimals));
+
+    setScore({
+      total: totalScore,
+      normalized: Number(normalizedScoreWithDecimals.toFixed(0)),
+      txScore: transactionPoints,
+      accAgeScore: accountAgePoints,
+      protocolsScore: protocolsUsedPoints,
+      monthsInteractingScore: monthsInteractingPoints,
+      grassBalanceScore: grassBalancePoints,
+    });
   };
 
   React.useEffect(() => {
@@ -99,11 +104,5 @@ export const useAccountScore = (userProfile: UserProfile) => {
 
   return {
     score,
-    normalizedScore,
-    txScore,
-    accAgeScore,
-    protocolsScore,
-    monthsInteractingScore,
-    grassBalanceScore,
   };
 };
