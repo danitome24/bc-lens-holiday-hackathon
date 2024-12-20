@@ -12,3 +12,11 @@ export type Score = {
   monthsInteractingScore: number;
   grassBalanceScore: number;
 }
+
+export type Tx = {
+  timestamp: number;
+  from : string;
+  to: string;
+  gas: number;
+  blockNumber: number;
+}
