@@ -23,6 +23,7 @@ import {
   MetricsList,
   ScoreAnalysisCard,
   ScoreCard,
+  ScoreHistory,
 } from "@/components";
 import { useAccountScore } from "@/hooks";
 import { useMemo } from "react";
@@ -61,6 +62,11 @@ const Dashboard: NextPage = () => {
           {/* Metrics Breakdown */}
           <section className="">
             <MetricsList score={score} />
+          </section>
+
+          {/* Score History */}
+          <section>
+            <ScoreHistory />
           </section>
         </div>
       </main>

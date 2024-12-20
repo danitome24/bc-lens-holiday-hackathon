@@ -1,8 +1,5 @@
 import React from "react";
 
-interface LeaderboardProps {
-  // Define any props for the component here
-}
 
 const participants = [
   { rank: 1, name: "Alice Johnson", score: 250 },
@@ -12,7 +9,7 @@ const participants = [
   { rank: 5, name: "Eve Adams", score: 120 },
 ];
 
-const Leaderboard: React.FC<LeaderboardProps> = (props) => {
+const Leaderboard = () => {
   return (
     <div className="flex flex-col items-center py-10 px-5">
       <h1 className="text-4xl font-bold text-gray-800 mb-8">🏆 Leaderboard</h1>

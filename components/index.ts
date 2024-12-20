@@ -9,3 +9,4 @@ export * from "./ActiveSinceStat";
 export * from "./BalanceStat";
 export * from "./AddressStat";
 export * from "./Leaderboard";
+export * from "./ScoreHistory";
