@@ -15,7 +15,6 @@ export const ActiveSinceStat = () => {
         const apiUrl = `https://block-explorer-api.staging.lens.dev/api?module=account&action=txlist&page=1&offset=1&sort=asc&endblock=99999999&startblock=0&address=${account.address}`;
         const response = await fetch(apiUrl);
         const tx = await response.json();
-        console.log(tx)
         if (tx.result.length > 0) {
           setFirstTxTimestamp(new Date(tx.result[0].timeStamp * 1000));
         }
