@@ -8,3 +8,4 @@ export * from "./MetricsList";
 export * from "./ActiveSinceStat";
 export * from "./BalanceStat";
 export * from "./AddressStat";
+export * from "./Leaderboard";

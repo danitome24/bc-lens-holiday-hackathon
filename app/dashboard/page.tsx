@@ -39,7 +39,7 @@ const Dashboard: NextPage = () => {
   const { score } = useAccountScore(userProfile);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
+    <div className=" bg-gray-50 text-gray-800">
       {/* Main Dashboard */}
       <main className="p-8">
         <div className="bg-gray-50">
