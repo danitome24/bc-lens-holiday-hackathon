@@ -1,4 +1,5 @@
 import { Score } from "@/types";
+import { div } from "motion/react-client";
 import { Radar } from "react-chartjs-2";
 
 type ScoreAnalysisCardProps = {
@@ -72,13 +73,15 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
   };
 
   return (
-    <div className="card bg-base-200 shadow-xl">
-      <div className="card-body flex flex-col">
-        <h3 className="card-title text-left text-base-content">
-          Score Analysis
-        </h3>
-        <div className="flex-grow mx-auto">
-          <Radar data={radarData} options={radarOptions} />
+    <div className="flex-1 max-w-xl">
+      <div className="card bg-base-200 shadow-xl">
+        <div className="card-body flex flex-col">
+          <h3 className="card-title text-left text-base-content">
+            Score Analysis
+          </h3>
+          <div className="flex-grow mx-auto">
+            <Radar data={radarData} options={radarOptions} />
+          </div>
         </div>
       </div>
     </div>

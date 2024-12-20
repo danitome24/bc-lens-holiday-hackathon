@@ -7,7 +7,7 @@ type ScoreCardProps = {
 export const ScoreCard = ({normalizedScore}: ScoreCardProps) => {
 
   return (
-    <>
+    <div className="flex-1 max-w-xl">
       <div className="card bg-base-200 h-full shadow-xl">
         <div className="card-body">
           <div className="card-title">Social Score</div>
@@ -30,6 +30,6 @@ export const ScoreCard = ({normalizedScore}: ScoreCardProps) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
