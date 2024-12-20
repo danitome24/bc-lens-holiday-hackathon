@@ -32,7 +32,7 @@ import {
   useFetchTransactions,
   useFetchUniqueProtocols,
 } from "@/hooks";
-import { use, useMemo } from "react";
+import { useMemo } from "react";
 import { useAccount } from "wagmi";
 
 const Dashboard: NextPage = () => {
