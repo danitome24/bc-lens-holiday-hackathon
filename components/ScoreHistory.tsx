@@ -97,7 +97,7 @@ export const ScoreHistory = () => {
   };
 
   return (
-    <div className="my-5 bg-base-200 shadow-md rounded-md w-full h-auto flex flex-col items-center">
+    <div className="my-5 bg-base-200 shadow-md rounded-md w-full h-auto flex flex-col items-center py-8">
       <h2 className="text-xl font-bold text-base-content mb-4 text-center">
         History Score
       </h2>
