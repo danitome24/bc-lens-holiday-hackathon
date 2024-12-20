@@ -9,6 +9,8 @@ export const LensProfileCard = () => {
           className="rounded-full w-16 sm:w-20 md:w-24 lg:w-32"
           src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
           alt="Lens Profile Image"
+          width={64}
+          height={64}
         />
         <p className="text-white font-bold">@meketom</p>
       </div>
