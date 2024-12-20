@@ -9,21 +9,21 @@ export const ActiveSinceStat = () => {
 
   const account = useAccount();
 
-  const apiUrl = `https://block-explorer-api.staging.lens.dev/api?module=account&action=txlist&page=1&offset=1&sort=asc&endblock=99999999&startblock=0&address=${account.address}`;
-
   useEffect(() => {
     const fetchFirstTx = async () => {
       if (account.address !== undefined) {
+        const apiUrl = `https://block-explorer-api.staging.lens.dev/api?module=account&action=txlist&page=1&offset=1&sort=asc&endblock=99999999&startblock=0&address=${account.address}`;
         const response = await fetch(apiUrl);
         const tx = await response.json();
-        if (tx.length > 0) {
+        console.log(tx)
+        if (tx.result.length > 0) {
           setFirstTxTimestamp(new Date(tx.result[0].timeStamp * 1000));
         }
       }
     };
 
     fetchFirstTx();
-  }, [account, apiUrl]);
+  }, [account]);
 
   let formattedDate = "-";
   if (firstTxTimestamp != 0) {
