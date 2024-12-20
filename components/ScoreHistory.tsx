@@ -101,8 +101,10 @@ export const ScoreHistory = () => {
       <h2 className="text-xl font-bold text-base-content mb-4 text-center">
         History Score
       </h2>
-      <div className="w-full h-96 flex justify-center items-center">
-        <Line data={data} options={options} />
+      <div className="w-full flex justify-center items-center">
+        <div className="w-full max-w-4xl h-96">
+          <Line data={data} options={options} />
+        </div>
       </div>
     </div>
   );
