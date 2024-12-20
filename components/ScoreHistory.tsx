@@ -11,7 +11,6 @@ import {
   Legend,
 } from "chart.js";
 
-// Registrar los componentes necesarios de Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,11 +23,10 @@ ChartJS.register(
 
 
 export const ScoreHistory = () => {
-  // Datos de ejemplo para los últimos 5 meses
-  const months = ["Aug", "Sep", "Oct", "Nov", "Dec"]; // Nombres de los meses
-  const scores =  [120, 135, 150, 170, 180]; // Datos de puntajes
 
-  // Configuración de datos para Chart.js
+  const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
+  const scores =  [120, 135, 150, 170, 180];
+
   const data = {
     labels: months,
     datasets: [
@@ -40,22 +38,16 @@ export const ScoreHistory = () => {
         borderColor: "#10B981",
         borderWidth: 2,
         pointBackgroundColor: "#10B981",
-        tension: 0.3, // Hace la línea más suave
+        tension: 0.3,
       },
     ],
   };
 
-  // Configuración de opciones para el gráfico
   const options = {
     responsive: true,
     plugins: {
       legend: {
         display: false
-      },
-      tooltip: {
-        callbacks: {
-          label: (context) => `Score: ${context.raw}`, // Muestra el puntaje en el tooltip
-        },
       },
     },
     scales: {
@@ -69,7 +61,7 @@ export const ScoreHistory = () => {
           },
         },
         grid: {
-          display: false, // Oculta las líneas de la grilla vertical
+          display: false,
         },
       },
       y: {
@@ -82,11 +74,11 @@ export const ScoreHistory = () => {
           },
         },
         ticks: {
-          beginAtZero: true, // Comienza desde 0
-          callback: (value) => value, // Add a callback to match the expected type
+          beginAtZero: true,
+          callback: (value) => value,
         },
         grid: {
-          color: "#e5e7eb", // Color de la grilla horizontal
+          color: "#e5e7eb",
         },
       },
     },
