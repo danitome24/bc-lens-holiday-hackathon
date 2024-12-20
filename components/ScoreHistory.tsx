@@ -73,7 +73,7 @@ export const ScoreHistory = () => {
         },
         ticks: {
           beginAtZero: true,
-          callback: (value) => value,
+          callback: (value: number) => value,
         },
         grid: {
           color: "#e5e7eb",
