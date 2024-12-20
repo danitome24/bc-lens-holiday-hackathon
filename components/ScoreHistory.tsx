@@ -21,11 +21,9 @@ ChartJS.register(
   Legend
 );
 
-
 export const ScoreHistory = () => {
-
   const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
-  const scores =  [120, 135, 150, 170, 180];
+  const scores = [120, 135, 150, 170, 180];
 
   const data = {
     labels: months,
@@ -47,7 +45,7 @@ export const ScoreHistory = () => {
     responsive: true,
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
     },
     scales: {
@@ -85,11 +83,11 @@ export const ScoreHistory = () => {
   };
 
   return (
-    <div className="my-5 bg-white shadow-md rounded-md w-full h-full flex flex-col ">
+    <div className="my-5 bg-white shadow-md rounded-md w-full h-auto flex flex-col items-center">
       <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
         History Score
       </h2>
-      <div className="w-full h-full flex flex-col justify-center items-center">
+      <div className="w-full h-96 flex justify-center items-center">
         <Line data={data} options={options} />
       </div>
     </div>
