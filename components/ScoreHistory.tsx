@@ -37,6 +37,7 @@ export const ScoreHistory = () => {
         borderWidth: 2,
         pointBackgroundColor: "#10B981",
         tension: 0.3,
+        pointBorderColor: "#FFF",
       },
     ],
   };
@@ -47,46 +48,57 @@ export const ScoreHistory = () => {
       legend: {
         display: false,
       },
+      tooltip: {
+        backgroundColor: "#333",
+        titleColor: "#FFF",
+        bodyColor: "#FFF",
+      },
     },
     scales: {
       x: {
         title: {
           display: true,
           text: "Months",
-          color: "#333",
+          color: "#444",
           font: {
             size: 14,
           },
         },
+        ticks: {
+          color: "#FFF",
+        },
         grid: {
           display: false,
+          color: "#444",
         },
       },
       y: {
         title: {
           display: true,
           text: "Score",
-          color: "#333",
+          color: "#444",
           font: {
             size: 14,
           },
         },
         ticks: {
           beginAtZero: true,
+          backdropColor: "transparent",
+          color: "#FFF",
           callback: function (tickValue: string | number) {
             return tickValue as number;
           },
         },
         grid: {
-          color: "#e5e7eb",
+          color: "#444",
         },
       },
     },
   };
 
   return (
-    <div className="my-5 bg-white shadow-md rounded-md w-full h-auto flex flex-col items-center">
-      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
+    <div className="my-5 bg-base-200 shadow-md rounded-md w-full h-auto flex flex-col items-center">
+      <h2 className="text-xl font-bold text-base-content mb-4 text-center">
         History Score
       </h2>
       <div className="w-full h-96 flex justify-center items-center">

@@ -29,6 +29,7 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
         borderColor: "#10B981",
         borderWidth: 2,
         pointBackgroundColor: "#10B981",
+        pointBorderColor: "#FFF",
       },
     ],
   };
@@ -39,22 +40,44 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
       legend: {
         display: false,
       },
+      tooltip: {
+        backgroundColor: "#333",
+        titleColor: "#FFF",
+        bodyColor: "#FFF",
+      },
     },
     scales: {
       r: {
         angleLines: {
-          display: true,
+          color: "#444",
         },
-        suggestedMin: 0,
-        suggestedMax: 50,
+        grid: {
+          color: "#444",
+        },
+        pointLabels: {
+          color: "#FFF",
+          font: {
+            size: 14,
+          },
+        },
+        ticks: {
+          backdropColor: "transparent",
+          color: "#FFF",
+          stepSize: 10,
+          suggestedMin: 0,
+          suggestedMax: 50,
+        },
       },
     },
   };
+
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-200 shadow-xl">
       <div className="card-body flex flex-col">
-        <h3 className="card-title text-left">Score Analysis</h3>
-        <div className="h-64 w-64 mx-auto">
+        <h3 className="card-title text-left text-base-content">
+          Score Analysis
+        </h3>
+        <div className="flex-grow mx-auto">
           <Radar data={radarData} options={radarOptions} />
         </div>
       </div>

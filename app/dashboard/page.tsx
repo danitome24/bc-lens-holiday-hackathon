@@ -40,10 +40,10 @@ const Dashboard: NextPage = () => {
   const { score } = useAccountScore(userProfile);
 
   return (
-    <div className=" bg-gray-50 text-gray-800">
+    <div className="bg-base-100 text-primary-content">
       {/* Main Dashboard */}
       <main className="p-8">
-        <div className="bg-gray-50">
+        <div className="">
           {/* Account summary stats */}
           <AccountSummary />
 

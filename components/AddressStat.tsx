@@ -26,7 +26,7 @@ export const AddressStat = () => {
         </svg>
       </div>
       <div className="stat-title">Account</div>
-      <div className="stat-value">{formattedAddress}</div>
+      <div className="stat-value text-secondary">{formattedAddress}</div>
       <div className="stat-desc">Jan 1st - Feb 1st</div>
     </div>
   );

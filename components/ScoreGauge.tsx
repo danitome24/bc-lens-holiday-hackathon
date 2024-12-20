@@ -73,7 +73,7 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
   };
 
   return (
-    <div className="flex flex-col w-full text-gray-800">
+    <div className="flex flex-col w-full text-base-content">
       <div
         style={{
           position: "relative",
@@ -85,7 +85,7 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
 
         <Doughnut ref={chartRef} data={data} options={options} />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold text-gray-800">{score}</span>
+          <span className="text-4xl font-bold">{score}</span>
         </div>
       </div>
     </div>

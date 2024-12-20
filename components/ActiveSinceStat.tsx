@@ -34,7 +34,7 @@ export const ActiveSinceStat = () => {
 
   return (
     <div className="stat">
-      <div className="stat-figure text-secondary">
+      <div className="stat-figure text-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -50,7 +50,7 @@ export const ActiveSinceStat = () => {
         </svg>
       </div>
       <div className="stat-title">Active since</div>
-      <div className="stat-value">{formattedDate}</div>
+      <div className="stat-value text-primary">{formattedDate}</div>
       <div className="stat-desc">↗︎ 400 (22%)</div>
     </div>
   );

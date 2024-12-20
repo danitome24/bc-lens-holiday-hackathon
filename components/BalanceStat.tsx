@@ -6,12 +6,12 @@ const BalanceStat: React.FC = () => {
   const balance = useBalance({ address: account.address });
 
   const formattedBalance = balance.data?.value
-    ? `${Number(balance.data?.value) / 10 ** balance.data.decimals} $GRASS`
+    ? `${Number(balance.data?.value) / 10 ** balance.data.decimals}`
     : "-";
 
   return (
     <div className="stat">
-      <div className="stat-figure text-secondary">
+      <div className="stat-figure">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -27,7 +27,7 @@ const BalanceStat: React.FC = () => {
         </svg>
       </div>
       <div className="stat-title">Balance</div>
-      <div className="stat-value">{formattedBalance}</div>
+      <div className="stat-value">{formattedBalance} $GRASS</div>
       <div className="stat-desc">↘︎ 90 (14%)</div>
     </div>
   );

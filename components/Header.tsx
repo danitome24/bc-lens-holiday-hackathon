@@ -8,7 +8,7 @@ export const Header = () => {
   const currentPath = usePathname();
 
   return (
-    <div className="navbar bg-base-100 text-base-content">
+    <div className="navbar bg-base-300 text-base-content">
       <div className="navbar-start">
         <ul className="menu menu-horizontal px-1">
           <li>

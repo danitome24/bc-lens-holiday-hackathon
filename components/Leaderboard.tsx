@@ -12,10 +12,10 @@ const participants = [
 const Leaderboard = () => {
   return (
     <div className="flex flex-col items-center py-10 px-5">
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">🏆 Leaderboard</h1>
-      <div className="bg-white shadow-md rounded-lg overflow-hidden w-full max-w-3xl">
+      <h1 className="text-4xl font-bold text-secondary mb-8">🏆 Leaderboard</h1>
+      <div className="shadow-md rounded-lg overflow-hidden w-full max-w-3xl">
         <table className="table-auto w-full border-collapse">
-          <thead className="bg-green-500 text-white">
+          <thead className="bg-primary text-primary-content">
             <tr>
               <th className="py-3 px-4 text-left">Rank</th>
               <th className="py-3 px-4 text-left">Name</th>
@@ -26,15 +26,13 @@ const Leaderboard = () => {
             {participants.map((participant, index) => (
               <tr
                 key={index}
-                className={`${
-                  index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                } hover:bg-green-100 transition-colors`}
+                className="transition-colors bg-white"
               >
-                <td className="py-3 px-4 text-gray-700 font-medium">
+                <td className="py-3 px-4 text-primary-content font-medium">
                   {participant.rank}
                 </td>
-                <td className="py-3 px-4 text-gray-700">{participant.name}</td>
-                <td className="py-3 px-4 text-gray-700 text-right">
+                <td className="py-3 px-4 text-primary-content">{participant.name}</td>
+                <td className="py-3 px-4 text-primary-content text-right">
                   {participant.score}
                 </td>
               </tr>

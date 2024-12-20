@@ -3,7 +3,7 @@ import { NextPage } from "next";
 
 const LeaderboardPage: NextPage = () => {
   return (
-    <div className=" bg-gray-50 text-gray-800">
+    <div className="bg-base-100 text-primary-content">
       <main className="p-8">
         <Leaderboard />
       </main>
