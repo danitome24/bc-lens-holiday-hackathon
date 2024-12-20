@@ -2,17 +2,30 @@
 
 import { ConnectKitButton } from "connectkit";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Header = () => {
+  const currentPath = usePathname();
+
   return (
     <div className="navbar bg-base-100 text-base-content">
       <div className="navbar-start">
-        <ul className="flex flex-row gap-2">
+        <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href="/dashboard">Dashboard</Link>
+            <Link
+              href="/dashboard"
+              className={currentPath === "/dashboard" ? "active" : ""}
+            >
+              Dashboard
+            </Link>
           </li>
           <li>
-            <Link href="/dashboard/leaderboard">Leaderboard</Link>
+            <Link
+              href="/leaderboard"
+              className={currentPath === "/leaderboard" ? "active" : ""}
+            >
+              Leaderboard
+            </Link>
           </li>
         </ul>
       </div>
