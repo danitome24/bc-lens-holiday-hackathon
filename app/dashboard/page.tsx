@@ -26,24 +26,33 @@ import {
   ScoreCard,
   ScoreHistory,
 } from "@/components";
-import { useAccountBalance, useAccountScore, useFetchTransactions } from "@/hooks";
-import { useMemo } from "react";
+import {
+  useAccountBalance,
+  useAccountScore,
+  useFetchTransactions,
+  useFetchUniqueProtocols,
+} from "@/hooks";
+import { use, useMemo } from "react";
 import { useAccount } from "wagmi";
 
 const Dashboard: NextPage = () => {
   const account = useAccount();
   const { tx } = useFetchTransactions(account.address ?? "");
-  const {balanceWithDecimals} = useAccountBalance()
+  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
+    account.address ?? "",
+    tx
+  );
+  const { balanceWithDecimals } = useAccountBalance();
 
   const userProfile = useMemo(
     () => ({
       transactions: tx.length,
       accountAgeMonths: 5,
-      protocolsUsed: 10,
+      protocolsUsed: uniqueProtocolsUsed,
       monthsInteracting: 4,
       grassBalance: balanceWithDecimals,
     }),
-    [tx]
+    [tx, uniqueProtocolsUsed, balanceWithDecimals]
   );
 
   const { score } = useAccountScore(userProfile);

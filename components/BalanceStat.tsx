@@ -6,7 +6,7 @@ const BalanceStat: React.FC = () => {
   const balance = useBalance({ address: account.address });
 
   const formattedBalance = balance.data?.value
-    ? `${Number(balance.data?.value) / 10 ** balance.data.decimals}`
+    ? `${(Number(balance.data?.value) / 10 ** balance.data.decimals).toFixed(3)}`
     : "-";
 
   return (

@@ -48,6 +48,9 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
     },
     scales: {
       r: {
+        beginAtZero: true,
+        min: 0,
+        max: 50,
         angleLines: {
           color: "#444",
         },
@@ -57,7 +60,7 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
         pointLabels: {
           color: "#FFF",
           font: {
-            size: 14,
+            size: 7,
           },
         },
         ticks: {
