@@ -1,5 +1,4 @@
 import { Score } from "@/types";
-import { div } from "motion/react-client";
 import { Radar } from "react-chartjs-2";
 
 type ScoreAnalysisCardProps = {
