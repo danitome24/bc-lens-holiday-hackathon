@@ -17,14 +17,14 @@ export const ScoreCard = ({normalizedScore}: ScoreCardProps) => {
               <div className="py-4 px-8 bg-base-300 rounded-xl text-center">
                 <p className="text-sm">
                   Current rank:{" "}
-                  <span className="text-lg text-base-content font-bold">25/100</span>
+                  <span className="text-lg text-white font-bold">25/100</span>
                 </p>
               </div>
 
               <div className="py-4 px-8 bg-base-300 rounded-xl text-center">
                 <p className="text-sm">TOP</p>
 
-                <p className="text-lg text-base-content font-bold">25/100</p>
+                <p className="text-lg text-white font-bold">25/100</p>
               </div>
             </div>
           </div>

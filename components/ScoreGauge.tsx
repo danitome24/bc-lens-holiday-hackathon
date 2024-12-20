@@ -48,7 +48,7 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
             ? createGradient(ctx, chartArea)
             : "#e0e0e0";
         },
-        borderWidth: 8,
+        borderWidth: 2,
         circumference: 300,
         rotation: 210,
         cutout: "65%",
@@ -85,7 +85,7 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
 
         <Doughnut ref={chartRef} data={data} options={options} />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold">{score}</span>
+          <span className="text-4xl font-bold text-white">{score}</span>
         </div>
       </div>
     </div>

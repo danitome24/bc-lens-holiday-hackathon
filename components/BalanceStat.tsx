@@ -10,7 +10,7 @@ const BalanceStat: React.FC = () => {
     : "-";
 
   return (
-    <div className="stat">
+    <div className="stat text-white">
       <div className="stat-figure">
         <svg
           xmlns="http://www.w3.org/2000/svg"
