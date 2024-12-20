@@ -73,7 +73,9 @@ export const ScoreHistory = () => {
         },
         ticks: {
           beginAtZero: true,
-          callback: (value: number) => value,
+          callback: function (tickValue: string | number) {
+            return tickValue as number;
+          },
         },
         grid: {
           color: "#e5e7eb",
