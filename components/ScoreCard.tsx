@@ -11,20 +11,20 @@ export const ScoreCard = ({normalizedScore}: ScoreCardProps) => {
       <div className="card bg-base-200 h-full shadow-xl">
         <div className="card-body">
           <div className="card-title">Social Score</div>
-          <div className="flex flex-row">
+          <div className="flex flex-col">
             <ScoreGauge score={normalizedScore} />
             <div className="flex flex-col gap-2">
               <div className="py-4 px-8 bg-base-300 rounded-xl text-center">
                 <p className="text-sm">
-                  Current rank:{" "}
-                  <span className="text-lg text-white font-bold">25/100</span>
+                  <p>Current rank:</p>
+                  <span className="text-sm text-white font-bold"><span className="text-2xl">25</span>/100</span>
                 </p>
               </div>
 
               <div className="py-4 px-8 bg-base-300 rounded-xl text-center">
                 <p className="text-sm">TOP</p>
 
-                <p className="text-lg text-white font-bold">25/100</p>
+                <p className="text-lg text-white font-bold"><span>25</span></p>
               </div>
             </div>
           </div>

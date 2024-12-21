@@ -1,6 +1,8 @@
 export type Metric = {
   name: string;
-  value: string;
+  percentage: string;
+  score: number;
+  description: string;
 }
 
 export type Score = {

@@ -23,7 +23,7 @@ ChartJS.register(
 
 export const ScoreHistory = () => {
   const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
-  const scores = [120, 135, 150, 170, 180];
+  const scores = [20, 25, 32, 34, 51];
 
   const data = {
     labels: months,

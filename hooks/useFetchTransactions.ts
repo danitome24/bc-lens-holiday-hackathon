@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { format, parse } from "date-fns";
 
 export const useFetchTransactions = (address: string) => {
-  address = "0x9A0c4B4997485F51FF1013F7080464780BA8b67D";
+  //address = "0x9A0c4B4997485F51FF1013F7080464780BA8b67D";
   const [tx, setTx] = useState<Tx[]>([]);
   const [txByMonth, setTxByMonth] = useState<{ [key: string]: number }>({});
   const [monthsWithTx, setMonthsWithTx] = useState<number>(0);

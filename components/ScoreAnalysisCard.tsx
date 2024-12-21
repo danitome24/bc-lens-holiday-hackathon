@@ -84,6 +84,7 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
           <div className="flex-grow mx-auto">
             <Radar data={radarData} options={radarOptions} />
           </div>
+          <p className="text-right"><span className="text-2xl text-white font-bold">{score.total}</span> points</p>
         </div>
       </div>
     </div>
