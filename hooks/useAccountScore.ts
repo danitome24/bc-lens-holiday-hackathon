@@ -52,7 +52,7 @@ const calculateMonthsInteractingPoints = (
 };
 
 const calculateGrassBalancePoints = (grassBalance: number): number => {
-  if (grassBalance >= 1 && grassBalance <= 10) return 5;
+  if (grassBalance >= 0.1 && grassBalance <= 10) return 5;
   if (grassBalance >= 11 && grassBalance <= 50) return 15;
   if (grassBalance >= 51 && grassBalance <= 100) return 30;
   if (grassBalance > 100) return MaxGrassBalancePoints.MAX;

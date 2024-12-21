@@ -46,7 +46,7 @@ const Dashboard: NextPage = () => {
     walletAddress,
     tx
   );
-  const { balanceWithDecimals } = useAccountBalance();
+  const { balanceWithDecimals } = useAccountBalance(walletAddress);
   const { accountAgeMonths } = useAccountAge(walletAddress);
 
   useEffect(() => {

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 
-export const useAccountBalance = () => {
+export const useAccountBalance = (walletAddress: string) => {
   const [balance, setBalance] = useState<number>(0);
   const [balanceWithDecimals, setBalanceWithDecimals] = useState<number>(0);
 
-  const { address } = useAccount();
   const { data, isError, isLoading } = useBalance({
-    address: address as `0x${string}`,
+    address: walletAddress as `0x${string}`,
   });
 
   useEffect(() => {
