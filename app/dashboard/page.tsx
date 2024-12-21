@@ -37,7 +37,7 @@ import { useAccount } from "wagmi";
 
 const Dashboard: NextPage = () => {
   const account = useAccount();
-  const { tx } = useFetchTransactions(account.address ?? "");
+  const { tx, monthsWithTx } = useFetchTransactions(account.address ?? "");
   const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
     account.address ?? "",
     tx
@@ -49,12 +49,12 @@ const Dashboard: NextPage = () => {
       transactions: tx.length,
       accountAgeMonths: 5,
       protocolsUsed: uniqueProtocolsUsed,
-      monthsInteracting: 4,
+      monthsInteracting: monthsWithTx,
       grassBalance: balanceWithDecimals,
     }),
     [tx, uniqueProtocolsUsed, balanceWithDecimals]
   );
-
+console.log(tx)
   const { score } = useAccountScore(userProfile);
 
   return (

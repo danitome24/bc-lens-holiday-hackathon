@@ -82,10 +82,17 @@ export const ScoreGauge = ({ score }: ScoreGaugeProps) => {
           margin: "auto",
         }}
       >
-
         <Doughnut ref={chartRef} data={data} options={options} />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold text-white">{score}</span>
+        <div
+          className="absolute inset-0 flex items-center justify-center flex-col"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <span className="m-0 text-4xl font-bold text-white">{score}</span>
+          <span className="m-0 font-sm text-white">out of 100</span>
         </div>
       </div>
     </div>

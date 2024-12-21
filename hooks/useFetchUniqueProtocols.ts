@@ -12,10 +12,8 @@ export const useFetchUniqueProtocols = (
       console.log("No transactions found or an error occurred.");
     }
     const uniqueContracts = new Set<string>();
-    console.log("txs", txs);
 
     for (const tx of txs) {
-      console.log(walletAddress == tx.from);
       if (tx.to && tx.to !== walletAddress && walletAddress == tx.from) {
         uniqueContracts.add(tx.to);
       }
