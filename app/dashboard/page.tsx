@@ -27,6 +27,7 @@ import {
   ScoreHistory,
 } from "@/components";
 import {
+  useAccountAge,
   useAccountBalance,
   useAccountScore,
   useFetchTransactions,
@@ -43,18 +44,19 @@ const Dashboard: NextPage = () => {
     tx
   );
   const { balanceWithDecimals } = useAccountBalance();
+  const { accountAgeMonths } = useAccountAge(account.address ?? "");
 
   const userProfile = useMemo(
     () => ({
       transactions: tx.length,
-      accountAgeMonths: 5,
+      accountAgeMonths: accountAgeMonths,
       protocolsUsed: uniqueProtocolsUsed,
       monthsInteracting: monthsWithTx,
       grassBalance: balanceWithDecimals,
     }),
-    [tx, uniqueProtocolsUsed, balanceWithDecimals]
+    [tx, uniqueProtocolsUsed, balanceWithDecimals, monthsWithTx, accountAgeMonths]
   );
-console.log(tx)
+
   const { score } = useAccountScore(userProfile);
 
   return (
