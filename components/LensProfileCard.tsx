@@ -22,7 +22,7 @@ export const LensProfileCard = () => {
     if (loading) {
       setMyHandle("Loading...");
     } else if (error) {
-      setMyHandle("Error");
+      setMyHandle("No handle found");
     } else if (data && data.length > 0) {
       setMyHandle(`@${data[0].localName}`);
     } else {
