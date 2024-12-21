@@ -26,7 +26,7 @@ const calculateTransactionPoints = (transactions: number): number => {
 };
 
 const calculateAccountAgePoints = (accountAgeMonths: number): number => {
-  if (accountAgeMonths >= 0 && accountAgeMonths <= 3) return 5;
+  if (accountAgeMonths >= 1 && accountAgeMonths <= 3) return 5;
   if (accountAgeMonths >= 4 && accountAgeMonths <= 12) return 15;
   if (accountAgeMonths >= 13 && accountAgeMonths <= 24) return 30;
   if (accountAgeMonths > 24) return MaxAccountAgePoints.MAX;
@@ -52,7 +52,7 @@ const calculateMonthsInteractingPoints = (
 };
 
 const calculateGrassBalancePoints = (grassBalance: number): number => {
-  if (grassBalance >= 0 && grassBalance <= 10) return 5;
+  if (grassBalance >= 1 && grassBalance <= 10) return 5;
   if (grassBalance >= 11 && grassBalance <= 50) return 15;
   if (grassBalance >= 51 && grassBalance <= 100) return 30;
   if (grassBalance > 100) return MaxGrassBalancePoints.MAX;

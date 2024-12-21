@@ -11,3 +11,4 @@ export * from "./AddressStat";
 export * from "./Leaderboard";
 export * from "./ScoreHistory";
 export * from "./LensProfileCard";
+export * from "./WalletSearch";

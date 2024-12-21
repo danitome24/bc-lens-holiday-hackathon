@@ -25,6 +25,7 @@ import {
   ScoreAnalysisCard,
   ScoreCard,
   ScoreHistory,
+  WalletSearch,
 } from "@/components";
 import {
   useAccountAge,
@@ -33,18 +34,27 @@ import {
   useFetchTransactions,
   useFetchUniqueProtocols,
 } from "@/hooks";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
 const Dashboard: NextPage = () => {
+  const [walletAddress, setWalletAddress] = useState<string>("");
+
   const account = useAccount();
-  const { tx, monthsWithTx } = useFetchTransactions(account.address ?? "");
+
+  useEffect(() => {
+    if (account.address != undefined) {
+      setWalletAddress(account.address as string);
+    }
+  }, [account]);
+
+  const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
   const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
-    account.address ?? "",
+    walletAddress,
     tx
   );
   const { balanceWithDecimals } = useAccountBalance();
-  const { accountAgeMonths } = useAccountAge(account.address ?? "");
+  const { accountAgeMonths } = useAccountAge(walletAddress);
 
   const userProfile = useMemo(
     () => ({
@@ -54,7 +64,13 @@ const Dashboard: NextPage = () => {
       monthsInteracting: monthsWithTx,
       grassBalance: balanceWithDecimals,
     }),
-    [tx, uniqueProtocolsUsed, balanceWithDecimals, monthsWithTx, accountAgeMonths]
+    [
+      tx,
+      uniqueProtocolsUsed,
+      balanceWithDecimals,
+      monthsWithTx,
+      accountAgeMonths,
+    ]
   );
 
   const { score } = useAccountScore(userProfile);
@@ -64,6 +80,9 @@ const Dashboard: NextPage = () => {
       {/* Main Dashboard */}
       <main className="p-4 md:p-8">
         <div className="container mx-auto">
+          {/* Wallet Search */}
+          <WalletSearch />
+
           {/* Account summary stats */}
           <AccountSummary />
 
