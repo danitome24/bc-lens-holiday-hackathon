@@ -1,13 +1,14 @@
 "use client";
 
 import { useAccountAge } from "@/hooks";
-import { useAccount } from "wagmi";
 
-export const ActiveSinceStat = () => {
-  const account = useAccount();
-  const { firstTxFormattedDate } = useAccountAge(
-    account.address ?? ""
-  );
+type ActiveSinceStatProps = {
+  walletAddress: string;
+};
+
+export const ActiveSinceStat = ({ walletAddress }: ActiveSinceStatProps) => {
+
+  const { firstTxFormattedDate } = useAccountAge(walletAddress ?? "");
 
   return (
     <div className="stat">

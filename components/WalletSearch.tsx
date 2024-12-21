@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export const WalletSearch = () => {
+type WalletSearchProps = {
+  onChange: (walletAddress: string) => void;
+};
+
+export const WalletSearch = ({ onChange }: WalletSearchProps) => {
   const [walletAddress, setWalletAddress] = useState<string>("");
 
   return (
@@ -12,10 +16,10 @@ export const WalletSearch = () => {
         placeholder="Enter wallet address"
         value={walletAddress}
         onChange={(event) => setWalletAddress(event.target.value)}
-        className="input input-bordered w-full"
+        className="input input-bordered w-full text-base-content"
       />
       <button
-        onClick={() => console.log(walletAddress)}
+        onClick={() => onChange(walletAddress)}
         className="btn btn-outline btn-primary"
       >
         Search

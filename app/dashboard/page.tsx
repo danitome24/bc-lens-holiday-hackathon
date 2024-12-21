@@ -41,13 +41,6 @@ const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
 
   const account = useAccount();
-
-  useEffect(() => {
-    if (account.address != undefined) {
-      setWalletAddress(account.address as string);
-    }
-  }, [account]);
-
   const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
   const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
     walletAddress,
@@ -55,6 +48,12 @@ const Dashboard: NextPage = () => {
   );
   const { balanceWithDecimals } = useAccountBalance();
   const { accountAgeMonths } = useAccountAge(walletAddress);
+
+  useEffect(() => {
+    if (account.address != undefined) {
+      setWalletAddress(account.address as string);
+    }
+  }, [account]);
 
   const userProfile = useMemo(
     () => ({
@@ -75,16 +74,20 @@ const Dashboard: NextPage = () => {
 
   const { score } = useAccountScore(userProfile);
 
+  const onWalletAddressChange = (address: string) => {
+    setWalletAddress(address);
+  }
+
   return (
     <div className="bg-base-100 text-primary-content min-h-screen">
       {/* Main Dashboard */}
       <main className="p-4 md:p-8">
         <div className="container mx-auto">
           {/* Wallet Search */}
-          <WalletSearch />
+          <WalletSearch onChange={onWalletAddressChange}/>
 
           {/* Account summary stats */}
-          <AccountSummary />
+          <AccountSummary walletAddress={walletAddress}/>
 
           <section className="flex flex-col md:flex-row flex-grow justify-around text-base-content my-6 space-y-6 md:space-y-0 md:space-x-6">
             <ScoreCard normalizedScore={score.normalized} />

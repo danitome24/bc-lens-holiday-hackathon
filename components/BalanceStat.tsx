@@ -1,12 +1,17 @@
 import React from "react";
-import { useAccount, useBalance } from "wagmi";
+import { useBalance } from "wagmi";
 
-const BalanceStat: React.FC = () => {
-  const account = useAccount();
-  const balance = useBalance({ address: account.address });
+type BalanceStatProps = {
+  walletAddress: string;
+};
+
+const BalanceStat = ({ walletAddress }: BalanceStatProps) => {
+  const balance = useBalance({ address: walletAddress as `0x${string}` });
 
   const formattedBalance = balance.data?.value
-    ? `${(Number(balance.data?.value) / 10 ** balance.data.decimals).toFixed(3)}`
+    ? `${(Number(balance.data?.value) / 10 ** balance.data.decimals).toFixed(
+        3
+      )}`
     : "-";
 
   return (

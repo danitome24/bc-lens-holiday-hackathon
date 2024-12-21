@@ -1,11 +1,13 @@
 import React from "react";
-import { useAccount } from "wagmi";
 
-export const AddressStat = () => {
-  const account = useAccount();
+type AddressStatProps = {
+  walletAddress: string;
+};
+
+export const AddressStat = ({ walletAddress }: AddressStatProps) => {
   const formattedAddress =
-    account.address != undefined
-      ? `${account.address.slice(0, 5)}...${account.address.slice(-5)}`
+    walletAddress != ""
+      ? `${walletAddress.slice(0, 5)}...${walletAddress.slice(-5)}`
       : "-";
 
   return (
