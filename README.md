@@ -1,35 +1,66 @@
-# LensSocialScore
+## Foundry
 
-`Track: Social/SocialFi apps (using features like Feeds, Social Graphs, etc.) | Public goods`
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-## Project Name:
-**LensSocialScore**
+Foundry consists of:
 
-## Team Members:
-- **Daniel Tomé** (Lens Handle: @meketom)
-- **Joseph Cho** (Lens `orb.club` Handle: @josephdotpm)
+-   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+-   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+-   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+-   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-## Project Description:
-**LensSocialScore** is a decentralized application (DApp) built on the **Lens Network** that aims to provide a reputation system for users based on their activity and engagement within the network. The goal is to give users a way to track their influence and contributions to the Lens ecosystem through a combination of metrics like **engagement**, **monetary value**, **diversity** of interactions, and **participation time**. 
+## Documentation
 
-This application calculates a user’s reputation score by analyzing their interaction patterns, transactions, and the diversity of their activities on Lens. The score is then visualized on a user-friendly dashboard, helping users understand their influence in the community and track their progress over time.
+https://book.getfoundry.sh/
 
-Key features include:
-- **Reputation Calculation**: The score is based on metrics such as interactions (likes, comments), monetary transactions, diversity of activities, and engagement over time.
-- **User Dashboard**: A clean interface displaying the user’s reputation score and detailed breakdown by each metric.
-- **Integration with Lens Network**: Direct interaction with Lens profiles to gather activity data and calculate scores.
-  
-LensSocialScore is intended to help users gain insights into their role in the Lens community and encourage more engagement and participation within the network.
+## Usage
 
-## Source Code Link:
-[Lens Network](https://github.com/danitome24/bc-lens-holiday-hackathon) | [Family Connect](https://github.com/danitome24/bc-lens-holiday-hackathon)
+### Build
 
-## Preview Link (Optional):
-[Lens Social Score](https://bc-lens-holiday-hackathon.vercel.app/)
+```shell
+$ forge build
+```
 
-## Demo Video/Slide Deck Link (Optional):
-[Demo Video]() | [Slide deck](https://www.miricanvas.com/v/141pqde)
+### Test
 
-## Screenshots (Optional):
-![LensSocialScore Dashboard](#)
-![LensSocialScore Profile View](#)
+```shell
+$ forge test
+```
+
+### Format
+
+```shell
+$ forge fmt
+```
+
+### Gas Snapshots
+
+```shell
+$ forge snapshot
+```
+
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Deploy
+
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```
