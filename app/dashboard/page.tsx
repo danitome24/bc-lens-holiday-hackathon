@@ -35,7 +35,8 @@ import {
   useFetchUniqueProtocols,
 } from "@/hooks";
 import { useEffect, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
+import { contractAddress, abi } from "@/abis/LensScoreSBT.info.js";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -76,7 +77,13 @@ const Dashboard: NextPage = () => {
 
   const onWalletAddressChange = (address: string) => {
     setWalletAddress(address);
-  }
+  };
+
+  const result = useReadContract({
+    abi,
+    address: contractAddress,
+    functionName: "getMessage",
+  });
 
   return (
     <div className="bg-base-100 text-primary-content min-h-screen">
@@ -84,10 +91,10 @@ const Dashboard: NextPage = () => {
       <main className="p-4 md:p-8">
         <div className="container mx-auto">
           {/* Wallet Search */}
-          <WalletSearch onChange={onWalletAddressChange}/>
+          <WalletSearch onChange={onWalletAddressChange} />
 
           {/* Account summary stats */}
-          <AccountSummary walletAddress={walletAddress}/>
+          <AccountSummary walletAddress={walletAddress} />
 
           <section className="flex flex-col md:flex-row flex-grow justify-around text-base-content my-6 space-y-6 md:space-y-0 md:space-x-6">
             <ScoreCard normalizedScore={score.normalized} />
