@@ -1,16 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuración
+// Configuration
 const ABI_DIR = path.join(__dirname, '../abis');
 const CONTRACT_NAME = 'LensScoreSBT';
-const DEPLOYED_ADDRESS = '0x6a7c2a820b0a94848df1c48a210a2fbf98abb648'; // Reemplaza con la dirección del contrato desplegado
+const DEPLOYED_ADDRESS = '0x6a7c2a820b0a94848df1c48a210a2fbf98abb648';
 
-// Leer el ABI del contrato compilado
+// Read abi from json file
 const contractJsonPath = path.join(__dirname, `../out/${CONTRACT_NAME}.sol/${CONTRACT_NAME}.json`);
 const contractJson = JSON.parse(fs.readFileSync(contractJsonPath, 'utf8'));
 
-// Generar archivo con ABI y dirección
+// Generate abi and address file
 const generateAbiAndAddress = () => {
   try {
     const contractInfo = {
@@ -23,11 +23,11 @@ const generateAbiAndAddress = () => {
       export const contractAddress = "${contractInfo.contractAddress}";
     `;
     fs.writeFileSync(infoFilePath, exportContent.trim());
-    console.log(`Información completa guardada en: ${infoFilePath}`);
+    console.log(`Info stored at: ${infoFilePath}`);
   } catch (error) {
-    console.error("Error al generar los archivos:", error.message);
+    console.error("Error generating files:", error.message);
   }
 };
 
-// Ejecutar el script
+// Execute script
 generateAbiAndAddress();
