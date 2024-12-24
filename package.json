@@ -9,39 +9,9 @@
     ]
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@lens-network/sdk": "^0.0.0-canary-20241203140504",
-    "@lens-protocol/client": "^0.0.0-canary-20241219204221",
-    "@lens-protocol/react-web": "^2.3.2",
-    "@lens-protocol/wagmi": "^4.1.5",
-    "@tanstack/react-query": "^5.62.7",
-    "chart.js": "^4.4.7",
-    "chartjs-plugin-datalabels": "^2.2.0",
-    "connectkit": "^1.8.2",
-    "motion": "^11.15.0",
-    "next": "15.1.0",
-    "react": "^19.0.0",
-    "react-chartjs-2": "^5.2.0",
-    "react-dom": "^19.0.0",
-    "viem": "^2.21.55",
-    "wagmi": "^2.14.3"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/typography": "^0.5.15",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "daisyui": "^4.12.22",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "dev": "yarn workspace @lens-social-score/nextjs dev",
+    "build": "yarn workspace @lens-social-score/nextjs build",
+    "start": "yarn workspace @lens-social-score/nextjs start",
+    "lint": "yarn workspace @lens-social-score/nextjs lint"
   }
 }
