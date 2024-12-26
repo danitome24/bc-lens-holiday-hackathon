@@ -10,9 +10,14 @@ import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract LensScoreSBT is ERC721 {
     error LensScoreSBT__SoulBoundToken();
     error LensScoreSBT__AlreadyMinted(address by);
+    error LensScoreSBT__NoSBTMintedYet(address by);
+    error LensScoreSBT__LessOrSameScore(uint256 actualScore, uint256 newScore);
+
+    event ScoreUpdated(address indexed owner, uint256 score, uint256 timestamp);
+    event LensScoreSBTMinted(address indexed by, uint256 tokenId);
 
     struct Score {
-        uint256 score;
+        uint256 score; // from 0 to 1000 being 0
         uint256 timestamp;
     }
 
@@ -23,23 +28,43 @@ contract LensScoreSBT is ERC721 {
      */
     uint256 public s_tokenId = 0;
     mapping(address owner => uint256 tokenId) private s_ownerToTokenId;
+    mapping(address owner => Score score) private s_ownerToScore;
 
     constructor() ERC721(NAME, SYMBOL) { }
 
     /**
      * @notice Mints a new token to the specified address.
-     * @param to The address to mint the token to.
      * @dev Being soul bound tokens, mint of more than one per address is not allowed.
      */
-    function mint(address to) public {
-        if (balanceOf(to) > 0) {
-            revert LensScoreSBT__AlreadyMinted(to);
+    function mint() public {
+        address by = msg.sender;
+        if (balanceOf(by) > 0) {
+            revert LensScoreSBT__AlreadyMinted(by);
         }
 
         s_tokenId++;
-        _safeMint(to, s_tokenId);
-        s_ownerToTokenId[to] = s_tokenId;
+        _safeMint(by, s_tokenId);
+        s_ownerToTokenId[by] = s_tokenId;
+        emit LensScoreSBTMinted(by, s_tokenId);
     }
+
+    function updateScore(uint256 score) public {
+        if (balanceOf(msg.sender) == 0) {
+            revert LensScoreSBT__NoSBTMintedYet(msg.sender);
+        }
+        if (score <= s_ownerToScore[msg.sender].score) {
+            revert LensScoreSBT__LessOrSameScore(s_ownerToScore[msg.sender].score, score);
+        }
+
+        s_ownerToScore[msg.sender] = Score(score, block.timestamp);
+        emit ScoreUpdated(msg.sender, score, block.timestamp);
+    }
+
+    function getScoreByAddress(address owner) public view returns (Score memory) {
+        return s_ownerToScore[owner];
+    }
+
+    function _setScore(Score memory score, address to) private { }
 
     function transferFrom(address from, address to, uint256 tokenId) public override {
         revert LensScoreSBT__SoulBoundToken();
