@@ -48,6 +48,10 @@ contract LensScoreSBT is ERC721 {
         emit LensScoreSBTMinted(by, s_tokenId);
     }
 
+    /**
+     * Update Lens Score for the owner of the token.
+     * @param score The new score to be updated.
+     */
     function updateScore(uint256 score) public {
         if (balanceOf(msg.sender) == 0) {
             revert LensScoreSBT__NoSBTMintedYet(msg.sender);
@@ -55,21 +59,39 @@ contract LensScoreSBT is ERC721 {
         if (score <= s_ownerToScore[msg.sender].score) {
             revert LensScoreSBT__LessOrSameScore(s_ownerToScore[msg.sender].score, score);
         }
-
-        s_ownerToScore[msg.sender] = Score(score, block.timestamp);
-        emit ScoreUpdated(msg.sender, score, block.timestamp);
+        _setScore(score, msg.sender);
     }
 
+    /**
+     * Set the score of the owner of the token.
+     * @param score Score to be set.
+     * @param to Owner of the token.
+     */
+    function _setScore(uint256 score, address to) private {
+        s_ownerToScore[to] = Score(score, block.timestamp);
+        emit ScoreUpdated(to, score, block.timestamp);
+    }
+
+    /**
+     * Get the score of the owner of the token.
+     * @param owner The address of the owner.
+     */
     function getScoreByAddress(address owner) public view returns (Score memory) {
         return s_ownerToScore[owner];
     }
 
-    function _setScore(Score memory score, address to) private { }
-
+    /**
+     * @dev Cannot transfer the token is SoulBound
+     * @dev See {IERC721-transferFrom}.
+     */
     function transferFrom(address from, address to, uint256 tokenId) public override {
         revert LensScoreSBT__SoulBoundToken();
     }
 
+    /**
+     * @dev Cannot transfer the token is SoulBound
+     * @dev See {IERC721-safeTransferFrom}.
+     */
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) public override {
         revert LensScoreSBT__SoulBoundToken();
     }
