@@ -12,3 +12,10 @@ solc-version = "0.8.24"
 fallback_oz = true
 is_system = false
 mode = "3"
+
+[fmt]
+line_length = 120
+tab_width = 4
+quote_style = "double"
+bracket_spacing = true
+int_types = "long"
