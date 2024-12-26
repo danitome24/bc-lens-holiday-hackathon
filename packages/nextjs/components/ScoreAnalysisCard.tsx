@@ -76,7 +76,7 @@ export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
 
   return (
     <div className="flex-1 max-w-xl">
-      <div className="card bg-base-200 shadow-xl">
+      <div className="card bg-base-200 shadow-xl h-full">
         <div className="card-body flex flex-col">
           <h3 className="card-title text-left text-base-content">
             Score Analysis

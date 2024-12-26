@@ -12,3 +12,4 @@ export * from "./Leaderboard";
 export * from "./ScoreHistory";
 export * from "./LensProfileCard";
 export * from "./WalletSearch";
+export * from "./SaveScoreButton";
