@@ -13,7 +13,8 @@
     "build": "yarn workspace @lens-social-score/nextjs build",
     "start": "yarn workspace @lens-social-score/nextjs start",
     "lint": "yarn workspace @lens-social-score/nextjs lint",
-    "deploy": "yarn workspace @lens-social-score/foundry deploy",
-    "test": "yarn workspace @lens-social-score/foundry test"
+    "foundry:deploy": "yarn workspace @lens-social-score/foundry deploy",
+    "foundry:test": "yarn workspace @lens-social-score/foundry test",
+    "foundry:build": "yarn workspace @lens-social-score/foundry build"
   }
 }

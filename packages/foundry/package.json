@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "deploy": "make deploy-and-generate-abis",
-    "test": "forge test"
+    "test": "forge test",
+    "build": "forge build --sizes",
+    "format": "forge fmt --check"
   }
 }

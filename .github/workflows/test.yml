@@ -20,26 +20,25 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
 
       - name: Show Forge version
-        run: |
-          forge --version
+        run: forge --version
 
       - name: Run Forge fmt
-        run: |
-          forge fmt --check
+        run: yarn foundry:fmt
         id: fmt
 
       - name: Run Forge build
-        run: |
-          forge build --sizes
-        id: build
+        run: yarn foundry:build
 
       - name: Run Forge tests
-        run: |
-          forge test -vvv
-        id: test
+        run: yarn foundry:test
