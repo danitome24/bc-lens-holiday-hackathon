@@ -4,7 +4,6 @@ import { useOwnedHandles, useProfile } from "@lens-protocol/react-web";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { SaveScoreButton } from ".";
 
 export const LensProfileCard = () => {
   const [myHandle, setMyHandle] = useState<string>("Loading...");
@@ -57,7 +56,6 @@ export const LensProfileCard = () => {
       <div className="flex flex-col py-4 justify-center items-center">
         {profileImage}
         <p className="text-white font-bold">{myHandle}</p>
-        <SaveScoreButton />
       </div>
     </div>
   );

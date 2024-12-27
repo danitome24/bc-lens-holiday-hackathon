@@ -22,6 +22,7 @@ import {
   AccountSummary,
   LensProfileCard,
   MetricsList,
+  SaveScoreButton,
   ScoreAnalysisCard,
   ScoreCard,
   ScoreHistory,
@@ -98,8 +99,10 @@ const Dashboard: NextPage = () => {
 
           <section className="flex flex-col md:flex-row flex-grow justify-around text-base-content my-6 space-y-6 md:space-y-0 md:space-x-6">
             <ScoreCard normalizedScore={score.normalized} />
-
-            <LensProfileCard />
+            <div className="flex flex-col justify-center justify-items-center">
+              <LensProfileCard />
+              <SaveScoreButton walletAddress={walletAddress} score={score} />
+            </div>
 
             <ScoreAnalysisCard score={score} />
           </section>
