@@ -1,4 +1,8 @@
-import { useWriteContract } from "wagmi";
+import {
+  useWaitForTransactionReceipt,
+  useWriteContract,
+  type BaseError,
+} from "wagmi";
 import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
 
@@ -11,19 +15,36 @@ export const SaveScoreButton = ({
   walletAddress,
   score,
 }: SaveScoreButtonProps) => {
-  const { writeContract } = useWriteContract();
+  const {
+    data: hash,
+    error: writeError,
+    writeContractAsync,
+    isPending,
+  } = useWriteContract();
 
-  if (walletAddress == "") {
-    return <></>;
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    error: receiptError,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
+
+  if (walletAddress === "") {
+    return null;
   }
 
-  const handleSaveScore = (scoreToSave: number) => {
-    writeContract({
-      abi: abi,
-      address: contractAddress,
-      functionName: "updateScore",
-      args: [BigInt(scoreToSave)]
-    });
+  const handleSaveScore = async (scoreToSave: number) => {
+    try {
+      await writeContractAsync({
+        abi: abi,
+        address: contractAddress,
+        functionName: "updateScore",
+        args: [BigInt(scoreToSave)],
+      });
+    } catch (e) {
+      console.error("Write Error:", e);
+    }
   };
 
   return (
@@ -31,9 +52,27 @@ export const SaveScoreButton = ({
       <button
         className="btn btn-secondary w-full"
         onClick={() => handleSaveScore(score.normalized)}
+        disabled={isPending || isConfirming}
       >
-        Save Score
+        {isPending
+          ? "Saving..."
+          : isConfirming
+          ? "Confirming..."
+          : isConfirmed
+          ? "Saved!"
+          : "Save Score"}
       </button>
+      {writeError && (
+        <p className="text-red-500">
+          Error writing:{" "}
+          {(writeError as BaseError).shortMessage || writeError.message}
+        </p>
+      )}
+      {receiptError && (
+        <p className="text-red-500">
+          Transaction failed: {receiptError.message}
+        </p>
+      )}
     </div>
   );
 };
