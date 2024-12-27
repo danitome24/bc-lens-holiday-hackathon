@@ -16,3 +16,4 @@ export * from "./SaveScoreButton";
 export * from "./WalletSVG";
 export * from "./DateSVG";
 export * from "./MoneySVG";
+export * from "./MintNFTButton";

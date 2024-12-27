@@ -22,6 +22,7 @@ import {
   AccountSummary,
   LensProfileCard,
   MetricsList,
+  MintNFTButton,
   SaveScoreButton,
   ScoreAnalysisCard,
   ScoreCard,
@@ -43,10 +44,7 @@ const Dashboard: NextPage = () => {
 
   const account = useAccount();
   const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
-  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
-    walletAddress,
-    tx
-  );
+  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(walletAddress,tx);
   const { balanceWithDecimals } = useAccountBalance(walletAddress);
   const { accountAgeMonths } = useAccountAge(walletAddress);
 
@@ -102,6 +100,7 @@ const Dashboard: NextPage = () => {
             <div className="flex flex-col justify-center justify-items-center">
               <LensProfileCard />
               <SaveScoreButton walletAddress={walletAddress} score={score} />
+              <MintNFTButton walletAddress={walletAddress} score={score} />
             </div>
 
             <ScoreAnalysisCard score={score} />
