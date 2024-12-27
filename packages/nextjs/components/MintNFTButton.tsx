@@ -12,6 +12,7 @@ type MintNFTButtonProps = {
 };
 
 export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
+  console.log(score)
   const {
     data: hash,
     isPending,
