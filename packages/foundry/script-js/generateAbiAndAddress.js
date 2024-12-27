@@ -1,7 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Configuration
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ABI_DIR = path.join(__dirname, '../../nextjs/abis');
 const CONTRACT_NAME = 'LensScoreSBT';
 const DEPLOYED_ADDRESS = '0x6a7c2a820b0a94848df1c48a210a2fbf98abb648';
