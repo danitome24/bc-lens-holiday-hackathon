@@ -38,19 +38,48 @@ import {
 } from "@/hooks";
 import { useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
+import { publicClient } from "@/services/publicClient";
+import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
+  const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
 
+  /**
+   * Read data to generate score
+   */
   const account = useAccount();
   const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
-  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(walletAddress,tx);
+  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
+    walletAddress,
+    tx
+  );
   const { balanceWithDecimals } = useAccountBalance(walletAddress);
   const { accountAgeMonths } = useAccountAge(walletAddress);
+
+  /**
+   * Read NFT minted logs
+   */
+  const checkIfNFTisMinted = async () => {
+    const logs = await publicClient.getContractEvents({
+      address: contractAddress,
+      abi,
+      eventName: "LensScoreSBTMinted",
+      args: {
+        by: account.address,
+      },
+      fromBlock: BigInt(100237),
+    });
+
+    if (logs.length > 0) {
+      setHasMintedNft(true);
+    }
+  };
 
   useEffect(() => {
     if (account.address != undefined) {
       setWalletAddress(account.address as string);
+      checkIfNFTisMinted();
     }
   }, [account]);
 
@@ -77,13 +106,6 @@ const Dashboard: NextPage = () => {
     setWalletAddress(address);
   };
 
-  /*const result = useReadContract({
-    abi,
-    address: contractAddress,
-    functionName: "getMessage",
-  });
-  console.log(result)*/
-
   return (
     <div className="bg-base-100 text-primary-content min-h-screen">
       {/* Main Dashboard */}
@@ -99,8 +121,11 @@ const Dashboard: NextPage = () => {
             <ScoreCard normalizedScore={score.normalized} />
             <div className="flex flex-col justify-center justify-items-center">
               <LensProfileCard />
-              <SaveScoreButton walletAddress={walletAddress} score={score} />
-              <MintNFTButton walletAddress={walletAddress} score={score} />
+              { hasMintedNft ? (
+                <SaveScoreButton walletAddress={walletAddress} score={score} />
+              ) : (
+                <MintNFTButton walletAddress={walletAddress} score={score} />
+              )}
             </div>
 
             <ScoreAnalysisCard score={score} />
