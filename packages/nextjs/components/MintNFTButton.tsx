@@ -35,6 +35,10 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
     hash,
   });
 
+  if (walletAddress == "") {
+    return <></>;
+  }
+
   return (
     <>
       <button onClick={() => handleMintNFT()} className="btn btn-secondary">
