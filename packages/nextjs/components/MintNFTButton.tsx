@@ -1,6 +1,10 @@
 import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import {
+  useWriteContract,
+  useWaitForTransactionReceipt,
+  type BaseError,
+} from "wagmi";
 
 type MintNFTButtonProps = {
   walletAddress: string;
@@ -8,7 +12,12 @@ type MintNFTButtonProps = {
 };
 
 export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
-  const { data: hash, isPending, writeContractAsync } = useWriteContract();
+  const {
+    data: hash,
+    isPending,
+    writeContractAsync,
+    error: writeError,
+  } = useWriteContract();
 
   const handleMintNFT = async () => {
     await writeContractAsync({
@@ -18,20 +27,36 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
     });
   };
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    error: receiptError,
+  } = useWaitForTransactionReceipt({
+    hash,
+  });
 
   return (
-    <button onClick={() => handleMintNFT()} className="btn btn-secondary">
-      {isPending
-        ? "Minting..."
-        : isConfirming
-        ? "Confirming..."
-        : isConfirmed
-        ? "Minted!"
-        : "Mint NFT"}
-    </button>
+    <>
+      <button onClick={() => handleMintNFT()} className="btn btn-secondary">
+        {isPending
+          ? "Minting..."
+          : isConfirming
+          ? "Confirming..."
+          : isConfirmed
+          ? "Minted!"
+          : "Mint NFT"}
+      </button>
+      {writeError && (
+        <p className="text-red-500">
+          Error writing:{" "}
+          {(writeError as BaseError).shortMessage || writeError.message}
+        </p>
+      )}
+      {receiptError && (
+        <p className="text-red-500">
+          Transaction failed: {receiptError.message}
+        </p>
+      )}
+    </>
   );
 };
