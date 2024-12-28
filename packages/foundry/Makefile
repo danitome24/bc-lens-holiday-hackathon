@@ -6,7 +6,7 @@ ABI_DIR=abis
 ABI_FILE=$(ABI_DIR)/$(CONTRACT).abi.json
 
 build:
-	FOUNDRY_PROFILE=zksync forge build --zksync
+	FOUNDRY_PROFILE=zksync forge build -- --zksync
 
 create:
 	FOUNDRY_PROFILE=zksync forge create contracts/LensScoreSBT.sol:LensScoreSBT \

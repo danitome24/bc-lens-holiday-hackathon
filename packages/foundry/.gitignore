@@ -1,4 +1,6 @@
-out/
+out*/
 zkout/
-cache/
+cache*/
 node_modules/
+.env
+typechain-types/
