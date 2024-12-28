@@ -2,7 +2,7 @@
   "name": "@lens-social-score/foundry",
   "version": "0.0.1",
   "scripts": {
-    "deploy": "yarn hardhat deploy-zksync --script deploy.ts --network lensTestnet",
+    "deploy": "make deploy-and-generate-abis",
     "test": "forge test",
     "build": "make build",
     "format": "forge fmt --check",
