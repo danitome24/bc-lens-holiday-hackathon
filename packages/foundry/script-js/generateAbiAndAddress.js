@@ -1,24 +1,46 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs');
+const path = require('path');
+const { fileURLToPath } = require('url');
 
 // Configuration
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const ABI_DIR = path.join(__dirname, '../../nextjs/abis');
 const CONTRACT_NAME = 'LensScoreSBT';
-const DEPLOYED_ADDRESS = '0x6a7c2a820b0a94848df1c48a210a2fbf98abb648';
 
-// Read abi from json file
-const contractJsonPath = path.join(__dirname, `../out/${CONTRACT_NAME}.sol/${CONTRACT_NAME}.json`);
-const contractJson = JSON.parse(fs.readFileSync(contractJsonPath, 'utf8'));
+// Hardhat deployment artifacts directory
+const DEPLOYMENTS_DIR = path.join(__dirname, '../deployments-zk/lensTestnet/contracts/' + CONTRACT_NAME +'.sol');
 
-// Generate abi and address file
+// Read contract information from Hardhat deployment artifacts
+const getContractDeploymentInfo = () => {
+  try {
+    const networkFiles = fs.readdirSync(DEPLOYMENTS_DIR);
+    // Assuming you have only one network file, or adjust logic for multiple networks
+    const networkFile = networkFiles.find((file) => file.endsWith('.json'));
+    if (!networkFile) {
+      throw new Error('No deployment files found in the deployments directory');
+    }
+    const deploymentPath = path.join(DEPLOYMENTS_DIR, networkFile);
+    const deploymentData = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+    const contractInfo = deploymentData;
+    if (!contractInfo) {
+      throw new Error(`Contract "${CONTRACT_NAME}" not found in deployment data`);
+    }
+    return {
+      abi: contractInfo.abi,
+      address: contractInfo.entries[0].address,
+    };
+  } catch (error) {
+    console.error('Error reading deployment information:', error.message);
+    throw error;
+  }
+};
+
+// Generate ABI and address file
 const generateAbiAndAddress = () => {
   try {
+    const { abi, address } = getContractDeploymentInfo();
     const contractInfo = {
-      abi: contractJson.abi,
-      contractAddress: DEPLOYED_ADDRESS,
+      abi,
+      contractAddress: address,
     };
     const infoFilePath = path.join(ABI_DIR, `${CONTRACT_NAME}.info.js`);
     const exportContent = `
@@ -28,7 +50,7 @@ const generateAbiAndAddress = () => {
     fs.writeFileSync(infoFilePath, exportContent.trim());
     console.log(`Info stored at: ${infoFilePath}`);
   } catch (error) {
-    console.error("Error generating files:", error.message);
+    console.error('Error generating files:', error.message);
   }
 };
 
