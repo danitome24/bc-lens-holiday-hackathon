@@ -51,7 +51,7 @@ export const LensProfileCard = () => {
   );
 
   return (
-    <div className="flex flex-col h-auto py-8 justify-center">
+    <div className="flex flex-col h-auto pt-8 justify-center">
       <h3 className="card-title text-left text-base-content">Lens profile</h3>
       <div className="flex flex-col py-4 justify-center items-center">
         {profileImage}
