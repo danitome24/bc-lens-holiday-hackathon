@@ -1,5 +1,6 @@
 import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
+import { generateNFT } from "@/utils/generateNFT";
 import {
   useWriteContract,
   useWaitForTransactionReceipt,
@@ -12,7 +13,6 @@ type MintNFTButtonProps = {
 };
 
 export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
-  console.log(score)
   const {
     data: hash,
     isPending,
@@ -21,6 +21,8 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
   } = useWriteContract();
 
   const handleMintNFT = async () => {
+    const nftImage = generateNFT(score, walletAddress);
+
     await writeContractAsync({
       abi,
       address: contractAddress,
