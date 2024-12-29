@@ -5,7 +5,11 @@ import {
 } from "wagmi";
 import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
-import { generateIPFSFileFromNFT, generateNFT, uploadNFTToIPFS } from "@/utils/nftManagement";
+import {
+  generateIPFSFileFromNFT,
+  generateNFT,
+  uploadNFTToIPFS,
+} from "@/utils/nftManagement";
 
 type SaveScoreButtonProps = {
   walletAddress: string;

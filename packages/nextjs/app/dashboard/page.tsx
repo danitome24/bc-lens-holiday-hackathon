@@ -144,9 +144,9 @@ const Dashboard: NextPage = () => {
           </section>
 
           {/* Score History */}
-          <section>
+          {/* <section>
             <ScoreHistory />
-          </section>
+          </section> */}
         </div>
       </main>
     </div>
