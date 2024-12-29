@@ -41,16 +41,22 @@ contract LensScoreSBT is ERC721 {
      * @notice Mints a new token to the specified address.
      * @dev Being soul bound tokens, mint of more than one per address is not allowed.
      */
-    function mint() public {
+    function mint(Score calldata score) public {
         address by = msg.sender;
         if (balanceOf(by) > 0) {
             revert LensScoreSBT__AlreadyMinted(by);
         }
 
+        // Autoincrement NFT tokenId.
         s_tokenId++;
+
+        // Mint SBT NFT.
         _safeMint(by, s_tokenId);
         s_ownerToTokenId[by] = s_tokenId;
         emit LensScoreSBTMinted(by, s_tokenId);
+
+        // We set initial score.
+        _setScore(score.score, by);
     }
 
     /**
@@ -74,6 +80,7 @@ contract LensScoreSBT is ERC721 {
      */
     function _setScore(uint256 score, address to) private {
         s_ownerToScore[to] = Score(score, block.timestamp);
+        s_tokenIdToScore[s_ownerToTokenId[to]] = Score(score, block.timestamp);
         emit ScoreUpdated(to, score, block.timestamp);
     }
 
