@@ -3,13 +3,26 @@
 import { useReadContract } from "wagmi";
 import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type DisplayNFTProps = {
   walletAddress: string;
 };
 
+type TokenURI = {
+  name: string;
+  description: string;
+  image: string;
+  attributes?: Attribute[];
+};
+
+type Attribute = {
+  trait_type: string;
+  value: string | number;
+};
+
 export const DisplayNFT = ({ walletAddress }: DisplayNFTProps) => {
-  const [nftURI, setNftUri] = useState<string>("");
+  const [nftURI, setNftUri] = useState<TokenURI>();
 
   const { data: tokenId } = useReadContract({
     abi,
@@ -25,13 +38,26 @@ export const DisplayNFT = ({ walletAddress }: DisplayNFTProps) => {
   }) as { data: string };
 
   useEffect(() => {
-    if ((tokenUri) != undefined) {
+    if (tokenUri != undefined) {
       const base64NoHeaders = tokenUri.replace(/^data:.+;base64,/, "");
-      const jsonTokenUri = atob(base64NoHeaders);
+      const jsonTokenUri = JSON.parse(atob(base64NoHeaders));
 
-      setNftUri(jsonTokenUri);
+      setNftUri(jsonTokenUri as TokenURI);
     }
   }, [tokenUri]);
 
-  return <p className="text-wrap">{nftURI}</p>;
+  return (
+    <>
+      {nftURI ? (
+        <Image
+          alt="nft"
+          width={200}
+          height={350}
+          src={`https://aquamarine-accepted-haddock-468.mypinata.cloud/ipfs/${nftURI?.image}`}
+        />
+      ) : (
+        <></>
+      )}
+    </>
+  );
 };
