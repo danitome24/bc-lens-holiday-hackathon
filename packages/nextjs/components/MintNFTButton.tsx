@@ -1,9 +1,7 @@
-import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
 import {
   generateIPFSFileFromNFT,
   generateNFT,
-  getNFTFromIPFS,
   uploadNFTToIPFS,
 } from "@/utils/nftManagement";
 import {
@@ -21,7 +19,7 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
   const {
     data: hash,
     isPending,
-    writeContractAsync,
+    //writeContractAsync,
     error: writeError,
   } = useWriteContract();
 
