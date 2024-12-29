@@ -1,4 +1,4 @@
-.PHONE: build deploy
+.PHONE: build deploy extract-abi deploy-and-generate-abis tests
 
 OUT_DIR=zkout
 CONTRACT=LensScoreSBT
@@ -16,3 +16,6 @@ extract-abi:
 	@echo "ABI stored at $(ABI_FILE)"
 
 deploy-and-generate-abis: deploy extract-abi
+
+tests:
+	forge test

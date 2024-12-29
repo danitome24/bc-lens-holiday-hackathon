@@ -2,6 +2,7 @@
 pragma solidity 0.8.24;
 
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import { Base64 } from "@openzeppelin/contracts/utils/Base64.sol";
 
 /**
  * @title LensScoreSBT
@@ -29,8 +30,12 @@ contract LensScoreSBT is ERC721 {
     uint256 public s_tokenId = 0;
     mapping(address owner => uint256 tokenId) private s_ownerToTokenId;
     mapping(address owner => Score score) private s_ownerToScore;
+    mapping(uint256 tokenId => Score score) private s_tokenIdToScore;
+    string private s_imageUri;
 
-    constructor() ERC721(NAME, SYMBOL) { }
+    constructor(string memory imageUri) ERC721(NAME, SYMBOL) {
+        s_imageUri = imageUri;
+    }
 
     /**
      * @notice Mints a new token to the specified address.
@@ -70,6 +75,33 @@ contract LensScoreSBT is ERC721 {
     function _setScore(uint256 score, address to) private {
         s_ownerToScore[to] = Score(score, block.timestamp);
         emit ScoreUpdated(to, score, block.timestamp);
+    }
+
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        uint256 userScore = s_tokenIdToScore[tokenId].score;
+
+        return string(
+            abi.encodePacked(
+                _baseURI(),
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name": "',
+                            name(),
+                            '", "description": "A Soul Bound Token (SBT) that tracks a user score on the Lens network.", "attributes": [{"trait_type": "score", "value": ',
+                            userScore,
+                            '}], "image":',
+                            s_imageUri,
+                            '"}'
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "data:application/json;base64,";
     }
 
     /**

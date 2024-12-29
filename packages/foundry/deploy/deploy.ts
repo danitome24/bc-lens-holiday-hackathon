@@ -15,8 +15,9 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   const artifact = await deployer.loadArtifact("LensScoreSBT");
 
   // `initialNumber` is an argument for contract constructor.
-  const initialNumber = 42;
-  const greeterContract = await deployer.deploy(artifact);
+  const imageUri =
+    "https://aquamarine-accepted-haddock-468.mypinata.cloud/ipfs/bafkreifv4ufcrhebgygkvc45ke7uh4hga7bizb4ifzsv4psb2yrcsnhpm4";
+  const greeterContract = await deployer.deploy(artifact, [imageUri]);
 
   // Show the contract info.
   console.log(

@@ -10,7 +10,7 @@ contract LensScoreSBTTest is Test {
     address USER_TWO = address(0x2);
 
     function setUp() public {
-        lensScoreSBT = new LensScoreSBT();
+        lensScoreSBT = new LensScoreSBT("");
     }
 
     function testInitialState() public {
