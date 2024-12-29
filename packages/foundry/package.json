@@ -6,7 +6,7 @@
     "test": "forge test",
     "build": "make build",
     "format": "forge fmt --check",
-    "verify": "yarn hardhat verify 0x67916127592b8f37ABA0b7Fd5Fb4bae9968359E0 --network lensTestnet"
+    "verify": "yarn hardhat verify 0xBb94d169BA091D86e67F67451BFee28e6831cac4 --network lensTestnet"
   },
   "devDependencies": {
     "@matterlabs/hardhat-zksync": "^1.3.0",

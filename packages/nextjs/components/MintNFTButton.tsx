@@ -1,3 +1,4 @@
+import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
 import {
   generateIPFSFileFromNFT,
@@ -8,6 +9,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   type BaseError,
+  useReadContract,
 } from "wagmi";
 
 type MintNFTButtonProps = {
@@ -19,12 +21,19 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
   const {
     data: hash,
     isPending,
-    //writeContractAsync,
+    writeContractAsync,
     error: writeError,
   } = useWriteContract();
 
+  const result = useReadContract({
+    abi,
+    address: contractAddress,
+    functionName: "tokenURI",
+    args: [BigInt(1)],
+  });
+  console.log(result.data);
+
   const handleMintNFT = async () => {
-    score.total = 500;
     const nftInSVGFormat = generateNFT(score, walletAddress);
     const formData = generateIPFSFileFromNFT(nftInSVGFormat);
     const ipfsHash = await uploadNFTToIPFS(formData);
@@ -33,11 +42,12 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
 
     //const nftImage = await getNFTFromIPFS(ipfsHash);
 
-    /*await writeContractAsync({
+    await writeContractAsync({
       abi,
       address: contractAddress,
       functionName: "mint",
-    });*/
+      args: [{ score: BigInt(score.total), timestamp: BigInt(Date.now()) }],
+    });
   };
 
   const {

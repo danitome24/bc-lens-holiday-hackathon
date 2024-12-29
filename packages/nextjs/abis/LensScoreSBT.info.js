@@ -1,6 +1,12 @@
 export const abi = [
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "imageUri",
+        "type": "string"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
@@ -407,7 +413,25 @@ export const abi = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "score",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LensScoreSBT.Score",
+        "name": "score",
+        "type": "tuple"
+      }
+    ],
     "name": "mint",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -615,4 +639,4 @@ export const abi = [
     "type": "function"
   }
 ];
-      export const contractAddress = "0x67916127592b8f37ABA0b7Fd5Fb4bae9968359E0";
+      export const contractAddress = "0xe9949A30425454B4FaD1141fE7F4E4542279257f";

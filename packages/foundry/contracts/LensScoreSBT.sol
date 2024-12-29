@@ -3,6 +3,7 @@ pragma solidity 0.8.24;
 
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import { Base64 } from "@openzeppelin/contracts/utils/Base64.sol";
+import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
  * @title LensScoreSBT
@@ -96,8 +97,8 @@ contract LensScoreSBT is ERC721 {
                             '{"name": "',
                             name(),
                             '", "description": "A Soul Bound Token (SBT) that tracks a user score on the Lens network.", "attributes": [{"trait_type": "score", "value": ',
-                            userScore,
-                            '}], "image":',
+                            Strings.toString(userScore),
+                            '}], "image":"',
                             s_imageUri,
                             '"}'
                         )
