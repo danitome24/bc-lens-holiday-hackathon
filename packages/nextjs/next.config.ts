@@ -16,8 +16,16 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/lens/**",
         search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "aquamarine-accepted-haddock-468.mypinata.cloud",
+        port: "",
+        pathname: "/ipfs/**",
+        search: "",
       }
     ],
+    dangerouslyAllowSVG: true
   },
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };

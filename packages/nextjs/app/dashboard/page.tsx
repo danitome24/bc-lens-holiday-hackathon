@@ -20,6 +20,7 @@ ChartJS.register(
 );
 import {
   AccountSummary,
+  DisplayNFT,
   LensProfileCard,
   MetricsList,
   MintNFTButton,
@@ -121,8 +122,14 @@ const Dashboard: NextPage = () => {
             <ScoreCard normalizedScore={score.normalized} />
             <div className="flex flex-col justify-center justify-items-center">
               <LensProfileCard />
-              { hasMintedNft ? (
-                <SaveScoreButton walletAddress={walletAddress} score={score} />
+              {hasMintedNft ? (
+                <>
+                  <SaveScoreButton
+                    walletAddress={walletAddress}
+                    score={score}
+                  />
+                  <DisplayNFT walletAddress={walletAddress} />
+                </>
               ) : (
                 <MintNFTButton walletAddress={walletAddress} score={score} />
               )}

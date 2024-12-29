@@ -25,22 +25,10 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
     error: writeError,
   } = useWriteContract();
 
-  const result = useReadContract({
-    abi,
-    address: contractAddress,
-    functionName: "tokenURI",
-    args: [BigInt(1)],
-  });
-  console.log(result.data);
-
   const handleMintNFT = async () => {
     const nftInSVGFormat = generateNFT(score, walletAddress);
     const formData = generateIPFSFileFromNFT(nftInSVGFormat);
     const ipfsHash = await uploadNFTToIPFS(formData);
-
-    console.log(ipfsHash);
-
-    //const nftImage = await getNFTFromIPFS(ipfsHash);
 
     await writeContractAsync({
       abi,

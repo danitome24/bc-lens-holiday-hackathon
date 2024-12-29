@@ -394,6 +394,25 @@ export const abi = [
         "internalType": "address",
         "name": "owner",
         "type": "address"
+      }
+    ],
+    "name": "getTokenIdByAddress",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
       },
       {
         "internalType": "address",
@@ -639,4 +658,4 @@ export const abi = [
     "type": "function"
   }
 ];
-      export const contractAddress = "0xe9949A30425454B4FaD1141fE7F4E4542279257f";
+      export const contractAddress = "0x5caab4394fA25b53C78f04cB1a5884F9bf489eDC";

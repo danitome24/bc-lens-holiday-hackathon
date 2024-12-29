@@ -80,13 +80,19 @@ contract LensScoreSBT is ERC721 {
      * @param to Owner of the token.
      */
     function _setScore(uint256 score, address to) private {
-        s_ownerToScore[to] = Score(score, block.timestamp);
-        s_tokenIdToScore[s_ownerToTokenId[to]] = Score(score, block.timestamp);
+        Score memory newScore = Score(score, block.timestamp);
+
+        s_ownerToScore[to] = newScore;
+        s_tokenIdToScore[s_ownerToTokenId[to]] = newScore;
         emit ScoreUpdated(to, score, block.timestamp);
     }
 
+    /**
+     * Get token Uri given token Id.
+     * @param tokenId Token Id.
+     */
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        uint256 userScore = s_tokenIdToScore[tokenId].score;
+        Score memory userScore = s_tokenIdToScore[tokenId];
 
         return string(
             abi.encodePacked(
@@ -96,9 +102,18 @@ contract LensScoreSBT is ERC721 {
                         abi.encodePacked(
                             '{"name": "',
                             name(),
-                            '", "description": "A Soul Bound Token (SBT) that tracks a user score on the Lens network.", "attributes": [{"trait_type": "score", "value": ',
-                            Strings.toString(userScore),
-                            '}], "image":"',
+                            '", "description": "A Soul Bound Token (SBT) that tracks a user score on the Lens network.", ',
+                            '"attributes": [',
+                            '{"trait_type": "score", "value": ',
+                            Strings.toString(userScore.score),
+                            "},",
+                            '{"trait_type": "tokenId", "value": ',
+                            Strings.toString(tokenId),
+                            "},",
+                            '{"trait_type": "lastUpdateOn", "value": ',
+                            Strings.toString(userScore.timestamp),
+                            "}",
+                            '], "image":"',
                             s_imageUri,
                             '"}'
                         )
@@ -118,6 +133,14 @@ contract LensScoreSBT is ERC721 {
      */
     function getScoreByAddress(address owner) public view returns (Score memory) {
         return s_ownerToScore[owner];
+    }
+
+    /**
+     * Get tokenId by owner address
+     * @param owner Owner's address.
+     */
+    function getTokenIdByAddress(address owner) public view returns (uint256) {
+        return s_ownerToTokenId[owner];
     }
 
     /**
