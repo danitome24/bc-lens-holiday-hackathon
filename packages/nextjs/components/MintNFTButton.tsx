@@ -9,7 +9,6 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   type BaseError,
-  useReadContract,
 } from "wagmi";
 
 type MintNFTButtonProps = {
@@ -29,6 +28,7 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
     const nftInSVGFormat = generateNFT(score, walletAddress);
     const formData = generateIPFSFileFromNFT(nftInSVGFormat);
     const ipfsHash = await uploadNFTToIPFS(formData);
+    console.log(ipfsHash);
 
     await writeContractAsync({
       abi,
