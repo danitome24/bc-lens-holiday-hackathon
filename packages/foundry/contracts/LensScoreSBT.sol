@@ -30,8 +30,8 @@ contract LensScoreSBT is ERC721 {
      */
     uint256 public s_tokenId = 0;
     mapping(address owner => uint256 tokenId) private s_ownerToTokenId;
-    mapping(address owner => Score score) private s_ownerToScore;
     mapping(uint256 tokenId => Score score) private s_tokenIdToScore;
+    mapping(uint256 tokenId => string imageUri) private s_tokenIdToImageUri;
     string private s_imageUri;
 
     constructor(string memory imageUri) ERC721(NAME, SYMBOL) {
@@ -42,7 +42,7 @@ contract LensScoreSBT is ERC721 {
      * @notice Mints a new token to the specified address.
      * @dev Being soul bound tokens, mint of more than one per address is not allowed.
      */
-    function mint(Score calldata score) public {
+    function mint(Score calldata score, string calldata imageUri) public {
         address by = msg.sender;
         if (balanceOf(by) > 0) {
             revert LensScoreSBT__AlreadyMinted(by);
@@ -57,34 +57,46 @@ contract LensScoreSBT is ERC721 {
         emit LensScoreSBTMinted(by, s_tokenId);
 
         // We set initial score.
-        _setScore(score.score, by);
+        _setScore(score.score, s_tokenId);
+        _setImageUri(imageUri, s_tokenId);
     }
 
     /**
      * Update Lens Score for the owner of the token.
      * @param score The new score to be updated.
      */
-    function updateScore(uint256 score) public {
+    function updateScore(uint256 score, string calldata imageUri) public {
         if (balanceOf(msg.sender) == 0) {
             revert LensScoreSBT__NoSBTMintedYet(msg.sender);
         }
-        if (score <= s_ownerToScore[msg.sender].score) {
-            revert LensScoreSBT__LessOrSameScore(s_ownerToScore[msg.sender].score, score);
+        uint256 tokenId = s_ownerToTokenId[msg.sender];
+        Score memory userScore = s_tokenIdToScore[tokenId];
+        if (score <= userScore.score) {
+            revert LensScoreSBT__LessOrSameScore(userScore.score, score);
         }
-        _setScore(score, msg.sender);
+        _setScore(score, tokenId);
+        _setImageUri(imageUri, s_ownerToTokenId[msg.sender]);
+        emit ScoreUpdated(msg.sender, score, block.timestamp);
     }
 
     /**
      * Set the score of the owner of the token.
      * @param score Score to be set.
-     * @param to Owner of the token.
+     * @param tokenId Token id.
      */
-    function _setScore(uint256 score, address to) private {
+    function _setScore(uint256 score, uint256 tokenId) private {
         Score memory newScore = Score(score, block.timestamp);
 
-        s_ownerToScore[to] = newScore;
-        s_tokenIdToScore[s_ownerToTokenId[to]] = newScore;
-        emit ScoreUpdated(to, score, block.timestamp);
+        s_tokenIdToScore[tokenId] = newScore;
+    }
+
+    /**
+     * Set imageUri for given token.
+     * @param _imageUri Image uri.
+     * @param tokenId Token id.
+     */
+    function _setImageUri(string calldata _imageUri, uint256 tokenId) private {
+        s_tokenIdToImageUri[tokenId] = _imageUri;
     }
 
     /**
@@ -93,6 +105,7 @@ contract LensScoreSBT is ERC721 {
      */
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         Score memory userScore = s_tokenIdToScore[tokenId];
+        string memory userImageUri = s_tokenIdToImageUri[tokenId];
 
         return string(
             abi.encodePacked(
@@ -114,7 +127,7 @@ contract LensScoreSBT is ERC721 {
                             Strings.toString(userScore.timestamp),
                             "}",
                             '], "image":"',
-                            s_imageUri,
+                            userImageUri,
                             '"}'
                         )
                     )
@@ -132,7 +145,8 @@ contract LensScoreSBT is ERC721 {
      * @param owner The address of the owner.
      */
     function getScoreByAddress(address owner) public view returns (Score memory) {
-        return s_ownerToScore[owner];
+        uint256 tokenId = s_ownerToTokenId[owner];
+        return s_tokenIdToScore[tokenId];
     }
 
     /**

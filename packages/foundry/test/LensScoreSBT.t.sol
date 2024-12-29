@@ -24,9 +24,10 @@ contract LensScoreSBTTest is Test {
     function testMint() public {
         uint256 tokenIdMinted = 1;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(500, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         assertEq(lensScoreSBT.balanceOf(USER_ONE), 1);
         assertEq(lensScoreSBT.s_tokenId(), tokenIdMinted);
         assertEq(lensScoreSBT.ownerOf(tokenIdMinted), USER_ONE);
@@ -35,20 +36,22 @@ contract LensScoreSBTTest is Test {
 
     function testRevertsIfSBTAlreadyMinted() public {
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(500, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
         vm.expectRevert(abi.encodeWithSelector(LensScoreSBT.LensScoreSBT__AlreadyMinted.selector, USER_ONE));
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
     }
 
     function testRevertsIfTriesToTransferSBT() public {
         uint256 tokenIdMinted = 1;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(500, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
         vm.expectRevert(LensScoreSBT.LensScoreSBT__SoulBoundToken.selector);
         lensScoreSBT.transferFrom(USER_ONE, USER_TWO, tokenIdMinted);
@@ -57,9 +60,10 @@ contract LensScoreSBTTest is Test {
     function testRevertsIfTriesToSafeTransferSBT() public {
         uint256 tokenIdMinted = 1;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(500, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
         vm.expectRevert(LensScoreSBT.LensScoreSBT__SoulBoundToken.selector);
         lensScoreSBT.safeTransferFrom(USER_ONE, USER_TWO, tokenIdMinted);
@@ -68,9 +72,10 @@ contract LensScoreSBTTest is Test {
     function testRevertsIfTriesToSafeTransferWithDataSBT() public {
         uint256 tokenIdMinted = 1;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(500, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
         vm.expectRevert(LensScoreSBT.LensScoreSBT__SoulBoundToken.selector);
         lensScoreSBT.safeTransferFrom(USER_ONE, USER_TWO, tokenIdMinted, "");
@@ -80,36 +85,39 @@ contract LensScoreSBTTest is Test {
         uint256 initialScoreValue = 500;
         uint256 newScoreValue = 600;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(initialScoreValue, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
-        lensScoreSBT.updateScore(newScoreValue);
+        lensScoreSBT.updateScore(newScoreValue, imageUri);
         assertEq(lensScoreSBT.getScoreByAddress(USER_ONE).score, newScoreValue);
     }
 
     function testRevertsTryingToUpdateNoMintedSBT() public {
         uint256 score = 500;
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
         vm.expectRevert(abi.encodeWithSelector(LensScoreSBT.LensScoreSBT__NoSBTMintedYet.selector, USER_ONE));
-        lensScoreSBT.updateScore(score);
+        lensScoreSBT.updateScore(score, imageUri);
     }
 
     function testRevertsTryingToUpdateLessOrEqualScore() public {
         uint256 initialScoreValue = 500;
         uint256 newScoreValue = 400;
         LensScoreSBT.Score memory initialScore = LensScoreSBT.Score(initialScoreValue, block.timestamp);
+        string memory imageUri = "ipfs://exampleUri";
 
         vm.prank(USER_ONE);
-        lensScoreSBT.mint(initialScore);
+        lensScoreSBT.mint(initialScore, imageUri);
         vm.prank(USER_ONE);
         vm.expectRevert(
             abi.encodeWithSelector(
                 LensScoreSBT.LensScoreSBT__LessOrSameScore.selector, initialScoreValue, initialScoreValue
             )
         );
-        lensScoreSBT.updateScore(initialScoreValue);
+        lensScoreSBT.updateScore(initialScoreValue, imageUri);
 
         vm.prank(USER_ONE);
         vm.expectRevert(
@@ -117,6 +125,6 @@ contract LensScoreSBTTest is Test {
                 LensScoreSBT.LensScoreSBT__LessOrSameScore.selector, initialScoreValue, newScoreValue
             )
         );
-        lensScoreSBT.updateScore(newScoreValue);
+        lensScoreSBT.updateScore(newScoreValue, imageUri);
     }
 }
