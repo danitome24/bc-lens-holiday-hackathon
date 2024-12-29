@@ -5,6 +5,7 @@ import {
 } from "wagmi";
 import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
+import { generateIPFSFileFromNFT, generateNFT, uploadNFTToIPFS } from "@/utils/nftManagement";
 
 type SaveScoreButtonProps = {
   walletAddress: string;
@@ -34,13 +35,17 @@ export const SaveScoreButton = ({
     return null;
   }
 
-  const handleSaveScore = async (scoreToSave: number) => {
+  const handleSaveScore = async (score: Score, walletAddress: string) => {
+    const nftInSVGFormat = generateNFT(score, walletAddress);
+    const formData = generateIPFSFileFromNFT(nftInSVGFormat);
+    const ipfsHash = await uploadNFTToIPFS(formData);
+
     try {
       await writeContractAsync({
         abi: abi,
         address: contractAddress,
         functionName: "updateScore",
-        args: [BigInt(scoreToSave)],
+        args: [BigInt(score.total), ipfsHash],
       });
     } catch (e) {
       console.error("Write Error:", e);
@@ -51,7 +56,7 @@ export const SaveScoreButton = ({
     <div className="my-4">
       <button
         className="btn btn-secondary w-full"
-        onClick={() => handleSaveScore(score.normalized)}
+        onClick={() => handleSaveScore(score, walletAddress)}
         disabled={isPending || isConfirming}
       >
         {isPending

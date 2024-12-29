@@ -449,6 +449,11 @@ export const abi = [
         "internalType": "struct LensScoreSBT.Score",
         "name": "score",
         "type": "tuple"
+      },
+      {
+        "internalType": "string",
+        "name": "imageUri",
+        "type": "string"
       }
     ],
     "name": "mint",
@@ -650,6 +655,11 @@ export const abi = [
         "internalType": "uint256",
         "name": "score",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "imageUri",
+        "type": "string"
       }
     ],
     "name": "updateScore",
@@ -658,4 +668,4 @@ export const abi = [
     "type": "function"
   }
 ];
-      export const contractAddress = "0x5caab4394fA25b53C78f04cB1a5884F9bf489eDC";
+      export const contractAddress = "0x14eb8C5004683D3d67B1bdd9afED218Bb796c3d7";

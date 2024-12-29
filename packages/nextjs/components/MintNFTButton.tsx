@@ -28,13 +28,12 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
     const nftInSVGFormat = generateNFT(score, walletAddress);
     const formData = generateIPFSFileFromNFT(nftInSVGFormat);
     const ipfsHash = await uploadNFTToIPFS(formData);
-    console.log(ipfsHash);
 
     await writeContractAsync({
       abi,
       address: contractAddress,
       functionName: "mint",
-      args: [{ score: BigInt(score.total), timestamp: BigInt(Date.now()) }],
+      args: [{ score: BigInt(score.total), timestamp: BigInt(Date.now()) }, ipfsHash],
     });
   };
 
