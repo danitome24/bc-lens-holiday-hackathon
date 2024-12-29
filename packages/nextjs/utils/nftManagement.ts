@@ -2,7 +2,6 @@ import { Score } from "@/types";
 
 export const generateNFT = (score: Score, walletAddress: string) => {
   return `
-  <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="600" viewBox="0 0 500 600">
   <!-- Background with gradient -->
   <defs>
@@ -28,7 +27,10 @@ export const generateNFT = (score: Score, walletAddress: string) => {
 
   <!-- User Info -->
   <text x="50%" y="120" text-anchor="middle" font-size="20" font-family="Arial, sans-serif" fill="#FFF">
-    Owner: <tspan font-weight="bold">${walletAddress.slice(0, 5)}...${walletAddress.slice(-5)}</tspan>
+    Owner: <tspan font-weight="bold">${walletAddress.slice(
+      0,
+      5
+    )}...${walletAddress.slice(-5)}</tspan>
   </text>
 
   <!-- Circular Score Indicator -->
@@ -71,4 +73,34 @@ export const generateNFT = (score: Score, walletAddress: string) => {
   </text>
 </svg>
   `;
+};
+
+export const generateIPFSFileFromNFT = (nftInSVGFormat: string) => {
+  const form = new FormData();
+  const blob = new Blob([Buffer.from(nftInSVGFormat)], {
+    type: "image/svg+xml",
+  });
+  form.append("file", blob, "score.svg");
+
+  return form;
+};
+
+export const uploadNFTToIPFS = async (formData: FormData) => {
+  const uploadRequest = await fetch("/api/files", {
+    method: "POST",
+    body: formData,
+  });
+  const ipfsUrl = await uploadRequest.json();
+
+  return ipfsUrl;
+};
+
+export const getNFTFromIPFS = async (ipfsHash: string) => {
+  const nft = await fetch(
+    `https://aquamarine-accepted-haddock-468.mypinata.cloud/ipfs/${ipfsHash}`,
+    {
+      method: "GET",
+    }
+  );
+  return nft.json();
 };

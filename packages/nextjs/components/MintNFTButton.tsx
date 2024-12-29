@@ -1,6 +1,11 @@
 import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Score } from "@/types";
-import { generateNFT } from "@/utils/generateNFT";
+import {
+  generateIPFSFileFromNFT,
+  generateNFT,
+  getNFTFromIPFS,
+  uploadNFTToIPFS,
+} from "@/utils/nftManagement";
 import {
   useWriteContract,
   useWaitForTransactionReceipt,
@@ -21,13 +26,20 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
   } = useWriteContract();
 
   const handleMintNFT = async () => {
-    const nftImage = generateNFT(score, walletAddress);
+    score.total = 500;
+    const nftInSVGFormat = generateNFT(score, walletAddress);
+    const formData = generateIPFSFileFromNFT(nftInSVGFormat);
+    const ipfsHash = await uploadNFTToIPFS(formData);
 
-    await writeContractAsync({
+    console.log(ipfsHash);
+
+    //const nftImage = await getNFTFromIPFS(ipfsHash);
+
+    /*await writeContractAsync({
       abi,
       address: contractAddress,
       functionName: "mint",
-    });
+    });*/
   };
 
   const {
