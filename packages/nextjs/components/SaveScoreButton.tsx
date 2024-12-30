@@ -40,6 +40,13 @@ export const SaveScoreButton = ({
     hash,
   });
 
+  useTransactionNotification(
+    isConfirming || isPending || isGeneratingNFT,
+    isConfirmed,
+    writeError != undefined || receiptError != null,
+    (writeError as BaseError)?.shortMessage || receiptError?.message
+  );
+
   if (walletAddress === "") {
     return null;
   }
@@ -62,13 +69,6 @@ export const SaveScoreButton = ({
       console.error("Write Error:", e);
     }
   };
-
-  useTransactionNotification(
-    isConfirming || isPending || isGeneratingNFT,
-    isConfirmed,
-    writeError != undefined || receiptError != null,
-    (writeError as BaseError)?.shortMessage || receiptError?.message
-  );
 
   return (
     <div className="my-4">
