@@ -1,12 +1,19 @@
+"use client"
+
+import { ConnectKitButton } from "connectkit";
 import { NextPage } from "next";
+import Link from "next/link";
+import { useAccount } from "wagmi";
 
 const Home: NextPage = () => {
+  const account = useAccount();
+
   return (
     <>
       <header className="bg-gradient-to-b from-base-300 to-base-100 py-6 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-3xl font-bold text-primary">LensSocialScore</h1>
-          <button className="btn btn-accent">Connect Wallet</button>
+          <ConnectKitButton />
         </div>
       </header>
       <section className="relative py-20 bg-gray-900 text-white overflow-hidden">
@@ -23,12 +30,21 @@ const Home: NextPage = () => {
             Unlock insights into your Lens profile and dominate the leaderboard.
             Connect your wallet to begin.
           </p>
-          <button
-            className="btn btn-primary btn-lg px-8"
-            id="connectWalletButton"
-          >
-            Connect Wallet Now
-          </button>
+          {account.address != undefined ? (
+            <Link href={"/dashboard"} className="btn btn-success btn-lg px-8">
+              See your score
+            </Link>
+          ) : (
+            <ConnectKitButton.Custom>
+              {({ show }) => {
+                return (
+                  <button onClick={show} className="btn btn-primary btn-lg">
+                    Connect Wallet
+                  </button>
+                );
+              }}
+            </ConnectKitButton.Custom>
+          )}
         </div>
 
         <div
@@ -124,7 +140,21 @@ const Home: NextPage = () => {
             Connect your wallet to see your impact, mint your SBT, and start
             climbing the leaderboard.
           </p>
-          <button className="btn btn-success btn-lg">Connect Wallet Now</button>
+          {account.address != undefined ? (
+            <Link href={"/dashboard"} className="btn btn-success btn-lg">
+              See your score
+            </Link>
+          ) : (
+            <ConnectKitButton.Custom>
+              {({ show }) => {
+                return (
+                  <button onClick={show} className="btn btn-primary btn-lg">
+                    Connect Wallet
+                  </button>
+                );
+              }}
+            </ConnectKitButton.Custom>
+          )}
         </div>
       </section>
       <footer className="py-6 bg-base-100">
