@@ -1,27 +1,11 @@
 "use client";
 
 import {
-  Chart as ChartJS,
-  RadarController,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { NextPage } from "next";
-ChartJS.register(
-  RadarController,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend
-);
-import {
   AccountSummary,
+  DashboardItemsCard,
   DisplayNFT,
   LensProfileCard,
+  LensScoreCard,
   MetricsList,
   MintNFTButton,
   SaveScoreButton,
@@ -41,6 +25,8 @@ import { useAccount } from "wagmi";
 import { publicClient } from "@/services/publicClient";
 import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Toaster } from "react-hot-toast";
+import Link from "next/link";
+import { NextPage } from "next";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -108,48 +94,19 @@ const Dashboard: NextPage = () => {
   };
 
   return (
-    <div className="bg-base-100 text-primary-content min-h-screen">
+    <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[800px]">
       <Toaster />
-      {/* Main Dashboard */}
-      <main className="p-4 md:p-8">
-        <div className="container mx-auto">
-          {/* Wallet Search */}
-          <WalletSearch onChange={onWalletAddressChange} />
+      <LensScoreCard score={score} />
+      <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 w-full max-w-4xl">
+        <DashboardItemsCard title="Wallet Address" content="0x1234...abcde" />
+        <DashboardItemsCard title="Lens Profile" content="@LensHandle" />
+      </div>
 
-          {/* Account summary stats */}
-          <AccountSummary walletAddress={walletAddress} />
-
-          <section className="flex flex-col md:flex-row flex-grow justify-around text-base-content my-6 space-y-6 md:space-y-0 md:space-x-6">
-            <ScoreCard normalizedScore={score.normalized} />
-            <div className="flex flex-col justify-center justify-items-center">
-              <LensProfileCard />
-              {hasMintedNft ? (
-                <>
-                  <SaveScoreButton
-                    walletAddress={walletAddress}
-                    score={score}
-                  />
-                  <DisplayNFT walletAddress={walletAddress} />
-                </>
-              ) : (
-                <MintNFTButton walletAddress={walletAddress} score={score} />
-              )}
-            </div>
-
-            <ScoreAnalysisCard score={score} />
-          </section>
-
-          {/* Metrics Breakdown */}
-          <section>
-            <MetricsList score={score} />
-          </section>
-
-          {/* Score History */}
-          {/* <section>
-            <ScoreHistory />
-          </section> */}
-        </div>
-      </main>
+      <div className="mt-12">
+        <Link href={"/dashboard/details"} className="btn btn-link">
+          See Score Details
+        </Link>
+      </div>
     </div>
   );
 };

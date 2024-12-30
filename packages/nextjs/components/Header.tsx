@@ -41,8 +41,18 @@ export const Header = () => {
             </li>
             <li>
               <Link
-                href="/leaderboard"
-                className={currentPath === "/leaderboard" ? "active" : ""}
+                href="/dashboard/details"
+                className={currentPath === "/dashboard/details" ? "active" : ""}
+              >
+                Score
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/dashboard/leaderboard"
+                className={
+                  currentPath === "/dashboard/leaderboard" ? "active" : ""
+                }
               >
                 Leaderboard
               </Link>
@@ -60,8 +70,18 @@ export const Header = () => {
           </li>
           <li>
             <Link
-              href="/leaderboard"
-              className={currentPath === "/leaderboard" ? "active" : ""}
+              href="/dashboard/details"
+              className={currentPath === "/dashboard/details" ? "active" : ""}
+            >
+              Score
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/dashboard/leaderboard"
+              className={
+                currentPath === "/dashboard/leaderboard" ? "active" : ""
+              }
             >
               Leaderboard
             </Link>

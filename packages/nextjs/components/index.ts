@@ -18,3 +18,5 @@ export * from "./DateSVG";
 export * from "./MoneySVG";
 export * from "./MintNFTButton";
 export * from "./DisplayNFT";
+export * from "./LensScoreCard";
+export * from "./DashboardItemsCard";
