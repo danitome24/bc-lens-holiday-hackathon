@@ -1,4 +1,7 @@
+"use client";
+
 import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
+import { useTransactionNotification } from "@/hooks";
 import { Score } from "@/types";
 import {
   generateIPFSFileFromNFT,
@@ -33,7 +36,10 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
       abi,
       address: contractAddress,
       functionName: "mint",
-      args: [{ score: BigInt(score.total), timestamp: BigInt(Date.now()) }, ipfsHash],
+      args: [
+        { score: BigInt(score.total), timestamp: BigInt(Date.now()) },
+        ipfsHash,
+      ],
     });
   };
 
@@ -44,6 +50,13 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
   } = useWaitForTransactionReceipt({
     hash,
   });
+
+  useTransactionNotification(
+    isConfirming || isPending,
+    isConfirmed,
+    writeError != undefined || receiptError != null,
+    (writeError as BaseError)?.shortMessage || receiptError?.message
+  );
 
   if (walletAddress == "") {
     return <></>;

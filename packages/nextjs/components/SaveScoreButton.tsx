@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useWaitForTransactionReceipt,
   useWriteContract,
@@ -10,6 +12,8 @@ import {
   generateNFT,
   uploadNFTToIPFS,
 } from "@/utils/nftManagement";
+import { useTransactionNotification } from "@/hooks";
+import { useState } from "react";
 
 type SaveScoreButtonProps = {
   walletAddress: string;
@@ -20,6 +24,7 @@ export const SaveScoreButton = ({
   walletAddress,
   score,
 }: SaveScoreButtonProps) => {
+  const [isGeneratingNFT, setIsGeneratingNFT] = useState(false);
   const {
     data: hash,
     error: writeError,
@@ -40,9 +45,11 @@ export const SaveScoreButton = ({
   }
 
   const handleSaveScore = async (score: Score, walletAddress: string) => {
+    setIsGeneratingNFT(true);
     const nftInSVGFormat = generateNFT(score, walletAddress);
     const formData = generateIPFSFileFromNFT(nftInSVGFormat);
     const ipfsHash = await uploadNFTToIPFS(formData);
+    setIsGeneratingNFT(false);
 
     try {
       await writeContractAsync({
@@ -55,6 +62,13 @@ export const SaveScoreButton = ({
       console.error("Write Error:", e);
     }
   };
+
+  useTransactionNotification(
+    isConfirming || isPending || isGeneratingNFT,
+    isConfirmed,
+    writeError != undefined || receiptError != null,
+    (writeError as BaseError)?.shortMessage || receiptError?.message
+  );
 
   return (
     <div className="my-4">
@@ -71,17 +85,6 @@ export const SaveScoreButton = ({
           ? "Saved!"
           : "Save Score"}
       </button>
-      {writeError && (
-        <p className="text-red-500">
-          Error writing:{" "}
-          {(writeError as BaseError).shortMessage || writeError.message}
-        </p>
-      )}
-      {receiptError && (
-        <p className="text-red-500">
-          Transaction failed: {receiptError.message}
-        </p>
-      )}
     </div>
   );
 };

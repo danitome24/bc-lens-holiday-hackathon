@@ -36,10 +36,11 @@ import {
   useFetchTransactions,
   useFetchUniqueProtocols,
 } from "@/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useAccount } from "wagmi";
 import { publicClient } from "@/services/publicClient";
 import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
+import { Toaster } from "react-hot-toast";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -60,7 +61,7 @@ const Dashboard: NextPage = () => {
   /**
    * Read NFT minted logs
    */
-  const checkIfNFTisMinted = async () => {
+  const checkIfNFTisMinted = useCallback(async () => {
     const logs = await publicClient.getContractEvents({
       address: contractAddress,
       abi,
@@ -74,14 +75,14 @@ const Dashboard: NextPage = () => {
     if (logs.length > 0) {
       setHasMintedNft(true);
     }
-  };
+  }, [account.address]);
 
   useEffect(() => {
     if (account.address != undefined) {
       setWalletAddress(account.address as string);
       checkIfNFTisMinted();
     }
-  }, [account]);
+  }, [account.address, checkIfNFTisMinted]);
 
   const userProfile = useMemo(
     () => ({
@@ -108,6 +109,7 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className="bg-base-100 text-primary-content min-h-screen">
+      <Toaster />
       {/* Main Dashboard */}
       <main className="p-4 md:p-8">
         <div className="container mx-auto">
