@@ -19,7 +19,7 @@ contract LensScoreSBT is ERC721 {
     event LensScoreSBTMinted(address indexed by, uint256 tokenId);
 
     struct Score {
-        uint256 score; // from 0 to 1000 being 0
+        uint256 score;
         uint256 timestamp;
     }
 
