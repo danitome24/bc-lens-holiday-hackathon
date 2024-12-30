@@ -27,7 +27,6 @@ import {
   SaveScoreButton,
   ScoreAnalysisCard,
   ScoreCard,
-  ScoreHistory,
   WalletSearch,
 } from "@/components";
 import {
