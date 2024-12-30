@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ConnectKitButton } from "connectkit";
 import { NextPage } from "next";
@@ -35,15 +35,17 @@ const Home: NextPage = () => {
               See your score
             </Link>
           ) : (
-            <ConnectKitButton.Custom>
-              {({ show }) => {
-                return (
-                  <button onClick={show} className="btn btn-primary btn-lg">
-                    Connect Wallet
-                  </button>
-                );
-              }}
-            </ConnectKitButton.Custom>
+            <>
+              <ConnectKitButton.Custom>
+                {({ show }) => {
+                  return (
+                    <button onClick={show} className="btn btn-primary btn-lg">
+                      Connect Wallet
+                    </button>
+                  );
+                }}
+              </ConnectKitButton.Custom>
+            </>
           )}
         </div>
 
@@ -145,15 +147,17 @@ const Home: NextPage = () => {
               See your score
             </Link>
           ) : (
-            <ConnectKitButton.Custom>
-              {({ show }) => {
-                return (
-                  <button onClick={show} className="btn btn-primary btn-lg">
-                    Connect Wallet
-                  </button>
-                );
-              }}
-            </ConnectKitButton.Custom>
+            <>
+              <ConnectKitButton.Custom>
+                {({ show }) => {
+                  return (
+                    <button onClick={show} className="btn btn-primary btn-lg">
+                      Connect Wallet
+                    </button>
+                  );
+                }}
+              </ConnectKitButton.Custom>
+            </>
           )}
         </div>
       </section>
