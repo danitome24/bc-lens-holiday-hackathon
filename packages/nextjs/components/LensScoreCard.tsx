@@ -1,5 +1,6 @@
 "use client";
 
+import { useFetchSBTMinted } from "@/hooks";
 import { Score } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -10,6 +11,8 @@ type LensScoreCardProps = {
 export const LensScoreCard = ({ score }: LensScoreCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [displayScore, setDisplayScore] = useState(0);
+
+  const { isMinted } = useFetchSBTMinted();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -45,21 +48,29 @@ export const LensScoreCard = ({ score }: LensScoreCardProps) => {
         <p className="text-7xl text-accent font-bold my-4">{displayScore}</p>
       )}
       <p className="text-gray-400 mb-6">
-        You are in the top <span className="font-bold">15%</span> of users.
+        You are in the top <span className="font-bold">X%</span> of users.
       </p>
 
-      <div id="mint-status" className="my-6">
-        <span
-          className="badge badge-success badge-lg text-lg font-bold"
-          id="nft-status"
-        >
-          NFT Minted
-        </span>
-      </div>
+      {isMinted ? (
+        <div id="mint-status" className="my-6">
+          <span
+            className="badge badge-success badge-lg text-lg font-bold"
+            id="nft-status"
+          >
+            NFT Minted
+          </span>
+        </div>
+      ) : (
+        <></>
+      )}
 
-      <button className="btn btn-secondary w-full">
-        Mint your LensScore SBT
-      </button>
+      {isMinted ? (
+        <button className="btn btn-secondary w-full">See your NFT</button>
+      ) : (
+        <button className="btn btn-secondary w-full">
+          Mint your LensScore SBT
+        </button>
+      )}
     </div>
   );
 };

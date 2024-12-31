@@ -1,11 +1,8 @@
 "use client";
 
 import { DashboardItemsCard, LensScoreCard } from "@/components";
-
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-// import { publicClient } from "@/services/publicClient";
-// import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { NextPage } from "next";
@@ -14,7 +11,6 @@ import { useFetchLensProfile } from "@/hooks";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
-  // const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
 
   /**
    * Read data to generate score
@@ -22,32 +18,6 @@ const Dashboard: NextPage = () => {
   const account = useAccount();
   const score = useFetchUserScore(walletAddress);
   const { handle, image } = useFetchLensProfile(walletAddress);
-
-  // /**
-  //  * Read NFT minted logs
-  //  */
-  // const checkIfNFTisMinted = useCallback(async () => {
-  //   const logs = await publicClient.getContractEvents({
-  //     address: contractAddress,
-  //     abi,
-  //     eventName: "LensScoreSBTMinted",
-  //     args: {
-  //       by: account.address,
-  //     },
-  //     fromBlock: BigInt(100237),
-  //   });
-
-  //   if (logs.length > 0) {
-  //     setHasMintedNft(true);
-  //   }
-  // }, [account.address]);
-
-  // useEffect(() => {
-  //   if (account.address != undefined) {
-  //     setWalletAddress(account.address as string);
-  //     checkIfNFTisMinted();
-  //   }
-  // }, [account.address, checkIfNFTisMinted]);
 
   useEffect(() => {
     if (account.address) {

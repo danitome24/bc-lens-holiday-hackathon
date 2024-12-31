@@ -5,3 +5,4 @@ export * from "./useFetchUniqueProtocols";
 export * from "./useAccountAge";
 export * from "./useTransactionNotification";
 export * from "./useFetchLensProfile";
+export * from "./useFetchSBTMinted";
