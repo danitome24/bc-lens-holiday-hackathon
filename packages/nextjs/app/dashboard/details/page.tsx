@@ -2,20 +2,17 @@
 
 import { MetricsList, ScoreAnalysisCard } from "@/components";
 import { ScoreRadarChart } from "@/components/ScoreRadarChart";
+import { useAccountAge, useAccountBalance, useFetchUserScore } from "@/hooks";
 import { Score } from "@/types";
 import { NextPage } from "next";
 import Link from "next/link";
+import { useAccount } from "wagmi";
 
 const DetailsPage: NextPage = () => {
-  const score: Score = {
-    total: 80,
-    normalized: 31,
-    txScore: 20,
-    accAgeScore: 0,
-    protocolsScore: 50,
-    monthsInteractingScore: 5,
-    grassBalanceScore: 5,
-  };
+  const account = useAccount();
+  const score = useFetchUserScore(account.address || "");
+  const { activeTime } = useAccountAge(account.address || "");
+  const { balanceWithDecimals } = useAccountBalance(account.address || "");
 
   return (
     <div className="score-detail-container bg-base-200 min-h-screen p-6 text-gray-100 flex flex-col items-center">
@@ -45,12 +42,12 @@ const DetailsPage: NextPage = () => {
             <h2 className="text-2xl font-bold text-secondary mb-4">
               Active Time
             </h2>
-            <p className="text-lg text-gray-300">1 year, 3 months</p>
+            <p className="text-lg text-gray-300">{activeTime}</p>
           </div>
 
           <div className="flex flex-col items-center">
             <h2 className="text-2xl font-bold text-secondary mb-4">Balance</h2>
-            <p className="text-lg text-accent">7,4 $GRASS</p>
+            <p className="text-lg text-accent">{balanceWithDecimals.toFixed(3)} $GRASS</p>
           </div>
         </div>
 
