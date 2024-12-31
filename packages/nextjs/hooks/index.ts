@@ -1,4 +1,4 @@
-export * from "./useAccountScore";
+export * from "./useCalculateScore";
 export * from "./useFetchTransactions";
 export * from "./useAccountBalance";
 export * from "./useFetchUniqueProtocols";

@@ -1,46 +1,25 @@
 "use client";
 
 import { DashboardItemsCard, LensScoreCard } from "@/components";
-import {
-  useAccountAge,
-  useAccountBalance,
-  useAccountScore,
-  useFetchTransactions,
-  useFetchUniqueProtocols,
-} from "@/hooks";
-import { useEffect, useMemo, useState, useCallback } from "react";
+
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { publicClient } from "@/services/publicClient";
-import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
+// import { publicClient } from "@/services/publicClient";
+// import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { NextPage } from "next";
-import { Score } from "@/types";
+import { useFetchUserScore } from "@/hooks/useFetchUserScore";
 
 const Dashboard: NextPage = () => {
-  const score: Score = {
-    total: 80,
-    normalized: 31,
-    txScore: 20,
-    accAgeScore: 0,
-    protocolsScore: 50,
-    monthsInteractingScore: 5,
-    grassBalanceScore: 5,
-  };
-  // const [walletAddress, setWalletAddress] = useState<string>("");
+  const [walletAddress, setWalletAddress] = useState<string>("");
   // const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
 
-  // /**
-  //  * Read data to generate score
-  //  */
-  // const account = useAccount();
-  // const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
-  // const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
-  //   walletAddress,
-  //   tx
-  // );
-  // const { balanceWithDecimals } = useAccountBalance(walletAddress);
-  // const { accountAgeMonths } = useAccountAge(walletAddress);
+  /**
+   * Read data to generate score
+   */
+  const account = useAccount();
+  const score = useFetchUserScore(walletAddress);
 
   // /**
   //  * Read NFT minted logs
@@ -68,24 +47,11 @@ const Dashboard: NextPage = () => {
   //   }
   // }, [account.address, checkIfNFTisMinted]);
 
-  // const userProfile = useMemo(
-  //   () => ({
-  //     transactions: tx.length,
-  //     accountAgeMonths: accountAgeMonths,
-  //     protocolsUsed: uniqueProtocolsUsed,
-  //     monthsInteracting: monthsWithTx,
-  //     grassBalance: balanceWithDecimals,
-  //   }),
-  //   [
-  //     tx,
-  //     uniqueProtocolsUsed,
-  //     balanceWithDecimals,
-  //     monthsWithTx,
-  //     accountAgeMonths,
-  //   ]
-  // );
-
-  // const { score } = useAccountScore(userProfile);
+  useEffect(() => {
+    if (account.address) {
+      setWalletAddress(account.address as string);
+    }
+  }, [account.address]);
 
   // const onWalletAddressChange = (address: string) => {
   //   setWalletAddress(address);
