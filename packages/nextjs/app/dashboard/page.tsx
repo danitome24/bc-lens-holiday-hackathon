@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
+import { useFetchLensProfile } from "@/hooks";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -20,6 +21,7 @@ const Dashboard: NextPage = () => {
    */
   const account = useAccount();
   const score = useFetchUserScore(walletAddress);
+  const { handle, image } = useFetchLensProfile(walletAddress);
 
   // /**
   //  * Read NFT minted logs
@@ -62,8 +64,11 @@ const Dashboard: NextPage = () => {
       <Toaster />
       <LensScoreCard score={score} />
       <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 w-full max-w-4xl">
-        <DashboardItemsCard title="Wallet Address" content="0x1234...abcde" />
-        <DashboardItemsCard title="Lens Profile" content="@LensHandle" />
+        <DashboardItemsCard
+                title="Wallet Address"
+                content={`${account.address?.slice(0, 6)}....${account.address?.slice(-4)}`}
+        />
+        <DashboardItemsCard title="Lens Profile" content={handle} />
       </div>
 
       <div className="mt-12">
