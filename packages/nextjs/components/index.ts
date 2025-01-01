@@ -20,3 +20,4 @@ export * from "./MintNFTButton";
 export * from "./DisplayNFT";
 export * from "./LensScoreCard";
 export * from "./DashboardItemsCard";
+export * from "./LensScoreNumber";
