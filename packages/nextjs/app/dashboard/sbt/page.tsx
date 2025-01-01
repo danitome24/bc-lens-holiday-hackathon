@@ -2,7 +2,7 @@
 
 import { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { DisplayNFT } from "@/components";
+import { DisplayNFT, SaveScoreButton } from "@/components";
 import { useFetchSBTMinted, useFetchUserScore } from "@/hooks";
 
 const SBTPage: NextPage = () => {
@@ -79,9 +79,11 @@ const SBTPage: NextPage = () => {
               If your current score is higher than the score in your SBT, you
               can update it to reflect your latest achievements.
             </p>
-            <button disabled={sbtData.score <= score.total} className="btn btn-primary w-full max-w-xs">
+
+            <SaveScoreButton walletAddress={account.address || ""} score={score} needsScoreBeUpdated={score.total > sbtData.score} />
+            {/* <button disabled={sbtData.score <= score.total} className="btn btn-primary w-full max-w-xs">
               Update SBT
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
