@@ -1,41 +1,14 @@
 "use client";
 
 import { NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
-import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
-import { publicClient } from "@/services/publicClient";
 import { useAccount } from "wagmi";
 import { DisplayNFT } from "@/components";
 import { useFetchSBTMinted, useFetchUserScore } from "@/hooks";
 
 const SBTPage: NextPage = () => {
-  const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
-
   const account = useAccount();
   const score = useFetchUserScore(account.address || "");
   const { sbtData } = useFetchSBTMinted();
-
-  const checkIfNFTisMinted = useCallback(async () => {
-    const logs = await publicClient.getContractEvents({
-      address: contractAddress,
-      abi,
-      eventName: "LensScoreSBTMinted",
-      args: {
-        by: account.address,
-      },
-      fromBlock: BigInt(100237),
-    });
-
-    if (logs.length > 0) {
-      setHasMintedNft(true);
-    }
-  }, [account.address]);
-
-  useEffect(() => {
-    if (account.address != undefined) {
-      checkIfNFTisMinted();
-    }
-  }, [account.address, checkIfNFTisMinted]);
 
   return (
     <section className="min-h-screen bg-base-200 text-base-content p-6">
