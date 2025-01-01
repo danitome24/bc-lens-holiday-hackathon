@@ -3,12 +3,15 @@
 import { useFetchSBTMinted } from "@/hooks";
 import { Score } from "@/types";
 import { LensScoreNumber } from "./LensScoreNumber";
+import { MintNFTButton } from "./MintNFTButton";
+import Link from "next/link";
 
 type LensScoreCardProps = {
   score: Score;
+  walletAddress: string;
 };
 
-export const LensScoreCard = ({ score }: LensScoreCardProps) => {
+export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
   const { isMinted } = useFetchSBTMinted();
 
   return (
@@ -33,11 +36,9 @@ export const LensScoreCard = ({ score }: LensScoreCardProps) => {
       )}
 
       {isMinted ? (
-        <button className="btn btn-secondary w-full">See your NFT</button>
+        <Link href={"/dashboard/sbt"} className="btn btn-secondary w-full">See your NFT</Link>
       ) : (
-        <button className="btn btn-secondary w-full">
-          Mint your LensScore SBT
-        </button>
+        <MintNFTButton walletAddress={walletAddress} score={score} />
       )}
     </div>
   );

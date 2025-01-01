@@ -48,7 +48,7 @@ const Dashboard: NextPage = () => {
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[800px]">
       <Toaster />
-      <LensScoreCard score={score} />
+      <LensScoreCard score={score} walletAddress={account.address} />
       <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 w-full max-w-4xl">
         <DashboardItemsCard
           title="Wallet Address"
