@@ -79,7 +79,7 @@ const SBTPage: NextPage = () => {
               If your current score is higher than the score in your SBT, you
               can update it to reflect your latest achievements.
             </p>
-            <button className="btn btn-primary w-full max-w-xs">
+            <button disabled={sbtData.score <= score.total} className="btn btn-primary w-full max-w-xs">
               Update SBT
             </button>
           </div>

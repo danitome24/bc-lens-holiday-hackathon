@@ -15,8 +15,8 @@ export const Header = () => {
   const links = [
     { href: "/dashboard", label: "Home", show: true },
     { href: "/dashboard/score", label: "My Score", show: true },
+    { href: "/dashboard/sbt", label: "My SBT", show: isMinted },
     { href: "/dashboard/leaderboard", label: "Leaderboard", show: true },
-    { href: "/dashboard/mysbt", label: "My SBT", show: isMinted },
   ];
 
   return (
