@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 
 export const useFetchLensProfile = (walletAddress: string) => {
   const [myHandle, setMyHandle] = useState<string>("");
-  const [profileImage, setProfileImage] = useState(
-    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-  );
+  const [profileImage, setProfileImage] = useState("");
 
   const { data, loading, error } = useOwnedHandles({
     for: walletAddress || "",
