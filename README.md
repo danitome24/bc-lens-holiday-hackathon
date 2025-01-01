@@ -10,9 +10,9 @@
 - **Joseph Cho** (Lens `orb.club` Handle: @josephdotpm)
 
 ## Project Description:
-**LensSocialScore** is a decentralized application (DApp) built on the **Lens Network** that aims to provide a reputation system for users based on their activity and engagement within the network. The goal is to give users a way to track their influence and contributions to the Lens ecosystem through a combination of metrics like **engagement**, **monetary value**, **diversity** of interactions, and **participation time**. 
+**LensSocialScore** is a decentralized application (DApp) built on the **Lens Network** that provides a reputation system for users based on their activity and engagement within the network. The goal is to enable users to track their influence and contributions to the Lens ecosystem through metrics like **engagement**, **monetary value**, **diversity of interactions**, and **participation time**.
 
-This application calculates a user’s reputation score by analyzing their interaction patterns, transactions, and the diversity of their activities on Lens. The score is then visualized on a user-friendly dashboard, helping users understand their influence in the community and track their progress over time.
+This application calculates a user’s reputation score by analyzing their interaction patterns, transactions, and the diversity of their activities on Lens. The score is then linked to a **Dynamic Soulbound Token (SBT)**, which serves as a non-transferable credential representing the user’s reputation. The SBT is updated dynamically to reflect changes in activity, ensuring transparency and immutability. Users can view their score and SBT details on a user-friendly dashboard, helping them understand their influence in the community and track their progress over time.
 
 Key features include:
 - **Reputation Calculation**: The score is based on metrics such as interactions (likes, comments), monetary transactions, diversity of activities, and engagement over time.
