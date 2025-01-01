@@ -1,5 +1,3 @@
-import { ScoreGauge } from "@/components";
-import Leaderboard from "@/components/Leaderboard";
 import { Score } from "@/types";
 import { NextPage } from "next";
 

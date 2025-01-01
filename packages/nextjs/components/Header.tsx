@@ -4,7 +4,6 @@ import { useFetchSBTMinted } from "@/hooks";
 import { ConnectKitButton } from "connectkit";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 export const Header = () => {
   const pathName = usePathname();

@@ -1,11 +1,9 @@
 "use client";
 
-import { MetricsList, ScoreAnalysisCard } from "@/components";
+import { MetricsList } from "@/components";
 import { ScoreRadarChart } from "@/components/ScoreRadarChart";
 import { useAccountAge, useAccountBalance, useFetchUserScore } from "@/hooks";
-import { Score } from "@/types";
 import { NextPage } from "next";
-import Link from "next/link";
 import { useAccount } from "wagmi";
 
 const DetailsPage: NextPage = () => {

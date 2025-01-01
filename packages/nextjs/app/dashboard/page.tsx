@@ -4,7 +4,6 @@ import { DashboardItemsCard, LensScoreCard } from "@/components";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { Toaster } from "react-hot-toast";
-import Link from "next/link";
 import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
 import { useFetchLensProfile } from "@/hooks";
@@ -17,7 +16,7 @@ const Dashboard: NextPage = () => {
    */
   const account = useAccount();
   const score = useFetchUserScore(walletAddress);
-  const { handle, image } = useFetchLensProfile(walletAddress);
+  const { handle } = useFetchLensProfile(walletAddress);
 
   useEffect(() => {
     if (account.address) {
