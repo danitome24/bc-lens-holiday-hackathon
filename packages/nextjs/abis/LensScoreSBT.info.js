@@ -668,4 +668,4 @@ export const abi = [
     "type": "function"
   }
 ];
-      export const contractAddress = "0x14eb8C5004683D3d67B1bdd9afED218Bb796c3d7";
+      export const contractAddress = "0x0e445D3F36447912906c3D8Aa3D6888bDd2bC4F1";

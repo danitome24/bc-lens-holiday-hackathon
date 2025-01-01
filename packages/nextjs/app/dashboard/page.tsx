@@ -58,12 +58,6 @@ const Dashboard: NextPage = () => {
         />
         <DashboardItemsCard title="Lens Profile" content={handle} />
       </div>
-
-      <div className="mt-12">
-        <Link href={"/dashboard/details"} className="btn btn-link">
-          See Score Details
-        </Link>
-      </div>
     </div>
   );
 };

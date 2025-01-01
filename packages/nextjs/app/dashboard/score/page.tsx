@@ -68,10 +68,6 @@ const DetailsPage: NextPage = () => {
           </div>
         </div>
       </div>
-
-      <Link href={"/dashboard"} className="btn btn-link mt-8">
-        Back to Dashboard
-      </Link>
     </div>
   );
 };

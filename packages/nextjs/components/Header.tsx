@@ -1,13 +1,23 @@
 "use client";
 
+import { useFetchSBTMinted } from "@/hooks";
 import { ConnectKitButton } from "connectkit";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export const Header = () => {
   const pathName = usePathname();
+  const { isMinted } = useFetchSBTMinted();
 
   const isActive = (path: string) => pathName === path;
+
+  const links = [
+    { href: "/dashboard", label: "Home", show: true },
+    { href: "/dashboard/score", label: "My Score", show: true },
+    { href: "/dashboard/leaderboard", label: "Leaderboard", show: true },
+    { href: "/dashboard/mysbt", label: "My SBT", show: isMinted },
+  ];
 
   return (
     <header className="navbar bg-base-100 shadow-lg sticky top-0 z-50">
@@ -33,54 +43,23 @@ export const Header = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <Link
-                href="/dashboard"
-                className={`${
-                  isActive("/dashboard")
-                    ? "text-indigo-400 font-bold"
-                    : "text-gray-300"
-                } hover:text-indigo-400 transition-colors duration-300`}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/score"
-                className={`${
-                  isActive("/dashboard/score")
-                    ? "text-indigo-400 font-bold"
-                    : "text-gray-300"
-                } hover:text-indigo-400 transition-colors duration-300`}
-              >
-                My Score
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/sbt"
-                className={`${
-                  isActive("/dashboard/sbt")
-                    ? "text-indigo-400 font-bold"
-                    : "text-gray-300"
-                } hover:text-indigo-400 transition-colors duration-300`}
-              >
-                My SBT
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/leaderboard"
-                className={`${
-                  isActive("/dashboard/leaderboard")
-                    ? "text-indigo-400 font-bold"
-                    : "text-gray-300"
-                } hover:text-indigo-400 transition-colors duration-300`}
-              >
-                Leaderboard
-              </Link>
-            </li>
+            {links.map(
+              (link) =>
+                link.show && (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`${
+                        isActive(link.href)
+                          ? "text-indigo-400 font-bold"
+                          : "text-gray-300"
+                      } hover:text-indigo-400 transition-colors duration-300`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+            )}
           </ul>
         </div>
         <div className="flex items-center">
@@ -94,54 +73,23 @@ export const Header = () => {
       </nav>
       <nav className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link
-              href="/dashboard"
-              className={`${
-                isActive("/dashboard")
-                  ? "text-indigo-400 font-bold"
-                  : "text-gray-300"
-              } hover:text-indigo-400 transition-colors duration-300`}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/dashboard/score"
-              className={`${
-                isActive("/dashboard/score")
-                  ? "text-indigo-400 font-bold"
-                  : "text-gray-300"
-              } hover:text-indigo-400 transition-colors duration-300`}
-            >
-              My Score
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/dashboard/sbt"
-              className={`${
-                isActive("/dashboard/sbt")
-                  ? "text-indigo-400 font-bold"
-                  : "text-gray-300"
-              } hover:text-indigo-400 transition-colors duration-300`}
-            >
-              My SBT
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/dashboard/leaderboard"
-              className={`${
-                isActive("/dashboard/leaderboard")
-                  ? "text-indigo-400 font-bold"
-                  : "text-gray-300"
-              } hover:text-indigo-400 transition-colors duration-300`}
-            >
-              Leaderboard
-            </Link>
-          </li>
+          {links.map(
+            (link) =>
+              link.show && (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`${
+                      isActive(link.href)
+                        ? "text-indigo-400 font-bold"
+                        : "text-gray-300"
+                    } hover:text-indigo-400 transition-colors duration-300`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+          )}
         </ul>
       </nav>
       <nav className="navbar-end">
