@@ -6,11 +6,14 @@ import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { publicClient } from "@/services/publicClient";
 import { useAccount } from "wagmi";
 import { DisplayNFT } from "@/components";
+import { useFetchSBTMinted, useFetchUserScore } from "@/hooks";
 
 const SBTPage: NextPage = () => {
   const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
 
   const account = useAccount();
+  const score = useFetchUserScore(account.address || "");
+  const { sbtData } = useFetchSBTMinted();
 
   const checkIfNFTisMinted = useCallback(async () => {
     const logs = await publicClient.getContractEvents({
@@ -48,24 +51,41 @@ const SBTPage: NextPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-base-300 p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4 text-center text-primary">Your SBT Details</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center text-primary">
+              Your SBT Details
+            </h2>
             <div className="flex flex-col lg:flex-row gap-4 justify-around items-center">
               <div className="mb-4">
                 <p className="text-lg">
                   <span className="font-semibold">Wallet Address:</span>{" "}
-                  <span id="walletAddress" className="text-base-content">0x123...456</span>
+                  <span id="walletAddress" className="text-base-content">
+                    {account.address?.slice(0, 5) +
+                      "..." +
+                      account.address?.slice(-4)}
+                  </span>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">Current Score:</span>{" "}
-                  <span id="currentScore" className="text-base-content">1234</span>
+                  <span id="currentScore" className="text-base-content">
+                    {score.total}
+                  </span>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">SBT Score:</span>{" "}
-                  <span id="sbtScore" className="text-base-content">1200</span>
+                  <span id="sbtScore" className="text-base-content">
+                    {sbtData.score.toString()}
+                  </span>
                 </p>
                 <p className="text-lg">
                   <span className="font-semibold">Last Updated:</span>{" "}
-                  <span id="lastUpdated" className="text-base-content">12/29/2024</span>
+                  <span id="lastUpdated" className="text-base-content">
+                    {new Date(sbtData.timestamp).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
                 </p>
               </div>
               <div
@@ -77,13 +97,18 @@ const SBTPage: NextPage = () => {
             </div>
           </div>
 
+                    
           <div className="bg-base-300 p-6 rounded-lg shadow-lg flex flex-col justify-center items-center">
-            <h2 className="text-2xl font-bold mb-4 text-center text-primary">Update Your Score</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center text-primary">
+              Update Your Score
+            </h2>
             <p className="text-center mb-6">
               If your current score is higher than the score in your SBT, you
               can update it to reflect your latest achievements.
             </p>
-            <button className="btn btn-primary w-full max-w-xs">Update SBT</button>
+            <button className="btn btn-primary w-full max-w-xs">
+              Update SBT
+            </button>
           </div>
         </div>
       </div>
