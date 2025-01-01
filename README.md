@@ -16,6 +16,7 @@ This application calculates a user’s reputation score by analyzing their inter
 
 Key features include:
 - **Reputation Calculation**: The score is based on metrics such as interactions (likes, comments), monetary transactions, diversity of activities, and engagement over time.
+- **Dynamic Soulbound Tokens (SBTs)**: Each user's score is linked to a non-transferable SBT that updates dynamically to reflect changes in their activity, serving as a verifiable credential for trust and reputation across Web3 platforms.
 - **User Dashboard**: A clean interface displaying the user’s reputation score and detailed breakdown by each metric.
 - **Integration with Lens Network**: Direct interaction with Lens profiles to gather activity data and calculate scores.
   
