@@ -14,7 +14,7 @@ export const Header = () => {
   const links = [
     { href: "/dashboard", label: "Home", show: true },
     { href: "/dashboard/score", label: "My Score", show: true },
-    { href: "/dashboard/sbt", label: "My SBT", show: isMinted },
+    { href: "/dashboard/sbt", label: "My LSBT", show: isMinted },
     { href: "/dashboard/leaderboard", label: "Leaderboard", show: true },
   ];
 
@@ -66,7 +66,7 @@ export const Header = () => {
             href="/"
             className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text"
           >
-            LensScoreSBT
+            LensSocialScore
           </Link>
         </div>
       </nav>

@@ -1,16 +1,12 @@
-import { Score } from "@/types";
+"use client";
+import { useFetchUserScore } from "@/hooks";
 import { NextPage } from "next";
+import { useAccount } from "wagmi";
 
 const LeaderboardPage: NextPage = () => {
-  const score: Score = {
-    total: 80,
-    normalized: 31,
-    txScore: 20,
-    accAgeScore: 0,
-    protocolsScore: 50,
-    monthsInteractingScore: 5,
-    grassBalanceScore: 5,
-  };
+  const account = useAccount();
+  const score = useFetchUserScore(account.address || "");
+
   return (
     <div className="min-h-screen bg-base-200 text-base-content p-6">
       <div className="max-w-5xl mx-auto space-y-10">
