@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useFetchUserHistoryScore } from "@/hooks";
 
 ChartJS.register(
   CategoryScale,
@@ -21,15 +24,27 @@ ChartJS.register(
   Legend
 );
 
-export const ScoreHistory = () => {
-  const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
-  const scores = [20, 25, 32, 34, 51];
+type ScoreHistoryChartProps = {
+  walletAddress: string;
+};
+
+export const ScoreHistoryChart = ({
+  walletAddress,
+}: ScoreHistoryChartProps) => {
+  const { data: history } = useFetchUserHistoryScore(walletAddress);
+  const months = history.map((data) => data.month);
+  const scores = history.map((data) => data.score);
+
+  useEffect(() => {
+    if (walletAddress != "") {
+    }
+  }, [walletAddress, history]);
 
   const data = {
     labels: months,
     datasets: [
       {
-        label: `Daniel's Score History`,
+        label: `Score Value`,
         data: scores,
         fill: false,
         backgroundColor: "#10B981",
@@ -58,7 +73,7 @@ export const ScoreHistory = () => {
       x: {
         title: {
           display: true,
-          text: "Months",
+          text: "Date",
           color: "#444",
           font: {
             size: 14,
@@ -97,15 +112,8 @@ export const ScoreHistory = () => {
   };
 
   return (
-    <div className="my-5 bg-base-200 shadow-md rounded-md w-full h-auto flex flex-col items-center py-8">
-      <h2 className="text-xl font-bold text-base-content mb-4 text-center">
-        History Score
-      </h2>
-      <div className="w-full flex justify-center items-center">
-        <div className="w-full max-w-4xl h-96">
-          <Line data={data} options={options} />
-        </div>
-      </div>
+    <div className="flex justify-center items-center">
+      <Line data={data} options={options} />
     </div>
   );
 };

@@ -1,155 +1,107 @@
 "use client";
 
-import {
-  Chart as ChartJS,
-  RadarController,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { NextPage } from "next";
-ChartJS.register(
-  RadarController,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend
-);
-import {
-  AccountSummary,
-  DisplayNFT,
-  LensProfileCard,
-  MetricsList,
-  MintNFTButton,
-  SaveScoreButton,
-  ScoreAnalysisCard,
-  ScoreCard,
-  WalletSearch,
-} from "@/components";
-import {
-  useAccountAge,
-  useAccountBalance,
-  useAccountScore,
-  useFetchTransactions,
-  useFetchUniqueProtocols,
-} from "@/hooks";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { DashboardItemsCard, LensScoreCard } from "@/components";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { publicClient } from "@/services/publicClient";
-import { contractAddress, abi } from "@/abis/LensScoreSBT.info";
 import { Toaster } from "react-hot-toast";
+import { NextPage } from "next";
+import { useFetchUserScore } from "@/hooks/useFetchUserScore";
+import { useFetchLensProfile } from "@/hooks";
+import Image from "next/image";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
-  const [hasMintedNft, setHasMintedNft] = useState<boolean>(false);
 
   /**
    * Read data to generate score
    */
   const account = useAccount();
-  const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
-  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
-    walletAddress,
-    tx
-  );
-  const { balanceWithDecimals } = useAccountBalance(walletAddress);
-  const { accountAgeMonths } = useAccountAge(walletAddress);
+  const score = useFetchUserScore(walletAddress);
+  const { handle, image } = useFetchLensProfile(walletAddress);
 
-  /**
-   * Read NFT minted logs
-   */
-  const checkIfNFTisMinted = useCallback(async () => {
-    const logs = await publicClient.getContractEvents({
-      address: contractAddress,
-      abi,
-      eventName: "LensScoreSBTMinted",
-      args: {
-        by: account.address,
-      },
-      fromBlock: BigInt(100237),
-    });
-
-    if (logs.length > 0) {
-      setHasMintedNft(true);
+  useEffect(() => {
+    if (account.address) {
+      setWalletAddress(account.address as string);
     }
   }, [account.address]);
 
-  useEffect(() => {
-    if (account.address != undefined) {
-      setWalletAddress(account.address as string);
-      checkIfNFTisMinted();
-    }
-  }, [account.address, checkIfNFTisMinted]);
+  // const onWalletAddressChange = (address: string) => {
+  //   setWalletAddress(address);
+  // };
 
-  const userProfile = useMemo(
-    () => ({
-      transactions: tx.length,
-      accountAgeMonths: accountAgeMonths,
-      protocolsUsed: uniqueProtocolsUsed,
-      monthsInteracting: monthsWithTx,
-      grassBalance: balanceWithDecimals,
-    }),
-    [
-      tx,
-      uniqueProtocolsUsed,
-      balanceWithDecimals,
-      monthsWithTx,
-      accountAgeMonths,
-    ]
-  );
+  if (account.address == undefined) {
+    return (
+      <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[800px]">
+        <div className="card bg-base-300 shadow-lg w-full max-w-lg p-8 rounded-lg text-center">
+          <h1 className="text-4xl font-extrabold text-primary">
+            Your Lens Score
+          </h1>
 
-  const { score } = useAccountScore(userProfile);
-
-  const onWalletAddressChange = (address: string) => {
-    setWalletAddress(address);
-  };
+          <p className="text-lg text-accent font-bold my-4">
+            Connect your wallet to see your score
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-base-100 text-primary-content min-h-screen">
+    <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-screen">
       <Toaster />
-      {/* Main Dashboard */}
-      <main className="p-4 md:p-8">
-        <div className="container mx-auto">
-          {/* Wallet Search */}
-          <WalletSearch onChange={onWalletAddressChange} />
+      <LensScoreCard score={score} walletAddress={account.address} />
+      <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 w-full max-w-4xl">
+        {/* Wallet Address Card */}
+        <DashboardItemsCard title="Wallet Address">
+          <div className="h-32 flex flex-col items-center justify-center p-6 border rounded-lg shadow-md">
+            <div className="flex items-center space-x-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 9l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+              <p className="text-lg font-semibold truncate text-center">
+                {account.address?.slice(0, 6)}....{account.address?.slice(-4)}
+              </p>
+            </div>
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              Connected Wallet Address
+            </p>
+          </div>
+        </DashboardItemsCard>
 
-          {/* Account summary stats */}
-          <AccountSummary walletAddress={walletAddress} />
-
-          <section className="flex flex-col md:flex-row flex-grow justify-around text-base-content my-6 space-y-6 md:space-y-0 md:space-x-6">
-            <ScoreCard normalizedScore={score.normalized} />
-            <div className="flex flex-col justify-center justify-items-center">
-              <LensProfileCard />
-              {hasMintedNft ? (
+        {/* Lens Profile Card */}
+        <DashboardItemsCard title="Lens Profile">
+          <div className="h-32 flex flex-col items-center justify-center p-6 border rounded-lg shadow-md">
+            <div className="flex flex-col items-center">
+              {image != "" ? (
                 <>
-                  <SaveScoreButton
-                    walletAddress={walletAddress}
-                    score={score}
+                  <Image
+                    src={image}
+                    width={80}
+                    height={80}
+                    alt="Lens Profile"
+                    className="rounded-full border-4 border-gray-200"
                   />
-                  <DisplayNFT walletAddress={walletAddress} />
+                  <span className="mt-4 text-lg font-semibold truncate text-center">
+                    {handle}
+                  </span>
                 </>
               ) : (
-                <MintNFTButton walletAddress={walletAddress} score={score} />
+                <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
               )}
             </div>
-
-            <ScoreAnalysisCard score={score} />
-          </section>
-
-          {/* Metrics Breakdown */}
-          <section>
-            <MetricsList score={score} />
-          </section>
-
-          {/* Score History */}
-          {/* <section>
-            <ScoreHistory />
-          </section> */}
-        </div>
-      </main>
+          </div>
+        </DashboardItemsCard>
+      </div>
     </div>
   );
 };

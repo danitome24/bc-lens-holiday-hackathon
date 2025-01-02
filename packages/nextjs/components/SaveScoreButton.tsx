@@ -18,11 +18,13 @@ import { useState } from "react";
 type SaveScoreButtonProps = {
   walletAddress: string;
   score: Score;
+  needsScoreBeUpdated: boolean;
 };
 
 export const SaveScoreButton = ({
   walletAddress,
   score,
+  needsScoreBeUpdated,
 }: SaveScoreButtonProps) => {
   const [isGeneratingNFT, setIsGeneratingNFT] = useState(false);
   const {
@@ -70,21 +72,21 @@ export const SaveScoreButton = ({
     }
   };
 
+  const isButtonDisabled = isPending || isConfirming || !needsScoreBeUpdated || isGeneratingNFT;
+
   return (
-    <div className="my-4">
-      <button
-        className="btn btn-secondary w-full"
-        onClick={() => handleSaveScore(score, walletAddress)}
-        disabled={isPending || isConfirming}
-      >
-        {isPending
-          ? "Saving..."
-          : isConfirming
-          ? "Confirming..."
-          : isConfirmed
-          ? "Saved!"
-          : "Save Score"}
-      </button>
-    </div>
+    <button
+      className="btn btn-secondary w-full max-w-xs"
+      onClick={() => handleSaveScore(score, walletAddress)}
+      disabled={isButtonDisabled}
+    >
+      {isPending
+        ? "Saving..."
+        : isConfirming
+        ? "Confirming..."
+        : isConfirmed
+        ? "Saved!"
+        : "Save Score"}
+    </button>
   );
 };

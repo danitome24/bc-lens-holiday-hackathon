@@ -57,7 +57,7 @@ export const MetricsList = ({ score }: MetricsListProps) => {
   ];
 
   return (
-    <div className="flex flex-col flex-wrap md:flex-row justify-between gap-1">
+    <div className="flex flex-col gap-1">
       {metrics.map((metric, i) => (
         <MetricCard key={i} metric={metric} />
       ))}

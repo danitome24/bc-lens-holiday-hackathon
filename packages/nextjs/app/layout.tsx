@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-base-300`}
       >
         <Web3Provider>{children}</Web3Provider>
       </body>

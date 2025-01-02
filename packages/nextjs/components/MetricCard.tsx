@@ -6,7 +6,7 @@ type MetricCardProps = {
 
 export const MetricCard = ({ metric }: MetricCardProps) => {
   return (
-    <div className="w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.33%-0.5rem)] bg-base-200 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-300">
+    <div className="w-full bg-base-200 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow duration-300">
       <h3 className="text-xl font-semibold text-base-content">{metric.name}</h3>
       <p className="text-sm text-base-content mt-1">{metric.description}</p>
       <div className="mt-4">

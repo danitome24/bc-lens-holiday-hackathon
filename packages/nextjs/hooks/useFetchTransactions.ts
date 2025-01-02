@@ -44,7 +44,7 @@ export const useFetchTransactions = (address: string) => {
     };
 
     fetchTx();
-  }, [address]);
+  }, [address, apiUrl]);
 
   return {
     tx,

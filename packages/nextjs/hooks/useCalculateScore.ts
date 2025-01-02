@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Score } from "../types";
 import {
   MaxTransactionPoints,
@@ -9,7 +9,7 @@ import {
   MaxTotalScore,
 } from "../config/scoreConfig";
 
-interface UserProfile {
+interface UserScore {
   transactions: number;
   accountAgeMonths: number;
   protocolsUsed: number;
@@ -59,7 +59,7 @@ const calculateGrassBalancePoints = (grassBalance: number): number => {
   return MaxGrassBalancePoints.MIN;
 };
 
-export const useAccountScore = (userProfile: UserProfile) => {
+export const useCalculateScore = (userProfile: UserScore) => {
   const [score, setScore] = useState<Score>({
     total: 0,
     normalized: 0,
@@ -70,7 +70,7 @@ export const useAccountScore = (userProfile: UserProfile) => {
     grassBalanceScore: 0,
   });
 
-  const calculateTotalScore = () => {
+  const calculateTotalScore = useMemo(() => {
     const transactionPoints = calculateTransactionPoints(
       userProfile.transactions
     );
@@ -95,7 +95,7 @@ export const useAccountScore = (userProfile: UserProfile) => {
       grassBalancePoints;
     const normalizedScoreWithDecimals = (totalScore / MaxTotalScore) * 100;
 
-    setScore({
+    return {
       total: totalScore,
       normalized: Number(normalizedScoreWithDecimals.toFixed(0)),
       txScore: transactionPoints,
@@ -103,12 +103,12 @@ export const useAccountScore = (userProfile: UserProfile) => {
       protocolsScore: protocolsUsedPoints,
       monthsInteractingScore: monthsInteractingPoints,
       grassBalanceScore: grassBalancePoints,
-    });
-  };
+    };
+  }, [userProfile]);
 
   useEffect(() => {
-    calculateTotalScore();
-  }, [userProfile]);
+    setScore(calculateTotalScore);
+  }, [calculateTotalScore]);
 
   return {
     score,

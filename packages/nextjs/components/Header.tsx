@@ -1,17 +1,28 @@
 "use client";
 
+import { useFetchSBTMinted } from "@/hooks";
 import { ConnectKitButton } from "connectkit";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export const Header = () => {
-  const currentPath = usePathname();
+  const pathName = usePathname();
+  const { isMinted } = useFetchSBTMinted();
+
+  const isActive = (path: string) => pathName === path;
+
+  const links = [
+    { href: "/dashboard", label: "Home", show: true },
+    { href: "/dashboard/score", label: "My Score", show: true },
+    { href: "/dashboard/sbt", label: "My LSBT", show: isMinted },
+    { href: "/dashboard/leaderboard", label: "Leaderboard", show: true },
+  ];
 
   return (
-    <div className="navbar bg-base-300 text-base-content">
-      <div className="navbar-start">
+    <header className="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+      <nav className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -23,59 +34,66 @@ export const Header = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
+                d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </label>
+          </div>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <Link
-                href="/dashboard"
-                className={currentPath === "/dashboard" ? "active" : ""}
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/leaderboard"
-                className={currentPath === "/leaderboard" ? "active" : ""}
-              >
-                Leaderboard
-              </Link>
-            </li>
+            {links.map(
+              (link) =>
+                link.show && (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`${
+                        isActive(link.href)
+                          ? "text-indigo-400 font-bold"
+                          : "text-gray-300"
+                      } hover:text-indigo-400 transition-colors duration-300`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+            )}
           </ul>
         </div>
-        <ul className="menu menu-horizontal px-1 hidden lg:flex">
-          <li>
-            <Link
-              href="/dashboard"
-              className={currentPath === "/dashboard" ? "active" : ""}
-            >
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/leaderboard"
-              className={currentPath === "/leaderboard" ? "active" : ""}
-            >
-              Leaderboard
-            </Link>
-          </li>
+        <div className="flex items-center">
+          <Link
+            href="/"
+            className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text"
+          >
+            LensSocialScore
+          </Link>
+        </div>
+      </nav>
+      <nav className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {links.map(
+            (link) =>
+              link.show && (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`${
+                      isActive(link.href)
+                        ? "text-indigo-400 font-bold"
+                        : "text-gray-300"
+                    } hover:text-indigo-400 transition-colors duration-300`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+          )}
         </ul>
-      </div>
-      <div className="navbar-center">
-        <a className="btn btn-ghost hover:bg-transparent text-sm md:text-xl">
-          LensSocialScore
-        </a>
-      </div>
-      <div className="navbar-end">
+      </nav>
+      <nav className="navbar-end">
         <ConnectKitButton />
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
