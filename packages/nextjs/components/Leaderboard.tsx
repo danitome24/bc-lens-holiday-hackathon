@@ -1,42 +1,12 @@
 "use client";
 
-import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
-import { publicClient } from "@/services/publicClient";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { UserIdentifier } from ".";
 
+import { useLeaderboardData } from "@/hooks";
+
 export const Leaderboard = () => {
-  const [sortedLeaderboard, setSortedLeaderboard] = useState<
-    { owner: string; score: number }[]
-  >([]);
-
-  useEffect(() => {
-    const fetchLeaderboardData = async () => {
-      const logs = await publicClient.getContractEvents({
-        address: contractAddress,
-        abi,
-        eventName: "ScoreUpdated",
-        fromBlock: BigInt(100237),
-      });
-
-      const leaderboard = logs.reduce(
-        (acc: { [key: string]: number }, log: any) => {
-          const { owner, score } = log.args;
-          acc[owner] = Math.max(acc[owner] || 0, Number(score));
-          return acc;
-        },
-        {}
-      );
-
-      const sortedLeaderboard = Object.entries(leaderboard)
-        .map(([owner, score]) => ({ owner, score }))
-        .sort((a, b) => b.score - a.score);
-
-      setSortedLeaderboard(sortedLeaderboard);
-    };
-
-    fetchLeaderboardData();
-  }, [publicClient]);
+  const {sortedData: sortedLeaderboard} = useLeaderboardData();
 
   return (
     <div className="bg-base-100 shadow-md rounded-lg p-6">

@@ -7,3 +7,4 @@ export * from "./useTransactionNotification";
 export * from "./useFetchLensProfile";
 export * from "./useFetchSBTMinted";
 export * from "./useFetchUserScore";
+export * from "./useFetchLeaderboardData";
