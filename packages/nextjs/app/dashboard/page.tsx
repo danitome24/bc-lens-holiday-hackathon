@@ -3,7 +3,6 @@
 import { DashboardItemsCard, LensScoreCard } from "@/components";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { Toaster } from "react-hot-toast";
 import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
 import { useFetchLensProfile } from "@/hooks";
@@ -47,7 +46,6 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-screen">
-      <Toaster />
       <LensScoreCard score={score} walletAddress={account.address} />
       <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2 w-full max-w-4xl">
         {/* Wallet Address Card */}

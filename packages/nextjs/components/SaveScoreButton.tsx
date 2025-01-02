@@ -42,17 +42,6 @@ export const SaveScoreButton = ({
     hash,
   });
 
-  useTransactionNotification(
-    isConfirming || isPending || isGeneratingNFT,
-    isConfirmed,
-    writeError != undefined || receiptError != null,
-    (writeError as BaseError)?.shortMessage || receiptError?.message
-  );
-
-  if (walletAddress === "") {
-    return null;
-  }
-
   const handleSaveScore = async (score: Score, walletAddress: string) => {
     setIsGeneratingNFT(true);
     const nftInSVGFormat = generateNFT(score, walletAddress);
@@ -71,6 +60,17 @@ export const SaveScoreButton = ({
       console.error("Write Error:", e);
     }
   };
+
+  useTransactionNotification(
+    isConfirming || isPending || isGeneratingNFT,
+    isConfirmed,
+    writeError != undefined || receiptError != null,
+    (writeError as BaseError)?.shortMessage || receiptError?.message
+  );
+
+  if (walletAddress === "") {
+    return null;
+  }
 
   const isButtonDisabled = isPending || isConfirming || !needsScoreBeUpdated || isGeneratingNFT;
 

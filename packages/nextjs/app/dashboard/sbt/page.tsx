@@ -9,7 +9,7 @@ const SBTPage: NextPage = () => {
   const account = useAccount();
   const score = useFetchUserScore(account.address || "");
   const { sbtData } = useFetchSBTMinted();
-
+score.total = 100
   return (
     <section className="min-h-screen bg-base-200 text-base-content p-6">
       <div className="container mx-auto px-6 mt-20">
