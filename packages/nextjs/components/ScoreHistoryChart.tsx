@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export const ScoreHistory = () => {
+export const ScoreHistoryChart = () => {
   const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
   const scores = [20, 25, 32, 34, 51];
 
@@ -97,15 +97,8 @@ export const ScoreHistory = () => {
   };
 
   return (
-    <div className="my-5 bg-base-200 shadow-md rounded-md w-full h-auto flex flex-col items-center py-8">
-      <h2 className="text-xl font-bold text-base-content mb-4 text-center">
-        History Score
-      </h2>
-      <div className="w-full flex justify-center items-center">
-        <div className="w-full max-w-4xl h-96">
-          <Line data={data} options={options} />
-        </div>
-      </div>
+    <div className="flex justify-center items-center">
+      <Line data={data} options={options} />
     </div>
   );
 };

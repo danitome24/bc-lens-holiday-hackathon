@@ -1,26 +1,23 @@
 import { Score } from "@/types";
+import { MetricsList, ScoreRadarChart } from "@/components";
 
 type ScoreAnalysisCardProps = {
   score: Score;
 };
 
 export const ScoreAnalysisCard = ({ score }: ScoreAnalysisCardProps) => {
-
-
   return (
-    <div className="flex-1 max-w-xl">
-      <div className="card bg-base-200 shadow-xl h-full">
-        <div className="card-body flex flex-col">
-          <h3 className="card-title text-left text-base-content">
-            Score Analysis
-          </h3>
-          
-          <p className="text-right">
-            <span className="text-2xl text-white font-bold">{score.total}</span>{" "}
-            points
-          </p>
+    <div className="mt-8">
+      <h2 className="text-2xl font-bold text-primary mb-4">Score Analysis</h2>
+      <div className="flex flex-row overflow-hidden">
+          <div className="flex flex-row w-full">
+            <div className="w-1/3"></div>
+            <ScoreRadarChart score={score} />
+          </div>
+          <div className="w-2/3">
+            <MetricsList score={score} />
+          </div>
         </div>
-      </div>
     </div>
   );
 };
