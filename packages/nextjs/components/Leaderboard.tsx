@@ -1,6 +1,43 @@
-import React from "react";
+"use client";
+
+import { abi, contractAddress } from "@/abis/LensScoreSBT.info";
+import { publicClient } from "@/services/publicClient";
+import React, { useEffect, useState } from "react";
+import { UserIdentifier } from ".";
 
 export const Leaderboard = () => {
+  const [sortedLeaderboard, setSortedLeaderboard] = useState<
+    { owner: string; score: number }[]
+  >([]);
+
+  useEffect(() => {
+    const fetchLeaderboardData = async () => {
+      const logs = await publicClient.getContractEvents({
+        address: contractAddress,
+        abi,
+        eventName: "ScoreUpdated",
+        fromBlock: BigInt(100237),
+      });
+
+      const leaderboard = logs.reduce(
+        (acc: { [key: string]: number }, log: any) => {
+          const { owner, score } = log.args;
+          acc[owner] = Math.max(acc[owner] || 0, Number(score));
+          return acc;
+        },
+        {}
+      );
+
+      const sortedLeaderboard = Object.entries(leaderboard)
+        .map(([owner, score]) => ({ owner, score }))
+        .sort((a, b) => b.score - a.score);
+
+      setSortedLeaderboard(sortedLeaderboard);
+    };
+
+    fetchLeaderboardData();
+  }, [publicClient]);
+
   return (
     <div className="bg-base-100 shadow-md rounded-lg p-6">
       <h2 className="text-xl font-semibold text-center mb-4">Top Leaders</h2>
@@ -17,24 +54,16 @@ export const Leaderboard = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="hover">
-              <td>1</td>
-              <td>0x123...abc</td>
-              <td>950</td>
-              <td>95%</td>
-            </tr>
-            <tr className="hover">
-              <td>2</td>
-              <td>0x456...def</td>
-              <td>920</td>
-              <td>92%</td>
-            </tr>
-            <tr className="hover">
-              <td>3</td>
-              <td>0x789...ghi</td>
-              <td>910</td>
-              <td>91%</td>
-            </tr>
+            {sortedLeaderboard.map((entry, index) => (
+              <tr key={entry.owner} className="hover">
+                <td>{index + 1}</td>
+                <td>
+                  <UserIdentifier walletAddress={entry.owner} />
+                </td>
+                <td>{entry.score}</td>
+                <td>{((entry.score / 260) * 100).toFixed(0)}%</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

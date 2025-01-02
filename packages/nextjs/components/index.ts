@@ -21,3 +21,4 @@ export * from "./DisplayNFT";
 export * from "./LensScoreCard";
 export * from "./DashboardItemsCard";
 export * from "./LensScoreNumber";
+export * from "./UserIdentifier";

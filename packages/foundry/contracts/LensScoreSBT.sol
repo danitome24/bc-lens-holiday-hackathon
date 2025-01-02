@@ -76,7 +76,6 @@ contract LensScoreSBT is ERC721 {
         }
         _setScore(score, tokenId);
         _setImageUri(imageUri, s_ownerToTokenId[msg.sender]);
-        emit ScoreUpdated(msg.sender, score, block.timestamp);
     }
 
     /**
@@ -88,6 +87,7 @@ contract LensScoreSBT is ERC721 {
         Score memory newScore = Score(score, block.timestamp);
 
         s_tokenIdToScore[tokenId] = newScore;
+        emit ScoreUpdated(msg.sender, score, block.timestamp);
     }
 
     /**
