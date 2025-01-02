@@ -73,7 +73,7 @@ export const ScoreHistoryChart = ({
       x: {
         title: {
           display: true,
-          text: "Months",
+          text: "Date",
           color: "#444",
           font: {
             size: 14,
