@@ -28,7 +28,7 @@ const DetailsPage: NextPage = () => {
 
         <div className="divider my-8"></div>
 
-        <ScoreHistoryCard />
+        <ScoreHistoryCard walletAddress={account.address || ""} />
       </div>
     </div>
   );

@@ -8,3 +8,4 @@ export * from "./useFetchLensProfile";
 export * from "./useFetchSBTMinted";
 export * from "./useFetchUserScore";
 export * from "./useFetchLeaderboardData";
+export * from "./useFetchUserHistoryScore"

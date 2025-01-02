@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useFetchUserHistoryScore } from "@/hooks";
 
 ChartJS.register(
   CategoryScale,
@@ -21,15 +24,27 @@ ChartJS.register(
   Legend
 );
 
-export const ScoreHistoryChart = () => {
-  const months = ["Aug", "Sep", "Oct", "Nov", "Dec"];
-  const scores = [20, 25, 32, 34, 51];
+type ScoreHistoryChartProps = {
+  walletAddress: string;
+};
+
+export const ScoreHistoryChart = ({
+  walletAddress,
+}: ScoreHistoryChartProps) => {
+  const { data: history } = useFetchUserHistoryScore(walletAddress);
+  const months = history.map((data) => data.month);
+  const scores = history.map((data) => data.score);
+
+  useEffect(() => {
+    if (walletAddress != "") {
+    }
+  }, [walletAddress, history]);
 
   const data = {
     labels: months,
     datasets: [
       {
-        label: `Daniel's Score History`,
+        label: `Score Value`,
         data: scores,
         fill: false,
         backgroundColor: "#10B981",
