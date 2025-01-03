@@ -80,7 +80,7 @@ const SBTPage: NextPage = () => {
               can update it to reflect your latest achievements.
             </p>
 
-            <SaveScoreButton walletAddress={account.address || ""} score={score} needsScoreBeUpdated={score.total > sbtData.score} />
+            <SaveScoreButton walletAddress={account.address || ""} score={score} needsScoreBeUpdated={score.total >= sbtData.score} />
             {/* <button disabled={sbtData.score <= score.total} className="btn btn-primary w-full max-w-xs">
               Update SBT
             </button> */}
