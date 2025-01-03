@@ -7,7 +7,8 @@ import { useFetchSBTMinted, useFetchUserScore } from "@/hooks";
 
 const SBTPage: NextPage = () => {
   const account = useAccount();
-  const score = useFetchUserScore(account.address || "");
+  const { score } = useFetchUserScore(account.address || "");
+
   const { sbtData } = useFetchSBTMinted();
 
   return (
@@ -70,7 +71,6 @@ const SBTPage: NextPage = () => {
             </div>
           </div>
 
-                    
           <div className="bg-base-300 p-6 rounded-lg shadow-lg flex flex-col justify-center items-center">
             <h2 className="text-2xl font-bold mb-4 text-center text-primary">
               Update Your Score
@@ -80,7 +80,11 @@ const SBTPage: NextPage = () => {
               can update it to reflect your latest achievements.
             </p>
 
-            <SaveScoreButton walletAddress={account.address || ""} score={score} needsScoreBeUpdated={score.total > sbtData.score} />
+            <SaveScoreButton
+              walletAddress={account.address || ""}
+              score={score}
+              needsScoreBeUpdated={score.total > sbtData.score}
+            />
             {/* <button disabled={sbtData.score <= score.total} className="btn btn-primary w-full max-w-xs">
               Update SBT
             </button> */}

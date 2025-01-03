@@ -8,12 +8,10 @@ interface LensScoreNumberProps {
 }
 
 export const LensScoreNumber = ({ score }: LensScoreNumberProps) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [displayScore, setDisplayScore] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
+    if (score.total > 0) {
       let start = 0;
       const duration = 1000;
       const increment = score.total / (duration / 16);
@@ -29,20 +27,10 @@ export const LensScoreNumber = ({ score }: LensScoreNumberProps) => {
       };
 
       requestAnimationFrame(animateScore);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    }
   }, [score.total]);
 
   return (
-    <>
-      {isLoading ? (
-        <div className="flex justify-center items-center my-4">
-          <span className="loading loading-spinner loading-lg"></span>
-        </div>
-      ) : (
-        <p className="text-7xl text-accent font-bold my-4">{displayScore}</p>
-      )}
-    </>
+    <p className="text-7xl text-accent font-bold my-4">{displayScore}</p>
   );
 };

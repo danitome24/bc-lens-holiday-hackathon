@@ -1,15 +1,27 @@
-import { useMemo } from "react";
-import {
-  useAccountAge,
-  useAccountBalance,
-  useCalculateScore,
-  useFetchTransactions,
-  useFetchUniqueProtocols,
-} from ".";
+import { useState, useEffect } from "react";
 import { Score } from "@/types";
+import { useFetchTransactions } from "@/hooks/useFetchTransactions";
+import { useFetchUniqueProtocols } from "@/hooks/useFetchUniqueProtocols";
+import { useAccountBalance } from "@/hooks/useAccountBalance";
+import { useAccountAge } from "@/hooks/useAccountAge";
+import { calculateScore } from "@/utils/calculateScore";
 
-export const useFetchUserScore = (walletAddress: string): Score => {
-  // Fetch All data
+const initialScoreState: Score = {
+  total: 0,
+  normalized: 0,
+  txScore: 0,
+  accAgeScore: 0,
+  protocolsScore: 0,
+  monthsInteractingScore: 0,
+  grassBalanceScore: 0,
+};
+
+export const useFetchUserScore = (
+  walletAddress: string
+): { score: Score; isLoading: boolean } => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [score, setScore] = useState<Score>(initialScoreState);
+
   const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
   const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
     walletAddress,
@@ -18,24 +30,31 @@ export const useFetchUserScore = (walletAddress: string): Score => {
   const { balanceWithDecimals } = useAccountBalance(walletAddress);
   const { accountAgeMonths } = useAccountAge(walletAddress);
 
-  const userProfile = useMemo(
-    () => ({
-      transactions: tx.length,
-      accountAgeMonths: accountAgeMonths,
-      protocolsUsed: uniqueProtocolsUsed,
-      monthsInteracting: monthsWithTx,
-      grassBalance: balanceWithDecimals,
-    }),
-    [
-      tx,
-      uniqueProtocolsUsed,
-      balanceWithDecimals,
-      monthsWithTx,
-      accountAgeMonths,
-    ]
-  );
+  useEffect(() => {
+    if (
+      tx.length > 0 &&
+      balanceWithDecimals !== null &&
+      accountAgeMonths !== null
+    ) {
+      const userProfile = {
+        transactions: tx.length,
+        accountAgeMonths: accountAgeMonths,
+        protocolsUsed: uniqueProtocolsUsed,
+        monthsInteracting: monthsWithTx,
+        grassBalance: balanceWithDecimals,
+      };
 
-  const { score } = useCalculateScore(userProfile);
+      const calculatedScore = calculateScore(userProfile);
+      setScore(calculatedScore);
+      setIsLoading(false);
+    }
+  }, [
+    tx,
+    uniqueProtocolsUsed,
+    balanceWithDecimals,
+    accountAgeMonths,
+    monthsWithTx,
+  ]);
 
-  return score;
+  return { score, isLoading };
 };

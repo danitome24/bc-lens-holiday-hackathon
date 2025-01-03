@@ -7,7 +7,7 @@ import { Leaderboard } from "@/components";
 
 const LeaderboardPage: NextPage = () => {
   const account = useAccount();
-  const score = useFetchUserScore(account.address || "");
+  const { score } = useFetchUserScore(account.address || "");
 
   return (
     <section className="min-h-screen bg-base-200 text-base-content p-6">

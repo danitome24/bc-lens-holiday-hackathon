@@ -11,7 +11,7 @@ import { useAccount } from "wagmi";
 
 const DetailsPage: NextPage = () => {
   const account = useAccount();
-  const score = useFetchUserScore(account.address || "");
+  const { score } = useFetchUserScore(account.address || "");
 
   return (
     <div className="score-detail-container bg-base-200 min-h-screen p-6 text-gray-100 flex flex-col items-center">
