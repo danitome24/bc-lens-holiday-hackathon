@@ -15,7 +15,7 @@ const Dashboard: NextPage = () => {
    * Read data to generate score
    */
   const account = useAccount();
-  const { score, isLoading } = useFetchUserScore(walletAddress);
+  const { score } = useFetchUserScore(walletAddress);
   const { handle, image } = useFetchLensProfile(walletAddress);
 
   useEffect(() => {
@@ -28,21 +28,21 @@ const Dashboard: NextPage = () => {
   //   setWalletAddress(address);
   // };
 
-  // if (account.address == undefined) {
-  //   return (
-  //     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[800px]">
-  //       <div className="card bg-base-300 shadow-lg w-full max-w-lg p-8 rounded-lg text-center">
-  //         <h1 className="text-4xl font-extrabold text-primary">
-  //           Your Lens Score
-  //         </h1>
+  if (account.address == undefined) {
+    return (
+      <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[800px]">
+        <div className="card bg-base-300 shadow-lg w-full max-w-lg p-8 rounded-lg text-center">
+          <h1 className="text-4xl font-extrabold text-primary">
+            Your Lens Score
+          </h1>
 
-  //         <p className="text-lg text-accent font-bold my-4">
-  //           Connect your wallet to see your score
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+          <p className="text-lg text-accent font-bold my-4">
+            Connect your wallet to see your score
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-screen">
