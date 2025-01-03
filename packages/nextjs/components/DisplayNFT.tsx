@@ -54,6 +54,7 @@ export const DisplayNFT = ({ walletAddress }: DisplayNFTProps) => {
           width={200}
           height={350}
           src={`https://aquamarine-accepted-haddock-468.mypinata.cloud/ipfs/${nftURI?.image}`}
+          unoptimized={true}
         />
       ) : (
         <></>
