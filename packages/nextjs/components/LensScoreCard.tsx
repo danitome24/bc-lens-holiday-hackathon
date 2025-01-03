@@ -5,6 +5,7 @@ import { Score } from "@/types";
 import { LensScoreNumber } from "./LensScoreNumber";
 import { MintNFTButton } from "./MintNFTButton";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type LensScoreCardProps = {
   score: Score;
@@ -12,7 +13,16 @@ type LensScoreCardProps = {
 };
 
 export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
-  const { isMinted } = useFetchSBTMinted();
+  const { isMinted: initialIsMinted } = useFetchSBTMinted();
+  const [isMinted, setIsMinted] = useState(initialIsMinted);
+  
+  useEffect(() => {
+    setIsMinted(false);
+  }, [initialIsMinted]);
+
+  const handleMinted = () => {
+    setIsMinted(true);
+  };
 
   return (
     <div className="card bg-base-300 shadow-lg w-full max-w-lg p-8 rounded-lg text-center">
@@ -36,9 +46,15 @@ export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
       )}
 
       {isMinted ? (
-        <Link href={"/dashboard/sbt"} className="btn btn-secondary w-full">See your NFT</Link>
+        <Link href={"/dashboard/sbt"} className="btn btn-secondary w-full">
+          See your NFT
+        </Link>
       ) : (
-        <MintNFTButton walletAddress={walletAddress} score={score} />
+        <MintNFTButton
+          walletAddress={walletAddress}
+          score={score}
+          onMinted={handleMinted}
+        />
       )}
     </div>
   );

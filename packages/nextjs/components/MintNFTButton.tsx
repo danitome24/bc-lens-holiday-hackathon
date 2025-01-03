@@ -18,9 +18,10 @@ import {
 type MintNFTButtonProps = {
   walletAddress: string;
   score: Score;
+  onMinted: () => void;
 };
 
-export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
+export const MintNFTButton = ({ walletAddress, score, onMinted }: MintNFTButtonProps) => {
   const [isNftGenerated, setIsNftGenerated] = useState<boolean>(false);
 
   const {
@@ -46,6 +47,7 @@ export const MintNFTButton = ({ walletAddress, score }: MintNFTButtonProps) => {
         ipfsHash,
       ],
     });
+    onMinted()
   };
 
   const {
