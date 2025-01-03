@@ -15,9 +15,9 @@ type LensScoreCardProps = {
 export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
   const { isMinted: initialIsMinted } = useFetchSBTMinted();
   const [isMinted, setIsMinted] = useState(initialIsMinted);
-  
+
   useEffect(() => {
-    setIsMinted(false);
+    setIsMinted(initialIsMinted);
   }, [initialIsMinted]);
 
   const handleMinted = () => {
