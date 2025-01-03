@@ -23,7 +23,7 @@ Key features include:
 LensSocialScore is intended to help users gain insights into their role in the Lens community and encourage more engagement and participation within the network.
 
 ## Source Code Link:
-[Lens Network](https://github.com/danitome24/bc-lens-holiday-hackathon) | [Family Connect](https://github.com/danitome24/bc-lens-holiday-hackathon)
+[Lens Network](https://github.com/danitome24/bc-lens-holiday-hackathon) | [SBT Contract]() | [Family Connect](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/components/Web3Provider.tsx)
 
 ## Preview Link (Optional):
 [Lens Social Score](https://bc-lens-holiday-hackathon.vercel.app/)
