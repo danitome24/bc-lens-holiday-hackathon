@@ -32,5 +32,18 @@ LensSocialScore is intended to help users gain insights into their role in the L
 [Demo Video]() | [Slide deck](https://www.figma.com/deck/Moc2zF8fmSLQvdxz8Da8ch)
 
 ## Screenshots (Optional):
-![LensSocialScore Dashboard](#)
-![LensSocialScore Profile View](#)
+> **LensSocialScore Home**
+
+![LensSocialScore Home](https://github.com/user-attachments/assets/acc384bf-9521-4889-8b47-26e4d7e6c4c2)
+
+> **LensSocialScore Detail**
+
+![LensSocialScore Details](https://github.com/user-attachments/assets/57e6a272-b713-409a-8f78-06f34626c208)
+
+> **LensSocialScore SBT**
+
+![LensSocialScore SBT](https://github.com/user-attachments/assets/3dcc35bc-1c8d-4721-a95f-fd2c5ec8df77)
+
+> **LensSocialScore Leaderboard**
+
+![LensSocialScore Leaderboard](https://github.com/user-attachments/assets/26f80589-13ce-4449-9ee5-045264032608)
