@@ -1,6 +1,6 @@
 # LensSocialScore
 
-`Track: Social/SocialFi apps (using features like Feeds, Social Graphs, etc.) | Public goods`
+*Empowering users to track and showcase their influence in the Lens ecosystem.*
 
 ## Project Name:
 **LensSocialScore**
@@ -14,36 +14,45 @@
 
 This application calculates a user’s reputation score by analyzing their interaction patterns, transactions, and the diversity of their activities on Lens. The score is then linked to a **Dynamic Soulbound Token (SBT)**, which serves as a non-transferable credential representing the user’s reputation. The SBT is updated dynamically to reflect changes in activity, ensuring transparency and immutability. Users can view their score and SBT details on a user-friendly dashboard, helping them understand their influence in the community and track their progress over time.
 
-Key features include:
-- **Reputation Calculation**: The score is based on metrics such as interactions (likes, comments), monetary transactions, diversity of activities, and engagement over time.
-- **Dynamic Soulbound Tokens (SBTs)**: Each user's score is linked to a non-transferable SBT that updates dynamically to reflect changes in their activity, serving as a verifiable credential for trust and reputation across Web3 platforms.
-- **User Dashboard**: A clean interface displaying the user’s reputation score and detailed breakdown by each metric.
-- **Integration with Lens Network**: Direct interaction with Lens profiles to gather activity data and calculate scores.
-  
+### Key Features:
+- 📊 **Reputation Calculation**: Metrics like network interactions, monetary transactions, activity diversity, and participation time.
+- 🛡️ **Dynamic Soulbound Tokens (SBTs)**: Non-transferable tokens representing user reputation with dynamic updates.
+- 🖥️ **User Dashboard**: A simple and intuitive interface to view reputation scores and detailed metrics.
+- 🔗 **Integration with Lens Network and ConnectKit**: The app leverages Lens profiles and uses Family's ConnectKit for seamless Web3 interaction.
+
 LensSocialScore is intended to help users gain insights into their role in the Lens community and encourage more engagement and participation within the network.
 
-## Source Code Link:
-[Lens Network Block explorer](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/hooks/useFetchTransactions.ts) | [Score Calculate](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/hooks/useCalculateScore.ts) | [SBT Contract](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/foundry/contracts/LensScoreSBT.sol) | [Family Connect](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/components/Web3Provider.tsx)
+## Source Code Links:
 
-## Preview Link (Optional):
-[Lens Social Score](https://bc-lens-holiday-hackathon.vercel.app/)
+| Feature           | Link                                                                 |
+|-------------------|----------------------------------------------------------------------|
+| Lens Network Block Explorer | [View Code](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/hooks/useFetchTransactions.ts) |
+| Score Calculation | [View Code](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/hooks/useCalculateScore.ts) |
+| SBT Contract      | [View Code](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/foundry/contracts/LensScoreSBT.sol) |
+| Family Connect    | [View Code](https://github.com/danitome24/bc-lens-holiday-hackathon/blob/master/packages/nextjs/components/Web3Provider.tsx) |
 
-## Demo Video/Slide Deck Link (Optional):
-[Demo Video]() | [Slide deck](https://www.figma.com/deck/Moc2zF8fmSLQvdxz8Da8ch)
+## Preview Link:
 
-## Screenshots (Optional):
-> **LensSocialScore Home**
+[LensSocialScore](https://bc-lens-holiday-hackathon.vercel.app/)
 
+## Demo Video/Slide Deck Links:
+- 🎥 [Demo Video](#)
+- 🖼️ [Slide Deck](https://www.figma.com/deck/Moc2zF8fmSLQvdxz8Da8ch)
+
+## Screenshots:
+
+### LensSocialScore Home
 ![LensSocialScore Home](https://github.com/user-attachments/assets/acc384bf-9521-4889-8b47-26e4d7e6c4c2)
 
-> **LensSocialScore Detail**
-
+### LensSocialScore Details
 ![LensSocialScore Details](https://github.com/user-attachments/assets/57e6a272-b713-409a-8f78-06f34626c208)
 
-> **LensSocialScore SBT**
-
+### LensSocialScore SBT
 ![LensSocialScore SBT](https://github.com/user-attachments/assets/3dcc35bc-1c8d-4721-a95f-fd2c5ec8df77)
 
-> **LensSocialScore Leaderboard**
-
+### LensSocialScore Leaderboard
 ![LensSocialScore Leaderboard](https://github.com/user-attachments/assets/26f80589-13ce-4449-9ee5-045264032608)
+
+## License:
+This project is open source and available under the [MIT License](https://opensource.org/licenses/MIT).
+
