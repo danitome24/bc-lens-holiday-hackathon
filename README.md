@@ -1,6 +1,6 @@
 # LensSocialScore
 
-*Empowering users to track and showcase their influence in the Lens ecosystem.*
+*Revolutionizing Web3 by establishing trust and credibility for wallets in the Lens ecosystem.*
 
 ## Project Name:
 **LensSocialScore**
@@ -10,9 +10,20 @@
 - **Joseph Cho** (Lens `orb.club` Handle: @josephdotpm)
 
 ## Project Description:
-**LensSocialScore** is a decentralized application (DApp) built on the **Lens Network** that provides a reputation system for users based on their activity and engagement within the network. The goal is to enable users to track their influence and contributions to the Lens ecosystem through metrics like **engagement**, **monetary value**, **diversity of interactions**, and **participation time**.
+In the decentralized Web3 landscape, trust and credibility are essential yet often difficult to quantify. For DApps and projects, it’s critical to evaluate the trustworthiness of wallets interacting with their platforms to prevent malicious behavior and foster a secure ecosystem.
 
-This application calculates a user’s reputation score by analyzing their interaction patterns, transactions, and the diversity of their activities on Lens. The score is then linked to a **Dynamic Soulbound Token (SBT)**, which serves as a non-transferable credential representing the user’s reputation. The SBT is updated dynamically to reflect changes in activity, ensuring transparency and immutability. Users can view their score and SBT details on a user-friendly dashboard, helping them understand their influence in the community and track their progress over time.
+**LensSocialScore** provides a **decentralized reputation system** for wallets by calculating a trust score based on user activity, engagement, and contributions within the Lens Network. This reputation score is transparently linked to a **Dynamic Soulbound Token (SBT)**, a non-transferable credential that represents a wallet's credibility and trustworthiness. The SBT updates dynamically based on network activity, making it a reliable and up-to-date representation of reputation.
+
+## Problem Statement:
+* **Challenge for DApps**: How can they ensure wallets interacting with their platforms are credible and trustworthy?
+* **Challenge for users**: How can they demonstrate their legitimacy to access exclusive services or opportunities?
+
+## Solution:
+LensSocialScore acts as a trust layer for the Lens ecosystem by providing:
+
+1. A **Reputation Score** to gauge a wallet’s trustworthiness.
+2. A **Dynamic SBT** that represents this reputation in a verifiable and non-transferable manner.
+3. A system that enables **DApps** to integrate reputation scoring into their access policies, enhancing platform safety and fostering user trust.
 
 ### Key Features:
 - 📊 **Reputation Calculation**: Metrics like network interactions, monetary transactions, activity diversity, and participation time.
