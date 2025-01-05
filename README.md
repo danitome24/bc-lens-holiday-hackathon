@@ -7,7 +7,7 @@
 
 ## Team Members:
 - **Daniel Tomé** (Lens Handle: @meketom)
-- **Joseph Cho** (Lens `orb.club` Handle: @josephdotpm)
+- **Joseph Cho** (Lens Handle: @josephpm)
 
 ## Project Description:
 In the decentralized Web3 landscape, trust and credibility are essential yet often difficult to quantify. For DApps and projects, it’s critical to evaluate the trustworthiness of wallets interacting with their platforms to prevent malicious behavior and foster a secure ecosystem.
