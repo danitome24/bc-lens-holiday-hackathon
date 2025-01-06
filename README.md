@@ -47,8 +47,8 @@ LensSocialScore is intended to help users gain insights into their role in the L
 [LensSocialScore](https://bc-lens-holiday-hackathon.vercel.app/)
 
 ## Demo Video/Slide Deck Links:
-- 🎥 [Demo Video](#)
-- 🖼️ [Slide Deck](https://www.figma.com/deck/Moc2zF8fmSLQvdxz8Da8ch)
+- 🎥 [Demo Video](https://www.youtube.com/watch?v=MvnuUqFMiCw)
+- 🖼️ [Slide Deck](https://drive.google.com/file/d/1-ECUUQQFcdZPQhW38Yeg0zLW_N8uy7uD/view?usp=sharing)
 
 ## Screenshots:
 
