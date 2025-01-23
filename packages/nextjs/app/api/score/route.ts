@@ -2,19 +2,16 @@ import { Tx, WalletScore } from "@/types";
 import { type NextRequest } from "next/server";
 import { format, parse } from "date-fns";
 import { calculateScore } from "@/utils/calculateScore";
-import { contractAddress } from "@/abis/LensScoreSBT.info";
 import { publicClient } from "@/services/publicClient";
 
 const fetchTransactions = async (wallet: `0x${string}`) => {
   const apiUrl = `https://block-explorer-api.staging.lens.dev/api?module=account&offset=1000&action=txlist&sort=asc&endblock=99999999&startblock=0&address=${wallet}`;
   const response = await fetch(apiUrl);
   const txData = await response.json();
-  const transactions = txData.result.map((tx: any) => ({
+  const transactions = txData.result.map((tx: { timeStamp: number; from: string; to: string; }) => ({
     timestamp: tx.timeStamp,
     from: tx.from,
     to: tx.to,
-    gas: tx.gas,
-    blockNumber: tx.blockNumber,
   }));
 
   return transactions;
