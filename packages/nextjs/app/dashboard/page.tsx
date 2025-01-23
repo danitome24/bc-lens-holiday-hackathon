@@ -8,7 +8,7 @@ import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
 
 const Dashboard: NextPage = () => {
-  const [walletAddress, setWalletAddress] = useState<string>("");
+  const [walletAddress, setWalletAddress] = useState<`0x${string}`>("0x0");
 
   /**
    * Read data to generate score
@@ -18,7 +18,7 @@ const Dashboard: NextPage = () => {
 
   useEffect(() => {
     if (account.address) {
-      setWalletAddress(account.address as string);
+      setWalletAddress(account.address);
     }
   }, [account.address]);
 
@@ -45,13 +45,10 @@ const Dashboard: NextPage = () => {
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[700px]">
       <LensScoreCard score={score} walletAddress={account.address || ""} />
-      <button
-        className="btn btn-primary mt-4 flex items-center"
-      >
+      <button className="btn btn-primary mt-4 flex items-center">
         <ArrowPathIcon className="h-5 w-5 mr-2" />
         Refresh
       </button>
-
     </div>
   );
 };

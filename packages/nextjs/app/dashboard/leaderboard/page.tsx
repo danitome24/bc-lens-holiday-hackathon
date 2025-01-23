@@ -1,13 +1,9 @@
 "use client";
 
-import { useFetchUserScore } from "@/hooks";
 import { NextPage } from "next";
-import { useAccount } from "wagmi";
 import { Leaderboard } from "@/components";
 
 const LeaderboardPage: NextPage = () => {
-  const account = useAccount();
-  const { score } = useFetchUserScore(account.address || "");
 
   return (
     <section className="min-h-screen bg-base-200 text-base-content p-6">
@@ -18,7 +14,7 @@ const LeaderboardPage: NextPage = () => {
             Track your performance and see how you compare to others.
           </p>
         </header>
-
+{/* 
         <div className="bg-base-100 shadow-md rounded-lg p-6 space-y-6">
           <h2 className="text-xl font-semibold text-center">Your Score</h2>
           <div className="flex justify-center">
@@ -40,7 +36,7 @@ const LeaderboardPage: NextPage = () => {
             <span className="font-bold text-xl">{score.total}</span> out of a
             maximum <span className="font-bold text-xl">260</span> points.
           </p>
-        </div>
+        </div> */}
 
         <Leaderboard />
       </div>

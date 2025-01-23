@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
 import { Score } from "@/types";
-import { useFetchTransactions } from "@/hooks/useFetchTransactions";
-import { useFetchUniqueProtocols } from "@/hooks/useFetchUniqueProtocols";
-import { useAccountBalance } from "@/hooks/useAccountBalance";
-import { useAccountAge } from "@/hooks/useAccountAge";
-import { calculateScore } from "@/utils/calculateScore";
 
 const initialScoreState: Score = {
   total: 0,
@@ -17,44 +12,43 @@ const initialScoreState: Score = {
 };
 
 export const useFetchUserScore = (
-  walletAddress: string
+  wallet: `0x${string}`
 ): { score: Score; isLoading: boolean } => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [score, setScore] = useState<Score>(initialScoreState);
-
-  const { tx, monthsWithTx } = useFetchTransactions(walletAddress);
-  const { uniqueProtocols: uniqueProtocolsUsed } = useFetchUniqueProtocols(
-    walletAddress,
-    tx
-  );
-  const { balanceWithDecimals } = useAccountBalance(walletAddress);
-  const { accountAgeMonths } = useAccountAge(walletAddress);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (
-      tx.length > 0 &&
-      balanceWithDecimals !== null &&
-      accountAgeMonths !== null
-    ) {
-      const userProfile = {
-        transactions: tx.length,
-        accountAgeMonths: accountAgeMonths,
-        protocolsUsed: uniqueProtocolsUsed,
-        monthsInteracting: monthsWithTx,
-        grassBalance: balanceWithDecimals,
-      };
+    const fetchScore = async () => {
+      try {
+        const storedScore = localStorage.getItem(`score-${wallet}`);
+        if (storedScore) {
+          setScore(JSON.parse(storedScore));
+        } else {
+          const fetchedScore = await fetch("/api/score?wallet=" + wallet);
+          const { score: fetchScoreParsed } = await fetchedScore.json();
+          const newScore: Score = {
+            total: fetchScoreParsed.total,
+            normalized: 0,
+            txScore: fetchScoreParsed.transactionsScore,
+            accAgeScore: fetchScoreParsed.walletAgeScore,
+            protocolsScore: fetchScoreParsed.uniqueProtocolsScore,
+            monthsInteractingScore: fetchScoreParsed.engagementScore,
+            grassBalanceScore: fetchScoreParsed.balanceScore,
+          }
+          setScore(newScore);
+          localStorage.setItem(`score-${wallet}`, JSON.stringify(newScore));
+        }
+      } catch (err) {
+        console.error("Error fetching score:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      const calculatedScore = calculateScore(userProfile);
-      setScore(calculatedScore);
-      setIsLoading(false);
+    if (wallet != "0x0") {
+      fetchScore();
     }
-  }, [
-    tx,
-    uniqueProtocolsUsed,
-    balanceWithDecimals,
-    accountAgeMonths,
-    monthsWithTx,
-  ]);
+  }, [wallet]);
 
   return { score, isLoading };
 };
