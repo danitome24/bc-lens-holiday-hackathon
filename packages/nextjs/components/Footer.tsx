@@ -32,7 +32,7 @@ export const Footer = () => {
     </div>
   </nav>
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - Powered by LensSocialScore 🌿</p>
+    <p>Copyright © {new Date().getFullYear()} - Powered by Lens Reputation 🌿</p>
   </aside>
 </footer>
   )

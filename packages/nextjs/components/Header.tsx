@@ -66,7 +66,7 @@ export const Header = () => {
             href="/"
             className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text"
           >
-            LensSocialScore
+            Lens Reputation
           </Link>
         </div>
       </nav>
