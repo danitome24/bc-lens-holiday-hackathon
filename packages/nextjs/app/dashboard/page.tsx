@@ -22,9 +22,9 @@ const Dashboard: NextPage = () => {
     }
   }, [account.address]);
 
-  // const onWalletAddressChange = (address: string) => {
-  //   setWalletAddress(address);
-  // };
+  const refreshScore = () => {
+    console.log("Refresh your score");
+  };
 
   if (account.address == undefined) {
     return (
@@ -45,7 +45,10 @@ const Dashboard: NextPage = () => {
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[700px]">
       <LensScoreCard score={score} walletAddress={account.address || ""} />
-      <button className="btn btn-primary mt-4 flex items-center">
+      <button
+        className="btn btn-primary mt-4 flex items-center"
+        onClick={() => refreshScore()}
+      >
         <ArrowPathIcon className="h-5 w-5 mr-2" />
         Refresh
       </button>
