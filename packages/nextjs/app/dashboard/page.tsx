@@ -1,13 +1,11 @@
 "use client";
 
-import { DashboardItemsCard, LensScoreCard } from "@/components";
+import { LensScoreCard } from "@/components";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
-import { useFetchLensProfile } from "@/hooks";
-import Image from "next/image";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -17,7 +15,6 @@ const Dashboard: NextPage = () => {
    */
   const account = useAccount();
   const { score } = useFetchUserScore(walletAddress);
-  const { handle, image } = useFetchLensProfile(walletAddress);
 
   useEffect(() => {
     if (account.address) {

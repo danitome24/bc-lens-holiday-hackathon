@@ -32,7 +32,7 @@ export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
         You are in the top <span className="font-bold">X%</span> of users.
       </p>
 
-      {isMinted ? (
+      {/* {isMinted ? (
         <div id="mint-status" className="my-6">
           <span
             className="badge badge-success badge-lg text-lg font-bold"
@@ -43,7 +43,7 @@ export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
 
       {isMinted ? (
         <Link href={"/dashboard/sbt"} className="btn btn-secondary w-full">
