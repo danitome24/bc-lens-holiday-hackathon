@@ -86,7 +86,7 @@ export const SaveScoreButton = ({
         ? "Confirming..."
         : isConfirmed
         ? "Saved!"
-        : "Save Score"}
+        : "Refresh"}
     </button>
   );
 };

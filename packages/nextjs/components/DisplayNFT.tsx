@@ -50,6 +50,7 @@ export const DisplayNFT = ({ walletAddress }: DisplayNFTProps) => {
     <>
       {nftURI ? (
         <Image
+          className="w-full h-auto max-h-[350px]"
           alt="nft"
           width={200}
           height={350}

@@ -15,9 +15,9 @@ const DetailsPage: NextPage = () => {
 
   return (
     <div className="score-detail-container bg-base-200 min-h-screen p-6 text-gray-100 flex flex-col items-center">
-      <h1 className="text-4xl font-extrabold text-primary mb-8">
-        Score Details
-      </h1>
+      {/* <h1 className="text-4xl font-extrabold text-primary mb-8">
+        My Metrics
+      </h1> */}
 
       <div className="card bg-base-300 shadow-lg w-full max-w-4xl p-8 rounded-lg">
         <AccountSummary walletAddress={account.address || ""} score={score} />

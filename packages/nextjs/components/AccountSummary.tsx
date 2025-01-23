@@ -16,19 +16,12 @@ export const AccountSummary = ({
   const { balanceWithDecimals } = useAccountBalance(walletAddress);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="flex flex-col items-center">
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-1 lg:grid-cols-2">
+      <div className="flex flex-col items-center col-span-1 lg:col-span-2">
         <h2 className="text-2xl font-bold text-secondary mb-4">
-          Current Score
+          Current Reputation
         </h2>
         <p className="text-6xl font-bold text-accent">{score.total}</p>
-      </div>
-
-      <div className="flex flex-col items-center">
-        <h2 className="text-2xl font-bold text-secondary mb-4">
-          Normalized Score
-        </h2>
-        <p className="text-4xl font-bold text-accent">{score.normalized}%</p>
       </div>
 
       <div className="flex flex-col items-center">

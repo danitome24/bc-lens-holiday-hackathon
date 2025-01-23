@@ -18,9 +18,6 @@ export const Leaderboard = () => {
               <th className="bg-neutral text-neutral-content text-lg">Rank</th>
               <th className="bg-neutral text-neutral-content text-lg">User</th>
               <th className="bg-neutral text-neutral-content text-lg">Score</th>
-              <th className="bg-neutral text-neutral-content text-lg">
-                Normalized
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -31,7 +28,6 @@ export const Leaderboard = () => {
                   <UserIdentifier walletAddress={entry.owner} />
                 </td>
                 <td>{entry.score}</td>
-                <td>{((entry.score / 260) * 100).toFixed(0)}%</td>
               </tr>
             ))}
           </tbody>
