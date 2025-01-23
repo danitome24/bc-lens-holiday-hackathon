@@ -26,7 +26,7 @@ export const LensScoreCard = ({ score, walletAddress }: LensScoreCardProps) => {
 
   return (
     <div className="card bg-base-300 shadow-lg w-full max-w-lg p-8 rounded-lg text-center">
-      <h1 className="text-4xl font-extrabold text-primary">Your Lens Score</h1>
+      <h1 className="text-4xl font-extrabold text-primary">Your Reputation Score</h1>
       <LensScoreNumber score={score} />
       <p className="text-gray-400 mb-6">
         You are in the top <span className="font-bold">X%</span> of users.
