@@ -8,11 +8,13 @@ const fetchTransactions = async (wallet: `0x${string}`) => {
   const apiUrl = `https://block-explorer-api.staging.lens.dev/api?module=account&offset=1000&action=txlist&sort=asc&endblock=99999999&startblock=0&address=${wallet}`;
   const response = await fetch(apiUrl);
   const txData = await response.json();
-  const transactions = txData.result.map((tx: { timeStamp: number; from: string; to: string; }) => ({
-    timestamp: tx.timeStamp,
-    from: tx.from,
-    to: tx.to,
-  }));
+  const transactions = txData.result.map(
+    (tx: { timeStamp: number; from: string; to: string }) => ({
+      timestamp: tx.timeStamp,
+      from: tx.from,
+      to: tx.to,
+    })
+  );
 
   return transactions;
 };
@@ -74,7 +76,7 @@ const fetchWalletAge = async (wallet: `0x${string}`): Promise<number> => {
 
 const fetchWalletBalance = async (wallet: `0x${string}`) => {
   const balance = await publicClient.getBalance({
-    address: wallet
+    address: wallet,
   });
 
   return Number(balance) / 1e18;

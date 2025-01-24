@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { NextPage } from "next";
 import { useFetchUserScore } from "@/hooks/useFetchUserScore";
+import toast from "react-hot-toast";
 
 const Dashboard: NextPage = () => {
   const [walletAddress, setWalletAddress] = useState<`0x${string}`>("0x0");
@@ -14,7 +15,7 @@ const Dashboard: NextPage = () => {
    * Read data to generate score
    */
   const account = useAccount();
-  const { score } = useFetchUserScore(walletAddress);
+  const { score, refreshScore } = useFetchUserScore(walletAddress);
 
   useEffect(() => {
     if (account.address) {
@@ -22,8 +23,34 @@ const Dashboard: NextPage = () => {
     }
   }, [account.address]);
 
-  const refreshScore = () => {
-    console.log("Refresh your score");
+  const refreshWalletScore = async () => {
+    toast.loading("Refreshing...", {
+      icon: "⏳",
+      duration: 4000,
+      style: {
+        backgroundColor: "#F9BE00",
+        color: "#010F0C",
+        padding: "12px 16px",
+        borderRadius: "8px",
+        fontSize: "17px",
+        fontWeight: "500",
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+      },
+    });
+    await refreshScore();
+    toast.dismiss();
+      toast.success("Score Refreshed!", {
+        duration: 4000,
+        style: {
+          backgroundColor: "#32A96D",
+          color: "#010F0C",
+          padding: "12px 16px",
+          borderRadius: "8px",
+          fontSize: "17px",
+          fontWeight: "500",
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+        },
+      });
   };
 
   if (account.address == undefined) {
@@ -44,10 +71,10 @@ const Dashboard: NextPage = () => {
 
   return (
     <div className="dashboard-container flex flex-col items-center justify-center bg-base-200 min-h-[700px]">
-      <LensScoreCard score={score} walletAddress={account.address || ""} />
+      <LensScoreCard score={score} walletAddress={walletAddress} />
       <button
         className="btn btn-primary mt-4 flex items-center"
-        onClick={() => refreshScore()}
+        onClick={() => refreshWalletScore()}
       >
         <ArrowPathIcon className="h-5 w-5 mr-2" />
         Refresh

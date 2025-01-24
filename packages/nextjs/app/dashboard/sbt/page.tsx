@@ -7,7 +7,7 @@ import { useFetchSBTMinted, useFetchUserScore } from "@/hooks";
 
 const SBTPage: NextPage = () => {
   const account = useAccount();
-  const { score } = useFetchUserScore(account.address || "");
+  const { score } = useFetchUserScore(account.address || "0x0");
   const { sbtData } = useFetchSBTMinted();
 
   return (
