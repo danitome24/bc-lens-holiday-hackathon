@@ -4,7 +4,7 @@ import { Footer, Header } from "@/components";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Dashboard | LensSocialScore dashboard",
+  title: "Dashboard | Lens Reputation",
   description: "Reputation system for users based on their activity",
 };
 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Welcome | LensSocialScore",
+  title: "Welcome | Lens Reputation",
   description: "Reputation system for users based on their activity",
 };
 
