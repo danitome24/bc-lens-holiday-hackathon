@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <header className="bg-gradient-to-b from-base-300 to-base-100 py-6 shadow-lg">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-primary">LensSocialScore</h1>
+          <h1 className="text-3xl font-bold text-primary">Lens Reputation</h1>
           <ConnectKitButton />
         </div>
       </header>
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300">
-            Discover Your Lens Score
+            Discover Your Reputation
           </h1>
           <p className="text-lg mb-8">
             Unlock insights into your Lens profile and dominate the leaderboard.
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
       <section className="py-16 bg-base-100">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold text-primary mb-12">
-            Why LensSocialScore?
+            Why Lens Reputation?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 bg-base-200 rounded-lg shadow-lg hover:scale-105 transition-transform">
@@ -164,7 +164,7 @@ const Home: NextPage = () => {
       <footer className="py-6 bg-base-100">
         <div className="container mx-auto text-center">
           <p className="text-base-content">
-            © 2024 LensSocialScore | Built for the decentralized social
+            © 2024 Lens Reputation | Built for the decentralized social
             revolution.
           </p>
         </div>
